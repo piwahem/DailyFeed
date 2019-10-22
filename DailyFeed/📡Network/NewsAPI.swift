@@ -7,6 +7,7 @@
 
 import Foundation
 import PromiseKit
+import Alamofire
 
 enum NewsAPI {
     
@@ -56,20 +57,22 @@ enum NewsAPI {
     // Get News articles from /articles endpoint
     
     static func getNewsItems(source: String) -> Promise<Articles> {
-        
         return Promise { seal in
             guard let feedURL = NewsAPI.articles(source: source).url else { seal.reject(JSONDecodingError.unknownError); return }
-            let baseUrlRequest = URLRequest(url: feedURL)
-            let session = URLSession.shared
-        
-            session.dataTask(with: baseUrlRequest) { (data, response, error) in
+            
+            Alamofire.request(feedURL).responseJSON(completionHandler: { (data) in
+                guard data.error == nil else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
-                guard error == nil else { seal.reject(error!); return }
-                
-                guard let data = data else { seal.reject(error!); return }
+                guard let dataResponse = data.data else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
                 do {
-                    let jsonFromData =  try JSONDecoder().decode(Articles.self, from: data)
+                    let jsonFromData =  try JSONDecoder().decode(Articles.self, from: dataResponse)
                     seal.fulfill(jsonFromData)
                 } catch DecodingError.dataCorrupted(let context) {
                     seal.reject(DecodingError.dataCorrupted(context))
@@ -82,7 +85,7 @@ enum NewsAPI {
                 } catch {
                     seal.reject(JSONDecodingError.unknownError)
                 }
-            }.resume()
+            })
         }
     }
     
@@ -93,16 +96,19 @@ enum NewsAPI {
                                                   language: sourceRequestParams.language,
                                                   country: sourceRequestParams.country).url else { seal.reject(JSONDecodingError.unknownError); return }
             
-            let baseUrlRequest = URLRequest(url: sourceURL, cachePolicy: .returnCacheDataElseLoad)
-            let session = URLSession.shared
-            
-            session.dataTask(with: baseUrlRequest, completionHandler: { (data, response, error) in
-                guard error == nil else { seal.reject(error!); return }
+            Alamofire.request(sourceURL).responseJSON(completionHandler: { (data) in
+                guard data.error == nil else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
-                guard let data = data else { seal.reject(error!); return }
+                guard let dataResponse = data.data else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
                 do {
-                    let jsonFromData =  try JSONDecoder().decode(Sources.self, from: data)
+                    let jsonFromData =  try JSONDecoder().decode(Sources.self, from: dataResponse)
                     seal.fulfill(jsonFromData)
                 } catch DecodingError.dataCorrupted(let context) {
                     seal.reject(DecodingError.dataCorrupted(context))
@@ -115,7 +121,7 @@ enum NewsAPI {
                 } catch {
                     seal.reject(JSONDecodingError.unknownError)
                 }
-            }).resume()
+            })
         }
     }
     
@@ -123,16 +129,19 @@ enum NewsAPI {
         return Promise { seal in
             guard let sourceURL = NewsAPI.search(query: query).url else { seal.reject(JSONDecodingError.unknownError); return }
             
-            let baseUrlRequest = URLRequest(url: sourceURL, cachePolicy: .returnCacheDataElseLoad)
-            let session = URLSession.shared
-            
-            session.dataTask(with: baseUrlRequest, completionHandler: { (data, response, error) in
-                guard error == nil else { seal.reject(error!); return }
+            Alamofire.request(sourceURL).responseJSON(completionHandler: { (data) in
+                guard data.error == nil else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
-                guard let data = data else { seal.reject(error!); return }
+                guard let dataResponse = data.data else{
+                    seal.reject(data.error!)
+                    return
+                }
                 
                 do {
-                    let jsonFromData =  try JSONDecoder().decode(Articles.self, from: data)
+                    let jsonFromData =  try JSONDecoder().decode(Articles.self, from: dataResponse)
                     seal.fulfill(jsonFromData)
                 } catch DecodingError.dataCorrupted(let context) {
                     seal.reject(DecodingError.dataCorrupted(context))
@@ -145,7 +154,7 @@ enum NewsAPI {
                 } catch {
                     seal.reject(JSONDecodingError.unknownError)
                 }
-            }).resume()
+            })
         }
     }
 }
