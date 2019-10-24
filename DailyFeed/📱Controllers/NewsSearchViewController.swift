@@ -171,10 +171,8 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
         case .offline, .unknown:
             self.showError("Internet connection appears to be offline", message: nil)
         case .online(_):
-            
-            
             firstly {
-                NewsAPI.searchNews(with: query)
+                NewsClient().searchNews(with: query)
                 }.done { result in
                     self.searchItems = result.articles
                 }.catch(on: .main) { err in

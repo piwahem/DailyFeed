@@ -242,7 +242,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private func loadSourceData(sourceRequestParams: NewsSourceParameters) {
         setupSpinner(hidden: false)
         firstly {
-            NewsAPI.getNewsSource(sourceRequestParams: sourceRequestParams)
+            NewsClient().getNewsSource(sourceRequestParams: sourceRequestParams)
         }.done { result in
             self.sourceItems = result.sources
             // The code below helps in persisting category and language items till the view controller is de-allocated

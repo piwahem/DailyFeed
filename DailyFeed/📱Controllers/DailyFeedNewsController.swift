@@ -143,7 +143,7 @@ class DailyFeedNewsController: UIViewController {
             spinningActivityIndicator.start()
             
             firstly {
-                NewsAPI.getNewsItems(source: source)
+                NewsClient().getNewsItems(source: source)
             }.done { result in
                 self.newsItems = result.articles
                 self.navBarSourceImage.downloadedFromLink(NewsAPI.getSourceNewsLogoUrl(source: self.source), contentMode: .scaleAspectFit)

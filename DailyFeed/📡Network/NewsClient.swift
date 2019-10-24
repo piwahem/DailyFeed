@@ -16,11 +16,13 @@ class NewsClient: RestClient {
         super.init(baseUrl: BaseURL.base)
     }
     
+    // Get News articles from /articles endpoint
     func getNewsItems(source: String) -> Promise<Articles> {
         let url = NewsAPI.articles(source: source).url
         return request(url)
     }
     
+    // Get News source from /sources endpoint of NewsAPI
     func getNewsSource(sourceRequestParams: NewsSourceParameters) -> Promise<Sources> {
         let url = NewsAPI.sources(category: sourceRequestParams.category,
                                   language: sourceRequestParams.language,
