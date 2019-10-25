@@ -12,6 +12,12 @@ import PromiseKit
 
 typealias JSON = [String: Any]
 
+extension String: Error {} // Enables you to throw a string
+
+extension String: LocalizedError { // Adds error.localizedDescription to Error instances
+    public var errorDescription: String? { return self }
+}
+
 class RestClient {
     
     var baseUrl: String
@@ -27,6 +33,12 @@ class RestClient {
         return Promise { seal in
             
             guard let url = resourceUrl else { seal.reject(JSONDecodingError.unknownError); return }
+            
+            if !Reach().isNetworkConnected() {
+                let error = "Internet connection appears to be offline"
+                seal.reject(error)
+                return
+            }
             
             Alamofire.request(url).responseJSON(completionHandler: { (data) in
                 switch data.result {

@@ -15,7 +15,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
         return searchCollectionView
     }
     
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak private var searchCollectionView: UICollectionView!
     
@@ -29,12 +29,12 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
             }
         }
     }
-        
+    
     private let transition = NewsDetailPopAnimator()
-
+    
     private var selectedCell = UICollectionViewCell()
-
-
+    
+    
     private var resultsSearchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
@@ -47,6 +47,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     }()
     
     private let spinningActivityIndicator = TSSpinnerView()
+    private let newsClient = NewsClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +126,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.dailyFeedItemCell, for: indexPath)
         cell?.configure(with: searchItems[indexPath.row], ltr: false)
         return cell!
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -151,7 +152,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
             }
         }
     }
-
+    
     
     // MARK: - SearchBar Delegate
     
@@ -166,21 +167,15 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Load data from network
     func loadNews(with query: String) {
-        switch Reach().connectionStatus() {
-            
-        case .offline, .unknown:
-            self.showError("Internet connection appears to be offline", message: nil)
-        case .online(_):
-            firstly {
-                NewsClient().searchNews(with: query)
-                }.done { result in
-                    self.searchItems = result.articles
-                }.catch(on: .main) { err in
-                    self.showError(err.localizedDescription)
-            }
+        firstly {
+            newsClient.searchNews(with: query)
+            }.done { result in
+                self.searchItems = result.articles
+            }.catch(on: .main) { err in
+                self.showError(err.localizedDescription)
         }
     }
-
+    
 }
 
 

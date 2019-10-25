@@ -11,9 +11,9 @@ import DZNEmptyDataSet
 import PromiseKit
 
 class DailyFeedNewsController: UIViewController {
-
+    
     // MARK: - Variable declaration
-
+    
     var newsItems: [DailyFeedModel] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -27,17 +27,17 @@ class DailyFeedNewsController: UIViewController {
             guard let defaultSource = UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.string(forKey: "source") else {
                 return "the-wall-street-journal"
             }
-
+            
             return defaultSource
         }
         
         set {
-           UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.set(newValue, forKey: "source")
+            UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.set(newValue, forKey: "source")
         }
     }
-
+    
     let spinningActivityIndicator = TSSpinnerView()
-
+    
     let refreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
         return refresh
@@ -50,17 +50,18 @@ class DailyFeedNewsController: UIViewController {
     var selectedCell = UICollectionViewCell()
     
     var isLanguageRightToLeft = Bool()
+    private let newsClient = NewsClient()
 
     // MARK: - IBOutlets
-
+    
     @IBOutlet weak var newsCollectionView: UICollectionView! {
         didSet {
             setupCollectionView()
         }
     }
-
+    
     // MARK: - View Controller Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup UI
@@ -84,13 +85,13 @@ class DailyFeedNewsController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    
     // MARK: - Setup UI
     func setupUI() {
         setupNavigationBar()
         setupCollectionView()
     }
-
+    
     // MARK: - Setup navigationBar
     func setupNavigationBar() {
         let sourceMenuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sources"), style: .plain, target: self, action: #selector(sourceMenuButtonDidTap))
@@ -98,7 +99,7 @@ class DailyFeedNewsController: UIViewController {
         navBarSourceImage.downloadedFromLink(NewsAPI.getSourceNewsLogoUrl(source: self.source), contentMode: .scaleAspectFit)
         navigationItem.titleView = navBarSourceImage
     }
-
+    
     // MARK: - Setup CollectionView
     func setupCollectionView() {
         newsCollectionView?.register(R.nib.dailyFeedItemCell)
@@ -108,51 +109,50 @@ class DailyFeedNewsController: UIViewController {
                                  for: UIControl.Event.valueChanged)
         newsCollectionView?.emptyDataSetDelegate = self
         newsCollectionView?.emptyDataSetSource = self
-
+        
         if #available(iOS 11.0, *) {
             newsCollectionView?.dragDelegate = self
             newsCollectionView?.dragInteractionEnabled = true
         }
     }
-
+    
     // MARK: - Setup Spinner
     func setupSpinner() {
         spinningActivityIndicator.setupTSSpinnerView()
     }
-
+    
     // MARK: - refresh news Source data
     @objc func refreshData(_ sender: UIRefreshControl) {
         loadNewsData(self.source)
     }
-
+    
     // MARK: - Load data from network
-    func loadNewsData(_ source: String) {
-        switch Reach().connectionStatus() {
+    func loadNewsData(_ source: String, completion:((Bool)->(Void))?=nil) {
+        if !self.refreshControl.isRefreshing {
+            setupSpinner()
+        }
         
-        case .offline, .unknown:
-            self.showError("Internet connection appears to be offline", message: nil, handler: { _ in
-                self.refreshControl.endRefreshing()
-            })
-            
-        case .online(_):
-            
-            if !self.refreshControl.isRefreshing {
-                setupSpinner()
-            }
-            
-            spinningActivityIndicator.start()
-            
-            firstly {
-                NewsClient().getNewsItems(source: source)
+        spinningActivityIndicator.start()
+        
+        firstly {
+            newsClient.getNewsItems(source: source)
             }.done { result in
                 self.newsItems = result.articles
                 self.navBarSourceImage.downloadedFromLink(NewsAPI.getSourceNewsLogoUrl(source: self.source), contentMode: .scaleAspectFit)
+                
+                guard let action = completion else{
+                    return
+                }
+                action(true)
             }.ensure(on: .main) {
                 self.spinningActivityIndicator.stop()
                 self.refreshControl.endRefreshing()
-                }.catch(on: .main) { err in
-                self.showError(err.localizedDescription)
-            }
+            }.catch(on: .main) { err in
+                guard let action = completion else{
+                    self.showError(err.localizedDescription)
+                    return
+                }
+                action(false)
         }
     }
     
@@ -160,19 +160,19 @@ class DailyFeedNewsController: UIViewController {
         newsCollectionView?.delegate = nil
         newsCollectionView?.dataSource = nil
     }
-
+    
     // MARK: - sourceMenuButton Action method
-
+    
     @objc func sourceMenuButtonDidTap() {
         self.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsSourceSegue, sender: self)
     }
-
+    
     // MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == R.segue.dailyFeedNewsController.newsDetailSegue.identifier {
             if let vc = segue.destination as? NewsDetailViewController {
-            guard let cell = sender as? UICollectionViewCell else { return }
-            guard let indexpath = self.newsCollectionView?.indexPath(for: cell) else { return }
+                guard let cell = sender as? UICollectionViewCell else { return }
+                guard let indexpath = self.newsCollectionView?.indexPath(for: cell) else { return }
                 vc.transitioningDelegate = self
                 vc.modalPresentationStyle = .formSheet
                 vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: newsItems[indexpath.row])
@@ -182,18 +182,22 @@ class DailyFeedNewsController: UIViewController {
             }
         }
     }
-
+    
     // MARK: - Unwind from Source View Controller
     @IBAction func unwindToDailyNewsFeed(_ segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? NewsSourceViewController, let sourceId = sourceVC.selectedItem?.sid {
-            let status = Reach().connectionStatus()
+            
+            let oldSource = self.source
+            let oldIsLanguageRightToLeft = self.isLanguageRightToLeft
+            
             isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
-            switch status {
-            case .unknown, .offline:
-                self.showErrorWithDelay("Your Internet Connection appears to be offline.")
-            case .online(.wwan), .online(.wiFi):
-                self.source = sourceId
-                loadNewsData(source)
+            self.source = sourceId
+            loadNewsData(source){ success in
+                if (!success){
+                    self.showErrorWithDelay("Your Internet Connection appears to be offline.")
+                    self.source = oldSource
+                    self.isLanguageRightToLeft = oldIsLanguageRightToLeft
+                }
             }
         }
     }
