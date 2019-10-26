@@ -9,8 +9,14 @@ import UIKit
 import Kingfisher
 
 class TSImageView: UIImageView {
+    
     func downloadedFromLink(_ urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
         guard let url = URL(string: urlString) else { return }
+        downloadedFromLink(url, contentMode: mode)
+    }
+    
+    func downloadedFromLink(_ urlString: URL?, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
+        guard let url = urlString else { return }
         self.contentMode = mode
         self.kf.setImage(with: url, options: [
             .transition(.fade(0.4)),
