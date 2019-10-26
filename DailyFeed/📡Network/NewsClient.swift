@@ -18,20 +18,20 @@ class NewsClient: RestClient {
     
     // Get News articles from /articles endpoint
     func getNewsItems(source: String) -> Promise<Articles> {
-        let url = NewsAPI.articles(source: source).url
+        let url = NewsSource.articles(source: source).url
         return request(url)
     }
     
     // Get News source from /sources endpoint of NewsAPI
     func getNewsSource(sourceRequestParams: NewsSourceParameters) -> Promise<Sources> {
-        let url = NewsAPI.sources(category: sourceRequestParams.category,
+        let url = NewsSource.sources(category: sourceRequestParams.category,
                                   language: sourceRequestParams.language,
                                   country: sourceRequestParams.country).url
         return request(url)
     }
     
     func searchNews(with query: String) -> Promise<Articles> {
-        let url = NewsAPI.search(query: query).url
+        let url = NewsSource.search(query: query).url
         return request(url)
     }
 }

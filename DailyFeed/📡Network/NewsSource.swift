@@ -1,5 +1,5 @@
 //
-//  NewsAPI.swift
+//  NewsSource.swift
 //  DailyFeed
 //
 //  Created by Sumit Paul on 13/01/17.
@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import Alamofire
 
-enum NewsAPI {
+enum NewsSource {
     
     case articles(source: String)
     case sources(category: String?, language: String?, country: String?)
@@ -24,26 +24,26 @@ enum NewsAPI {
         switch self {
         case .articles(let source):
             let lSource = source
-            NewsAPI.baseURL?.path = "/v2/top-headlines"
-            NewsAPI.baseURL?.queryItems = [URLQueryItem(name: "sources", value: lSource),
-                                           URLQueryItem(name: "apiKey", value: NewsAPI.apiToken)]
-            guard let url = NewsAPI.baseURL?.url else { return nil }
+            NewsSource.baseURL?.path = "/v2/top-headlines"
+            NewsSource.baseURL?.queryItems = [URLQueryItem(name: "sources", value: lSource),
+                                           URLQueryItem(name: "apiKey", value: NewsSource.apiToken)]
+            guard let url = NewsSource.baseURL?.url else { return nil }
             return url
             
         case .sources(let category, let language, let country):
-            NewsAPI.baseURL?.path = "/v2/sources"
-            NewsAPI.baseURL?.queryItems = [URLQueryItem(name: "category", value: category),
+            NewsSource.baseURL?.path = "/v2/sources"
+            NewsSource.baseURL?.queryItems = [URLQueryItem(name: "category", value: category),
                                            URLQueryItem(name: "language", value: language),
                                            URLQueryItem(name: "country", value: country),
-                                           URLQueryItem(name: "apiKey", value: NewsAPI.apiToken)]
-            guard let url = NewsAPI.baseURL?.url else { return nil }
+                                           URLQueryItem(name: "apiKey", value: NewsSource.apiToken)]
+            guard let url = NewsSource.baseURL?.url else { return nil }
             return url
             
         case .search(let query):
-            NewsAPI.baseURL?.path = "/v2/everything"
-            NewsAPI.baseURL?.queryItems = [URLQueryItem(name: "q", value: query),
-                                           URLQueryItem(name: "apiKey", value: NewsAPI.apiToken)]
-            guard let url = NewsAPI.baseURL?.url else { return nil }
+            NewsSource.baseURL?.path = "/v2/everything"
+            NewsSource.baseURL?.queryItems = [URLQueryItem(name: "q", value: query),
+                                           URLQueryItem(name: "apiKey", value: NewsSource.apiToken)]
+            guard let url = NewsSource.baseURL?.url else { return nil }
             return url
             
         //Fetch NewsSourceLogo from Cloudinary as news source logo is deprecated by newsapi.org

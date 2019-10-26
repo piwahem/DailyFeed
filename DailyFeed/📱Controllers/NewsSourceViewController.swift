@@ -278,9 +278,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
         if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsAPI.logo(source: filteredSourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid).url)
         } else {
-            cell?.sourceImageView.downloadedFromLink(NewsAPI.logo(source: sourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid).url)
         }
         return cell!
     }

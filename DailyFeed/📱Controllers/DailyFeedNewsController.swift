@@ -96,7 +96,7 @@ class DailyFeedNewsController: UIViewController {
     func setupNavigationBar() {
         let sourceMenuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sources"), style: .plain, target: self, action: #selector(sourceMenuButtonDidTap))
         navigationItem.rightBarButtonItem = sourceMenuButton
-        navBarSourceImage.downloadedFromLink(NewsAPI.logo(source: self.source).url, contentMode: .scaleAspectFit)
+        navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
         navigationItem.titleView = navBarSourceImage
     }
     
@@ -138,7 +138,7 @@ class DailyFeedNewsController: UIViewController {
             newsClient.getNewsItems(source: source)
             }.done { result in
                 self.newsItems = result.articles
-                self.navBarSourceImage.downloadedFromLink(NewsAPI.logo(source: self.source).url, contentMode: .scaleAspectFit)
+                self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
                 
                 guard let action = completion else{
                     return
@@ -177,7 +177,7 @@ class DailyFeedNewsController: UIViewController {
                 vc.modalPresentationStyle = .formSheet
                 vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: newsItems[indexpath.row])
                 vc.receivedItemNumber = indexpath.row + 1
-                vc.receivedNewsSourceLogo = NewsAPI.logo(source: self.source).url?.absoluteString
+                vc.receivedNewsSourceLogo = NewsSource.logo(source: self.source).url?.absoluteString
                 vc.isLanguageRightToLeftDetailView = isLanguageRightToLeft
             }
         }
