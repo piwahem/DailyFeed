@@ -14,6 +14,7 @@ enum NewsAPI {
     case articles(source: String)
     case sources(category: String?, language: String?, country: String?)
     case search(query: String)
+    case logo(source: String)
     
     static var baseURL = URLComponents(string: "https://newsapi.org")
     static let apiToken = "8e58842e74f2453bb5e6e3845b386a81"
@@ -44,14 +45,11 @@ enum NewsAPI {
                                            URLQueryItem(name: "apiKey", value: NewsAPI.apiToken)]
             guard let url = NewsAPI.baseURL?.url else { return nil }
             return url
+            
+        //Fetch NewsSourceLogo from Cloudinary as news source logo is deprecated by newsapi.org
+        case .logo(let source):
+            let sourceLogoUrl = "https://res.cloudinary.com/news-logos/image/upload/v1557987666/\(source).png"
+            return URL.init(string: sourceLogoUrl)
         }
     }
-    
-    //Fetch NewsSourceLogo from Cloudinary as news source logo is deprecated by newsapi.org
-    
-    static func getSourceNewsLogoUrl(source: String) -> String {
-        let sourceLogoUrl = "https://res.cloudinary.com/news-logos/image/upload/v1557987666/\(source).png"
-        return sourceLogoUrl
-    }
-    
 }

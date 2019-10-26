@@ -60,7 +60,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private var countries: [String] = []
     
     private var areFiltersPopulated: Bool = false
-
+    
     private var resultsSearchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
@@ -82,17 +82,17 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         loadSourceData(sourceRequestParams: NewsSourceParameters())
         setupPullToReach()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resultsSearchController.delegate = nil
         resultsSearchController.searchBar.delegate = nil
     }
-
+    
     // MARK: - Setup UI
     private func setupUI() {
         setupSearch()
@@ -108,7 +108,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         ]
         self.activatePullToReach(on: navigationItem)
     }
-
+    
     // MARK: - Setup SearchBar
     private func setupSearch() {
         resultsSearchController.searchResultsUpdater = self
@@ -120,13 +120,13 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         definesPresentationContext = true
     }
-
+    
     // MARK: - Setup TableView
     private func setupTableView() {
         sourceTableView.register(R.nib.dailySourceItemCell)
         sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
     }
-
+    
     // MARK: - Setup Spinner
     private func setupSpinner(hidden: Bool) {
         DispatchQueue.main.async {
@@ -144,20 +144,20 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         self.sourceTableView.delegate = nil
         self.sourceTableView.dataSource = nil
     }
-
+    
     // MARK: - Show News Categories
-
+    
     @objc private func presentCategories() {
         let categoryActivityVC = UIAlertController(title: "Select a Category",
                                                    message: nil,
                                                    preferredStyle: .actionSheet)
-
+        
         let cancelButton = UIAlertAction(title: "Cancel",
                                          style: .cancel,
                                          handler: nil)
         
         categoryActivityVC.addAction(cancelButton)
-
+        
         _ = categories.map {
             let categoryButton = UIAlertAction(title: $0, style: .default, handler: { [weak self] action in
                 if let category = action.title {
@@ -175,9 +175,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         popOver?.sourceRect = view.bounds
         self.present(categoryActivityVC, animated: true, completion: nil)
     }
-
+    
     // MARK: - Show news languages
-
+    
     @objc private func presentNewsLanguages() {
         let languageActivityVC = UIAlertController(title: "Select a language",
                                                    message: nil,
@@ -186,9 +186,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         let cancelButton = UIAlertAction(title: "Cancel",
                                          style: .cancel,
                                          handler: nil)
-
+        
         languageActivityVC.addAction(cancelButton)
-
+        
         for lang in languages {
             let languageButton = UIAlertAction(title: lang.languageStringFromISOCode, style: .default, handler: { [weak self] _ in
                 let newsSourceParams = NewsSourceParameters(language: lang)
@@ -207,8 +207,8 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @objc private func presentCountries() {
         let countriesActivityVC = UIAlertController(title: "Select a country",
-                                                   message: nil,
-                                                   preferredStyle: .actionSheet)
+                                                    message: nil,
+                                                    preferredStyle: .actionSheet)
         
         let cancelButton = UIAlertAction(title: "Cancel",
                                          style: .cancel,
@@ -243,29 +243,29 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         setupSpinner(hidden: false)
         firstly {
             NewsClient().getNewsSource(sourceRequestParams: sourceRequestParams)
-        }.done { result in
-            self.sourceItems = result.sources
-            // The code below helps in persisting category and language items till the view controller is de-allocated
-            if !self.areFiltersPopulated {
-                self.categories = Array(Set(result.sources.map { $0.category }))
-                self.languages = Array(Set(result.sources.map { $0.isoLanguageCode }))
-                self.countries = Array(Set(result.sources.map { $0.country }))
-                self.areFiltersPopulated = true
-            }
-        }.ensure {
-            self.setupSpinner(hidden: true)
-        }.catch { err in
-            self.showError(err.localizedDescription) { _ in
-                self.dismiss(animated: true, completion: nil)
-            }
+            }.done { result in
+                self.sourceItems = result.sources
+                // The code below helps in persisting category and language items till the view controller is de-allocated
+                if !self.areFiltersPopulated {
+                    self.categories = Array(Set(result.sources.map { $0.category }))
+                    self.languages = Array(Set(result.sources.map { $0.isoLanguageCode }))
+                    self.countries = Array(Set(result.sources.map { $0.country }))
+                    self.areFiltersPopulated = true
+                }
+            }.ensure {
+                self.setupSpinner(hidden: true)
+            }.catch { err in
+                self.showError(err.localizedDescription) { _ in
+                    self.dismiss(animated: true, completion: nil)
+                }
         }
     }
-
+    
     // MARK: - Status Bar Color and switching actions
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
-
+    
     // MARK: - TableView Delegate Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.resultsSearchController.isActive {
@@ -274,17 +274,17 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
             return self.sourceItems.count
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
         if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsAPI.getSourceNewsLogoUrl(source: filteredSourceItems[indexPath.row].sid))
+            cell?.sourceImageView.downloadedFromLink(NewsAPI.logo(source: filteredSourceItems[indexPath.row].sid).url)
         } else {
-            cell?.sourceImageView.downloadedFromLink(NewsAPI.getSourceNewsLogoUrl(source: sourceItems[indexPath.row].sid))
+            cell?.sourceImageView.downloadedFromLink(NewsAPI.logo(source: sourceItems[indexPath.row].sid).url)
         }
         return cell!
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.resultsSearchController.isActive {
             self.selectedItem = filteredSourceItems[indexPath.row]
@@ -294,13 +294,13 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         self.performSegue(withIdentifier: "sourceUnwindSegue", sender: self)
     }
     
-  
+    
     // MARK: - SearchBar Delegate
-
+    
     func updateSearchResults(for searchController: UISearchController) {
-
+        
         filteredSourceItems.removeAll(keepingCapacity: false)
-
+        
         if let searchString = searchController.searchBar.text {
             let searchResults = sourceItems.filter { $0.name.lowercased().contains(searchString.lowercased()) }
             filteredSourceItems = searchResults
