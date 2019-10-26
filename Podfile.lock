@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.9.0)
   - DZNEmptyDataSet (1.8.1)
   - Kingfisher (4.10.1)
   - lottie-ios (3.0.4)
@@ -22,6 +23,7 @@ PODS:
     - Realm (= 3.14.2)
 
 DEPENDENCIES:
+  - Alamofire
   - DZNEmptyDataSet
   - Kingfisher
   - lottie-ios
@@ -32,6 +34,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - DZNEmptyDataSet
     - Kingfisher
     - lottie-ios
@@ -43,6 +46,7 @@ SPEC REPOS:
     - RealmSwift
 
 SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   lottie-ios: 55a2de40418f8de2b155efaba4d4d1a025a5c570
@@ -53,6 +57,6 @@ SPEC CHECKSUMS:
   Realm: 179c6706e3a49dbfe112e572fd3c03d3169bea35
   RealmSwift: 1797f272fb51c555b764fada32e82159a2c65247
 
-PODFILE CHECKSUM: b8ff91a72f4d32731863be7b5e685f24a83dcdce
+PODFILE CHECKSUM: cdba66bff16406c71884dc6c9c6e9458bda166ed
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
