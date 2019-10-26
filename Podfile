@@ -12,6 +12,7 @@ target 'DailyFeed' do
   pod 'R.swift'
   pod 'Kingfisher'
   pod 'PullToReach'
+  pod 'Alamofire'
   
   target 'DailyFeedTests' do
     inherit! :search_paths

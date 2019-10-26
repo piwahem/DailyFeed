@@ -54,6 +54,14 @@ enum ReachabilityStatus: CustomStringConvertible  {
 
 public class Reach {
     
+    func isNetworkConnected() -> Bool {
+        let status = connectionStatus()
+        switch status {
+        case .online(_): return true
+        default: return false
+        }
+    }
+    
     func connectionStatus() -> ReachabilityStatus {
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
