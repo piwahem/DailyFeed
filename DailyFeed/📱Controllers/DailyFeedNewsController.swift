@@ -10,9 +10,43 @@ import Lottie
 import DZNEmptyDataSet
 import PromiseKit
 
+protocol INewsView: class {
+    func onLoading()
+    func onList(_ list: [DailyFeedModel])
+    func onError(_ message: String)
+}
+
+extension DailyFeedNewsController: INewsView{
+    
+    func onLoading() {
+        if !self.refreshControl.isRefreshing {
+            setupSpinner()
+        }
+        
+        spinningActivityIndicator.start()
+    }
+    
+    func onList(_ list: [DailyFeedModel]) {
+        self.newsItems = list
+        self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
+        
+        self.spinningActivityIndicator.stop()
+        self.refreshControl.endRefreshing()
+    }
+    
+    func onError(_ message: String) {
+        showError(message)
+        
+        self.spinningActivityIndicator.stop()
+        self.refreshControl.endRefreshing()
+    }
+}
+
 class DailyFeedNewsController: UIViewController {
     
     // MARK: - Variable declaration
+    var presenter: INewsPresenter?
+    var interactor: INewsInteractor?
     
     var newsItems: [DailyFeedModel] = [] {
         didSet {
@@ -64,6 +98,9 @@ class DailyFeedNewsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        config()
+        
         //Setup UI
         setupUI()
         //Populate CollectionView Data
@@ -84,6 +121,14 @@ class DailyFeedNewsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    //MARK: -Config
+    private func config() {
+        presenter = NewsPresenter()
+        interactor = NewsInteractor(worker: NewsWorker())
+        (presenter as! NewsPresenter).view = self
+        (interactor as! NewsInteractor).presenter = presenter
     }
     
     // MARK: - Setup UI
@@ -128,32 +173,7 @@ class DailyFeedNewsController: UIViewController {
     
     // MARK: - Load data from network
     func loadNewsData(_ source: String, completion:((Bool)->(Void))?=nil) {
-        if !self.refreshControl.isRefreshing {
-            setupSpinner()
-        }
-        
-        spinningActivityIndicator.start()
-        
-        firstly {
-            newsClient.getNewsItems(source: source)
-            }.done { result in
-                self.newsItems = result.articles
-                self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
-                
-                guard let action = completion else{
-                    return
-                }
-                action(true)
-            }.ensure(on: .main) {
-                self.spinningActivityIndicator.stop()
-                self.refreshControl.endRefreshing()
-            }.catch(on: .main) { err in
-                guard let action = completion else{
-                    self.showError(err.localizedDescription)
-                    return
-                }
-                action(false)
-        }
+        interactor?.getNews(source)
     }
     
     deinit {
