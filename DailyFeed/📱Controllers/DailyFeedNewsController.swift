@@ -28,7 +28,7 @@ extension DailyFeedNewsController: INewsView{
     
     func onList(_ list: [DailyFeedModel]) {
         self.newsItems = list
-        self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
+        self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
@@ -56,20 +56,6 @@ class DailyFeedNewsController: UIViewController {
         }
     }
     
-    var source: String {
-        get {
-            guard let defaultSource = UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.string(forKey: "source") else {
-                return "the-wall-street-journal"
-            }
-            
-            return defaultSource
-        }
-        
-        set {
-            UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.set(newValue, forKey: "source")
-        }
-    }
-    
     let spinningActivityIndicator = TSSpinnerView()
     
     let refreshControl: UIRefreshControl = {
@@ -84,7 +70,6 @@ class DailyFeedNewsController: UIViewController {
     var selectedCell = UICollectionViewCell()
     
     var isLanguageRightToLeft = Bool()
-    private let newsClient = NewsClient()
     
     // MARK: - IBOutlets
     
@@ -104,7 +89,7 @@ class DailyFeedNewsController: UIViewController {
         //Setup UI
         setupUI()
         //Populate CollectionView Data
-        loadNewsData(source)
+        loadNewsData()
         Reach().monitorReachabilityChanges()
     }
     
@@ -141,7 +126,7 @@ class DailyFeedNewsController: UIViewController {
     func setupNavigationBar() {
         let sourceMenuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sources"), style: .plain, target: self, action: #selector(sourceMenuButtonDidTap))
         navigationItem.rightBarButtonItem = sourceMenuButton
-        navBarSourceImage.downloadedFromLink(NewsSource.logo(source: self.source).url, contentMode: .scaleAspectFit)
+        navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         navigationItem.titleView = navBarSourceImage
     }
     
@@ -168,12 +153,12 @@ class DailyFeedNewsController: UIViewController {
     
     // MARK: - refresh news Source data
     @objc func refreshData(_ sender: UIRefreshControl) {
-        loadNewsData(self.source)
+        loadNewsData()
     }
     
     // MARK: - Load data from network
-    func loadNewsData(_ source: String, completion:((Bool)->(Void))?=nil) {
-        interactor?.getNews(source)
+    func loadNewsData(completion:((Bool)->(Void))?=nil) {
+        interactor?.getNews()
     }
     
     deinit {
@@ -197,7 +182,7 @@ class DailyFeedNewsController: UIViewController {
                 vc.modalPresentationStyle = .formSheet
                 vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: newsItems[indexpath.row])
                 vc.receivedItemNumber = indexpath.row + 1
-                vc.receivedNewsSourceLogo = NewsSource.logo(source: self.source).url?.absoluteString
+                vc.receivedNewsSourceLogo = NewsSource.logo(source: (self.interactor?.source)!).url?.absoluteString
                 vc.isLanguageRightToLeftDetailView = isLanguageRightToLeft
             }
         }
@@ -207,15 +192,15 @@ class DailyFeedNewsController: UIViewController {
     @IBAction func unwindToDailyNewsFeed(_ segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? NewsSourceViewController, let sourceId = sourceVC.selectedItem?.sid {
             
-            let oldSource = self.source
+            let oldSource = (self.interactor?.source)!
             let oldIsLanguageRightToLeft = self.isLanguageRightToLeft
             
             isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
-            self.source = sourceId
-            loadNewsData(source){ success in
+            self.interactor?.source = sourceId
+            loadNewsData(){ success in
                 if (!success){
                     self.showErrorWithDelay("Your Internet Connection appears to be offline.")
-                    self.source = oldSource
+                    self.interactor?.source = oldSource
                     self.isLanguageRightToLeft = oldIsLanguageRightToLeft
                 }
             }

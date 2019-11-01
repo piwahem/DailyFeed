@@ -10,11 +10,13 @@ import Foundation
 
 protocol INewsInteractor {
     func getNews(_ source: String)
+    func getNews()
+    var source: String {get set}
 }
 
 class NewsInteractor: INewsInteractor {
     
-    private let worker: INewsWorker
+    private var worker: INewsWorker
     var presenter: INewsPresenter?
     
     required init(worker: INewsWorker) {
@@ -36,6 +38,20 @@ class NewsInteractor: INewsInteractor {
             
         }) {
             print("onCompleted")
+        }
+    }
+    
+    func getNews() {
+        getNews(self.source)
+    }
+    
+    var source: String{
+        get {
+            return worker.source
+        }
+        
+        set {
+            worker.source = newValue
         }
     }
 }

@@ -15,9 +15,26 @@ protocol INewsWorker {
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?)->Void),
                  completetion: @escaping ()->Void)
+    
+    var source: String {get set}
 }
 
 class NewsWorker: INewsWorker {
+    
+    var source: String {
+        get {
+            guard let defaultSource = UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.string(forKey: "source") else {
+                return "the-wall-street-journal"
+            }
+            
+            return defaultSource
+        }
+        
+        set {
+            UserDefaults(suiteName: "group.com.trianz.DailyFeed.today")?.set(newValue, forKey: "source")
+        }
+    }
+    
     
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
