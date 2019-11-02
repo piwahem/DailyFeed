@@ -1,0 +1,60 @@
+//
+//  NewsRouter.swift
+//  DailyFeed
+//
+//  Created by Admin on 11/2/19.
+//  Copyright © 2019 trianz. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+protocol INewsRouter {
+    // NOTE: Teach the router how to navigate to another scene. Some examples follow:
+    
+    // 1. Trigger a storyboard segue
+    // viewController.performSegueWithIdentifier("ShowSomewhereScene", sender: nil)
+    
+    // 2. Present another view controller programmatically
+    // viewController.presentViewController(someWhereViewController, animated: true, completion: nil)
+    
+    // 3. Ask the navigation controller to push another view controller onto the stack
+    // viewController.navigationController?.pushViewController(someWhereViewController, animated: true)
+    
+    // 4. Present a view controller from a different storyboard
+    // let storyboard = UIStoryboard(name: "OtherThanMain", bundle: nil)
+    // let someWhereViewController = storyboard.instantiateInitialViewController() as! SomeWhereViewController
+    // viewController.navigationController?.pushViewController(someWhereViewController, animated: true)
+    func navigateToDetail(sender: Any?)
+    
+    func passDataToNextScene(segue: UIStoryboardSegue, sender: Any?)
+}
+
+class NewsRouter: INewsRouter {
+    
+    weak var viewController: DailyFeedNewsController!
+    
+    func passDataToNextScene(segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.dailyFeedNewsController.newsDetailSegue.identifier{
+            passDataToNewsDetail(segue: segue, sender: sender)
+        }
+    }
+    
+    func navigateToDetail(sender: Any?) {
+        viewController.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsDetailSegue,
+                          sender: sender)
+    }
+    
+    private func passDataToNewsDetail(segue: UIStoryboardSegue, sender: Any?){
+        if let vc = segue.destination as? NewsDetailViewController {
+            guard let cell = sender as? UICollectionViewCell else { return }
+            guard let indexpath = viewController.newsCollectionView?.indexPath(for: cell) else { return }
+            vc.transitioningDelegate = viewController
+            vc.modalPresentationStyle = .formSheet
+            vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: viewController.newsItems[indexpath.row])
+            vc.receivedItemNumber = indexpath.row + 1
+            vc.receivedNewsSourceLogo = NewsSource.logo(source: (viewController.interactor?.source)!).url?.absoluteString
+            vc.isLanguageRightToLeftDetailView = viewController.isLanguageRightToLeft
+        }
+    }
+}

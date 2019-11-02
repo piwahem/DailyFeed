@@ -47,6 +47,7 @@ class DailyFeedNewsController: UIViewController {
     // MARK: - Variable declaration
     var presenter: INewsPresenter?
     var interactor: INewsInteractor?
+    var router: INewsRouter?
     
     var newsItems: [DailyFeedModel] = [] {
         didSet {
@@ -112,6 +113,9 @@ class DailyFeedNewsController: UIViewController {
     private func config() {
         presenter = NewsPresenter()
         interactor = NewsInteractor(worker: NewsWorker())
+        router = NewsRouter()
+        
+        (router as! NewsRouter).viewController = self
         (presenter as! NewsPresenter).view = self
         (interactor as! NewsInteractor).presenter = presenter
     }
@@ -174,18 +178,7 @@ class DailyFeedNewsController: UIViewController {
     
     // MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.dailyFeedNewsController.newsDetailSegue.identifier {
-            if let vc = segue.destination as? NewsDetailViewController {
-                guard let cell = sender as? UICollectionViewCell else { return }
-                guard let indexpath = self.newsCollectionView?.indexPath(for: cell) else { return }
-                vc.transitioningDelegate = self
-                vc.modalPresentationStyle = .formSheet
-                vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: newsItems[indexpath.row])
-                vc.receivedItemNumber = indexpath.row + 1
-                vc.receivedNewsSourceLogo = NewsSource.logo(source: (self.interactor?.source)!).url?.absoluteString
-                vc.isLanguageRightToLeftDetailView = isLanguageRightToLeft
-            }
-        }
+        router?.passDataToNextScene(segue: segue, sender: sender)
     }
     
     // MARK: - Unwind from Source View Controller
