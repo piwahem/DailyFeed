@@ -28,6 +28,7 @@ protocol INewsRouter {
     func navigateToDetail(sender: Any?)
     
     func passDataToNextScene(segue: UIStoryboardSegue, sender: Any?)
+    func receiveDataFromScene(segue: UIStoryboardSegue)
 }
 
 class NewsRouter: INewsRouter {
@@ -40,9 +41,15 @@ class NewsRouter: INewsRouter {
         }
     }
     
+    func receiveDataFromScene(segue: UIStoryboardSegue) {
+        if segue.identifier == R.segue.newsSourceViewController.sourceUnwindSegue.identifier{
+            receiveDataFromNewsSource(segue: segue, sender: nil)
+        }
+    }
+    
     func navigateToDetail(sender: Any?) {
         viewController.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsDetailSegue,
-                          sender: sender)
+                                    sender: sender)
     }
     
     private func passDataToNewsDetail(segue: UIStoryboardSegue, sender: Any?){
@@ -55,6 +62,24 @@ class NewsRouter: INewsRouter {
             vc.receivedItemNumber = indexpath.row + 1
             vc.receivedNewsSourceLogo = NewsSource.logo(source: (viewController.interactor?.source)!).url?.absoluteString
             vc.isLanguageRightToLeftDetailView = viewController.isLanguageRightToLeft
+        }
+    }
+    
+    private func receiveDataFromNewsSource(segue: UIStoryboardSegue, sender: Any?){
+        if let sourceVC = segue.source as? NewsSourceViewController, let sourceId = sourceVC.selectedItem?.sid {
+            
+            let oldSource = (viewController.interactor?.source)!
+            let oldIsLanguageRightToLeft = viewController.isLanguageRightToLeft
+            
+            viewController.isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
+            viewController.interactor?.source = sourceId
+            viewController.loadNewsData(){ success in
+                if (!success){
+                    self.viewController.showErrorWithDelay("Your Internet Connection appears to be offline.")
+                    self.viewController.interactor?.source = oldSource
+                    self.viewController.isLanguageRightToLeft = oldIsLanguageRightToLeft
+                }
+            }
         }
     }
 }

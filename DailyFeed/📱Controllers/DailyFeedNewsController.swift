@@ -84,7 +84,7 @@ class DailyFeedNewsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         config()
         
         //Setup UI
@@ -183,21 +183,7 @@ class DailyFeedNewsController: UIViewController {
     
     // MARK: - Unwind from Source View Controller
     @IBAction func unwindToDailyNewsFeed(_ segue: UIStoryboardSegue) {
-        if let sourceVC = segue.source as? NewsSourceViewController, let sourceId = sourceVC.selectedItem?.sid {
-            
-            let oldSource = (self.interactor?.source)!
-            let oldIsLanguageRightToLeft = self.isLanguageRightToLeft
-            
-            isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
-            self.interactor?.source = sourceId
-            loadNewsData(){ success in
-                if (!success){
-                    self.showErrorWithDelay("Your Internet Connection appears to be offline.")
-                    self.interactor?.source = oldSource
-                    self.isLanguageRightToLeft = oldIsLanguageRightToLeft
-                }
-            }
-        }
+        router?.receiveDataFromScene(segue: segue)
     }
 }
 
