@@ -45,7 +45,6 @@ extension DailyFeedNewsController: INewsView{
 class DailyFeedNewsController: UIViewController {
     
     // MARK: - Variable declaration
-    var presenter: INewsPresenter?
     var interactor: INewsInteractor?
     var router: INewsRouter?
     
@@ -111,7 +110,7 @@ class DailyFeedNewsController: UIViewController {
     
     //MARK: -Config
     private func config() {
-        presenter = NewsPresenter()
+        let presenter = NewsPresenter()
         interactor = NewsInteractor(worker: NewsWorker())
         router = NewsRouter()
         
