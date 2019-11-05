@@ -78,6 +78,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        config()
         setupUI()
         loadSourceData(sourceRequestParams: NewsSourceParameters())
         setupPullToReach()
@@ -291,7 +292,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             self.selectedItem = sourceItems[indexPath.row]
         }
-        self.performSegue(withIdentifier: "sourceUnwindSegue", sender: self)
+        router?.passDataToNews()
     }
     
     
@@ -305,5 +306,11 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
             let searchResults = sourceItems.filter { $0.name.lowercased().contains(searchString.lowercased()) }
             filteredSourceItems = searchResults
         }
+    }
+    
+    var router: ISourceRouter?
+    private func config() {
+        router = SourceRouter()
+        (router as! SourceRouter).viewController = self
     }
 }

@@ -172,7 +172,7 @@ class DailyFeedNewsController: UIViewController {
     // MARK: - sourceMenuButton Action method
     
     @objc func sourceMenuButtonDidTap() {
-        self.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsSourceSegue, sender: self)
+        router?.navigateToSource()
     }
     
     // MARK: - Prepare for Segue

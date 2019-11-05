@@ -26,7 +26,7 @@ protocol INewsRouter {
     // let someWhereViewController = storyboard.instantiateInitialViewController() as! SomeWhereViewController
     // viewController.navigationController?.pushViewController(someWhereViewController, animated: true)
     func navigateToDetail(sender: Any?)
-    
+    func navigateToSource()
     func passDataToNextScene(segue: UIStoryboardSegue, sender: Any?)
     func receiveDataFromScene(segue: UIStoryboardSegue)
 }
@@ -50,6 +50,10 @@ class NewsRouter: INewsRouter {
     func navigateToDetail(sender: Any?) {
         viewController.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsDetailSegue,
                                     sender: sender)
+    }
+    
+    func navigateToSource() {
+        viewController.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsSourceSegue, sender: viewController)
     }
     
     private func passDataToNewsDetail(segue: UIStoryboardSegue, sender: Any?){
