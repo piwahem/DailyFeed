@@ -309,7 +309,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     var router: ISourceRouter?
+    var interactor: ISourceInteractor?
     private func config() {
+        interactor = SourceInteractor(worker: SourceWorker())
         router = SourceRouter()
         (router as! SourceRouter).viewController = self
     }
