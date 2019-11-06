@@ -10,6 +10,51 @@ import DZNEmptyDataSet
 import PromiseKit
 import PullToReach
 
+protocol ISourceView: class {
+    func onLoading()
+    func onList(_ list: [DailySourceModel])
+    func onError(_ message: String)
+    func onShowDialog(type dialog: SourceTypeDialog)
+}
+
+extension NewsSourceViewController: ISourceView{
+    
+    func onLoading() {
+        setupSpinner(hidden: true)
+    }
+    
+    func onList(_ list: [DailySourceModel]) {
+        self.sourceItems = list
+        // The code below helps in persisting category and language items till the view controller is de-allocated
+        if !self.areFiltersPopulated {
+            self.categories = Array(Set(list.map { $0.category }))
+            self.languages = Array(Set(list.map { $0.isoLanguageCode }))
+            self.countries = Array(Set(list.map { $0.country }))
+            self.areFiltersPopulated = true
+        }
+        setupSpinner(hidden: false)
+    }
+    
+    func onError(_ message: String) {
+        self.showError(message) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        setupSpinner(hidden: false)
+    }
+    
+    func onShowDialog(type dialog: SourceTypeDialog) {
+        switch dialog {
+        case .category:
+            presentCategories()
+        case .language:
+            presentNewsLanguages()
+        case .country:
+            presentCountries()
+        }
+    }
+    
+}
+
 class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, PullToReach {
     
     var scrollView: UIScrollView {
@@ -21,15 +66,15 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     private lazy var categoryBarButton =
         UIBarButtonItem(image: R.image.filter(), style: .plain,
-                        target: self, action: #selector(NewsSourceViewController.presentCategories))
+                        target: self, action: #selector(NewsSourceViewController.handleClickCategory))
     
     private lazy var languageBarButton =
         UIBarButtonItem(image: R.image.language(), style: .plain,
-                        target: self, action: #selector(NewsSourceViewController.presentNewsLanguages))
+                        target: self, action: #selector(NewsSourceViewController.handleClickLanguage))
     
     private lazy var countryBarButton =
         UIBarButtonItem(image: R.image.country(), style: .plain,
-                        target: self, action: #selector(NewsSourceViewController.presentCountries))
+                        target: self, action: #selector(NewsSourceViewController.handleClickCountry))
     
     private lazy var closeBarButton =
         UIBarButtonItem(image: R.image.close(), style: .plain,
@@ -147,8 +192,19 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: - Show News Categories
+    @objc private func handleClickCategory(){
+        interactor?.showDialog(type: SourceTypeDialog.category)
+    }
     
-    @objc private func presentCategories() {
+    @objc private func handleClickLanguage(){
+        interactor?.showDialog(type: SourceTypeDialog.language)
+    }
+    
+    @objc private func handleClickCountry(){
+        interactor?.showDialog(type: SourceTypeDialog.country)
+    }
+    
+    private func presentCategories() {
         let categoryActivityVC = UIAlertController(title: "Select a Category",
                                                    message: nil,
                                                    preferredStyle: .actionSheet)
@@ -179,7 +235,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Show news languages
     
-    @objc private func presentNewsLanguages() {
+    private func presentNewsLanguages() {
         let languageActivityVC = UIAlertController(title: "Select a language",
                                                    message: nil,
                                                    preferredStyle: .actionSheet)
@@ -206,7 +262,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         self.present(languageActivityVC, animated: true, completion: nil)
     }
     
-    @objc private func presentCountries() {
+    private func presentCountries() {
         let countriesActivityVC = UIAlertController(title: "Select a country",
                                                     message: nil,
                                                     preferredStyle: .actionSheet)
@@ -241,25 +297,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Load data from network
     private func loadSourceData(sourceRequestParams: NewsSourceParameters) {
-        setupSpinner(hidden: false)
-        firstly {
-            NewsClient().getNewsSource(sourceRequestParams: sourceRequestParams)
-            }.done { result in
-                self.sourceItems = result.sources
-                // The code below helps in persisting category and language items till the view controller is de-allocated
-                if !self.areFiltersPopulated {
-                    self.categories = Array(Set(result.sources.map { $0.category }))
-                    self.languages = Array(Set(result.sources.map { $0.isoLanguageCode }))
-                    self.countries = Array(Set(result.sources.map { $0.country }))
-                    self.areFiltersPopulated = true
-                }
-            }.ensure {
-                self.setupSpinner(hidden: true)
-            }.catch { err in
-                self.showError(err.localizedDescription) { _ in
-                    self.dismiss(animated: true, completion: nil)
-                }
-        }
+        interactor?.getSources(params: sourceRequestParams)
     }
     
     // MARK: - Status Bar Color and switching actions
@@ -311,8 +349,11 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     var router: ISourceRouter?
     var interactor: ISourceInteractor?
     private func config() {
+        let presenter = SourcePresenter()
         interactor = SourceInteractor(worker: SourceWorker())
         router = SourceRouter()
         (router as! SourceRouter).viewController = self
+        (presenter as! SourcePresenter).view = self
+        (interactor as! SourceInteractor).presenter = presenter
     }
 }

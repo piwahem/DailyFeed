@@ -24,6 +24,7 @@ class NewsInteractor: INewsInteractor {
     }
     
     func getNews(_ source: String) {
+        presenter?.onLoading()
         worker.getNews(source, callback: { (data, error) in
             if let e = error {
                 print("onError = \(e)")
