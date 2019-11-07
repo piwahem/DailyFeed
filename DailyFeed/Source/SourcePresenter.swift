@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SourceTypeDialog: String {
+public enum SourceTypeDialog: String {
     case language = "language"
     case country = "country"
     case category = "category"
