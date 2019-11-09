@@ -14,7 +14,7 @@ protocol ISourceView: class {
     func onLoading()
     func onList(_ list: [DailySourceModel])
     func onError(_ message: String)
-    func onShowDialog(type dialog: SourceTypeDialog)
+    func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String])
 }
 
 extension NewsSourceViewController: ISourceView{
@@ -25,13 +25,6 @@ extension NewsSourceViewController: ISourceView{
     
     func onList(_ list: [DailySourceModel]) {
         self.sourceItems = list
-        // The code below helps in persisting category and language items till the view controller is de-allocated
-        if !self.areFiltersPopulated {
-            self.categories = Array(Set(list.map { $0.category }))
-            self.languages = Array(Set(list.map { $0.isoLanguageCode }))
-            self.countries = Array(Set(list.map { $0.country }))
-            self.areFiltersPopulated = true
-        }
         setupSpinner(hidden: false)
     }
     
@@ -42,15 +35,8 @@ extension NewsSourceViewController: ISourceView{
         setupSpinner(hidden: false)
     }
     
-    func onShowDialog(type dialog: SourceTypeDialog) {
-        switch dialog {
-        case .category:
-            presentCategories()
-        case .language:
-            presentNewsLanguages()
-        case .country:
-            presentCountries()
-        }
+    func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
+        presentFilterDialog(dialog: dialog, source: filterSources)
     }
     
 }
@@ -97,15 +83,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     var selectedItem: DailySourceModel?
-    
-    private var categories: [String] = []
-    
-    private var languages: [String] = []
-    
-    private var countries: [String] = []
-    
-    private var areFiltersPopulated: Bool = false
-    
+        
     private var resultsSearchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
@@ -204,30 +182,12 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         interactor?.showDialog(type: SourceTypeDialog.country)
     }
     
-    private func presentCategories() {
-        let popOver = showFilterDialog(sources: categories, type: .category) { (newsSourceParameters,_) in
-            self.interactor?.getSources(params: newsSourceParameters)
-        }
-        
-        // Popover for iPad only
-        popOver?.barButtonItem = categoryBarButton
-    }
-    
-    // MARK: - Show news languages
-    
-    private func presentNewsLanguages() {
-        let popOver = showFilterDialog(sources: languages, type: .language) { (newsSourceParameters,_) in
-            self.interactor?.getSources(params: newsSourceParameters)
-        }
-        
-        // Popover for iPad only
-        popOver?.barButtonItem = languageBarButton
-    }
-    
-    private func presentCountries() {
-        let popOver = showFilterDialog(sources: countries, type: .country) { (newsSourceParameters, source) in
-            self.countryBarButton.image = nil
-            self.countryBarButton.title = source.countryFlagFromCountryCode
+    private func presentFilterDialog(dialog type: SourceTypeDialog, source: [String]){
+        let popOver = showFilterDialog(sources: source, type: type) { (newsSourceParameters, source) in
+            if (type == .country){
+                self.countryBarButton.image = nil
+                self.countryBarButton.title = source.countryFlagFromCountryCode
+            }
             self.interactor?.getSources(params: newsSourceParameters)
         }
         
@@ -236,7 +196,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc private func dismissViewController() {
-        self.performSegue(withIdentifier: "sourceUnwindSegue", sender: self)
+        router?.passDataToNews()
     }
     
     // MARK: - Load data from network

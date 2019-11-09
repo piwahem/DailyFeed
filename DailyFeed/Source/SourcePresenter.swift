@@ -18,7 +18,7 @@ protocol ISourcePresenter: class {
     func onLoading()
     func onList(_ list: [DailySourceModel])
     func onError(_ message: String)
-    func onShowDialog(type dialog: SourceTypeDialog)
+    func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String])
 }
 
 class SourcePresenter: ISourcePresenter {
@@ -37,7 +37,7 @@ class SourcePresenter: ISourcePresenter {
         view?.onError(message)
     }
     
-    func onShowDialog(type dialog: SourceTypeDialog) {
-        view?.onShowDialog(type: dialog)
+    func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
+        view?.onShowDialog(type: dialog, filterSources: filterSources)
     }
 }

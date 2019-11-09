@@ -42,8 +42,12 @@ class SourceInteractor: ISourceInteractor {
         }
     }
     
-    
     func showDialog(type dialog: SourceTypeDialog) {
-        presenter?.onShowDialog(type: dialog)
+        if let sources = worker.getCurrentSources(){
+            let filterSource = dialog == .category ? sources.categories :
+                dialog == .country ? sources.countries :
+                sources.languages
+            presenter?.onShowDialog(type: dialog, filterSources: filterSource)
+        }
     }
 }
