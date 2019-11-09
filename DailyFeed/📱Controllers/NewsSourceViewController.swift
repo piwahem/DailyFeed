@@ -205,7 +205,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func presentCategories() {
-        let popOver = showFilterDialog(sources: categories, type: .category) { (newsSourceParameters) in
+        let popOver = showFilterDialog(sources: categories, type: .category) { (newsSourceParameters,_) in
             self.interactor?.getSources(params: newsSourceParameters)
         }
         
@@ -216,7 +216,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Show news languages
     
     private func presentNewsLanguages() {
-        let popOver = showFilterDialog(sources: languages, type: .language) { (newsSourceParameters) in
+        let popOver = showFilterDialog(sources: languages, type: .language) { (newsSourceParameters,_) in
             self.interactor?.getSources(params: newsSourceParameters)
         }
         
@@ -225,7 +225,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func presentCountries() {
-        let popOver = showFilterDialog(sources: countries, type: .country) { (newsSourceParameters) in
+        let popOver = showFilterDialog(sources: countries, type: .country) { (newsSourceParameters, source) in
+            self.countryBarButton.image = nil
+            self.countryBarButton.title = source.countryFlagFromCountryCode
             self.interactor?.getSources(params: newsSourceParameters)
         }
         

@@ -42,7 +42,7 @@ public extension UIViewController {
     }
     
     func showFilterDialog(sources: [String], type dialog: SourceTypeDialog,
-                          loadAction: @escaping ((NewsSourceParameters) -> Void)) -> UIPopoverPresentationController?{
+                          loadAction: @escaping ((NewsSourceParameters, String) -> Void)) -> UIPopoverPresentationController?{
         let title = getFilterAlertTitle(dialog: dialog)
         let actions: [UIAlertAction] = getFilterAction(sources: sources, type: dialog, loadAction: loadAction)
         
@@ -65,14 +65,14 @@ public extension UIViewController {
     }
     
     private func getFilterAction(sources: [String], type dialog: SourceTypeDialog,
-                                 loadAction: @escaping ((NewsSourceParameters) -> Void)) -> [UIAlertAction]{
+                                 loadAction: @escaping ((NewsSourceParameters, String) -> Void)) -> [UIAlertAction]{
         var actions: [UIAlertAction] = []
         
         sources.forEach { (source) in
             let title = getFilterAlertActionTitle(type: dialog, source: source)
             let action = UIAlertAction(title: title, style: .default, handler: { [weak self] _ in
                 let newsSourceParams = self!.getFilterAlertNewResourceParams(type: dialog, source: source)
-                loadAction(newsSourceParams)
+                loadAction(newsSourceParams,source)
             })
             actions.append(action)
         }
