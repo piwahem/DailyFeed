@@ -205,90 +205,32 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     private func presentCategories() {
-        let categoryActivityVC = UIAlertController(title: "Select a Category",
-                                                   message: nil,
-                                                   preferredStyle: .actionSheet)
-        
-        let cancelButton = UIAlertAction(title: "Cancel",
-                                         style: .cancel,
-                                         handler: nil)
-        
-        categoryActivityVC.addAction(cancelButton)
-        
-        _ = categories.map {
-            let categoryButton = UIAlertAction(title: $0, style: .default, handler: { [weak self] action in
-                if let category = action.title {
-                    let newsSourceParams = NewsSourceParameters(category: category)
-                    self?.loadSourceData(sourceRequestParams: newsSourceParams)
-                }
-            })
-            categoryActivityVC.addAction(categoryButton)
+        let popOver = showFilterDialog(sources: categories, type: .category) { (newsSourceParameters) in
+            self.interactor?.getSources(params: newsSourceParameters)
         }
         
         // Popover for iPad only
-        
-        let popOver = categoryActivityVC.popoverPresentationController
         popOver?.barButtonItem = categoryBarButton
-        popOver?.sourceRect = view.bounds
-        self.present(categoryActivityVC, animated: true, completion: nil)
     }
     
     // MARK: - Show news languages
     
     private func presentNewsLanguages() {
-        let languageActivityVC = UIAlertController(title: "Select a language",
-                                                   message: nil,
-                                                   preferredStyle: .actionSheet)
-        
-        let cancelButton = UIAlertAction(title: "Cancel",
-                                         style: .cancel,
-                                         handler: nil)
-        
-        languageActivityVC.addAction(cancelButton)
-        
-        for lang in languages {
-            let languageButton = UIAlertAction(title: lang.languageStringFromISOCode, style: .default, handler: { [weak self] _ in
-                let newsSourceParams = NewsSourceParameters(language: lang)
-                self?.loadSourceData(sourceRequestParams: newsSourceParams)
-            })
-            languageActivityVC.addAction(languageButton)
+        let popOver = showFilterDialog(sources: languages, type: .language) { (newsSourceParameters) in
+            self.interactor?.getSources(params: newsSourceParameters)
         }
         
         // Popover for iPad only
-        
-        let popOver = languageActivityVC.popoverPresentationController
         popOver?.barButtonItem = languageBarButton
-        popOver?.sourceRect = view.bounds
-        self.present(languageActivityVC, animated: true, completion: nil)
     }
     
     private func presentCountries() {
-        let countriesActivityVC = UIAlertController(title: "Select a country",
-                                                    message: nil,
-                                                    preferredStyle: .actionSheet)
-        
-        let cancelButton = UIAlertAction(title: "Cancel",
-                                         style: .cancel,
-                                         handler: nil)
-        
-        countriesActivityVC.addAction(cancelButton)
-        
-        for country in countries {
-            let countryButton = UIAlertAction(title: country.formattedCountryDescription, style: .default, handler: { [weak self] _ in
-                self?.countryBarButton.image = nil
-                self?.countryBarButton.title = country.countryFlagFromCountryCode
-                let newsSourceParams = NewsSourceParameters(country: country)
-                self?.loadSourceData(sourceRequestParams: newsSourceParams)
-            })
-            countriesActivityVC.addAction(countryButton)
+        let popOver = showFilterDialog(sources: countries, type: .country) { (newsSourceParameters) in
+            self.interactor?.getSources(params: newsSourceParameters)
         }
         
         // Popover for iPad only
-        
-        let popOver = countriesActivityVC.popoverPresentationController
         popOver?.barButtonItem = countryBarButton
-        popOver?.sourceRect = view.bounds
-        self.present(countriesActivityVC, animated: true, completion: nil)
     }
     
     @objc private func dismissViewController() {

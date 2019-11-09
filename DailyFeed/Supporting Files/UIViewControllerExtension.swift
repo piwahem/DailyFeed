@@ -41,15 +41,10 @@ public extension UIViewController {
         }
     }
     
-    func showFilterDialog(type dialog: SourceTypeDialog, filterAction: UIAlertAction){
-        var title = ""
-        if dialog == .language {
-            title = "Select a language"
-        } else if dialog == .category{
-            title = "Select a category"
-        } else {
-            title = "Select a country"
-        }
+    func showFilterDialog(sources: [String], type dialog: SourceTypeDialog,
+                          loadAction: @escaping ((NewsSourceParameters) -> Void)) -> UIPopoverPresentationController?{
+        let title = getFilterAlertTitle(dialog: dialog)
+        let actions: [UIAlertAction] = getFilterAction(sources: sources, type: dialog, loadAction: loadAction)
         
         let alert = UIAlertController(title: title,
                                       message: nil,
@@ -60,9 +55,64 @@ public extension UIViewController {
                                          handler: nil)
         
         alert.addAction(cancelButton)
-        alert.addAction(filterAction)
+        actions.forEach { (action) in
+            alert.addAction(action)
+        }
+        let popOver = alert.popoverPresentationController
+        popOver?.sourceRect = view.bounds
         self.present(alert, animated: true, completion: nil)
+        return popOver
     }
     
+    private func getFilterAction(sources: [String], type dialog: SourceTypeDialog,
+                                 loadAction: @escaping ((NewsSourceParameters) -> Void)) -> [UIAlertAction]{
+        var actions: [UIAlertAction] = []
+        
+        sources.forEach { (source) in
+            let title = getFilterAlertActionTitle(type: dialog, source: source)
+            let action = UIAlertAction(title: title, style: .default, handler: { [weak self] _ in
+                let newsSourceParams = self!.getFilterAlertNewResourceParams(type: dialog, source: source)
+                loadAction(newsSourceParams)
+            })
+            actions.append(action)
+        }
+        return actions
+    }
+    
+    private func getFilterAlertTitle(dialog type: SourceTypeDialog)-> String{
+        var title = ""
+        if type == .language {
+            title = "Select a language"
+        } else if type == .category{
+            title = "Select a category"
+        } else {
+            title = "Select a country"
+        }
+        return title
+    }
+    
+    private func getFilterAlertActionTitle(type dialog: SourceTypeDialog, source: String)->String{
+        var title = ""
+        if dialog == .language {
+            title = source.languageStringFromISOCode
+        } else if dialog == .category{
+            title = source
+        } else {
+            title = source.formattedCountryDescription
+        }
+        return title
+    }
+    
+    func getFilterAlertNewResourceParams(type dialog: SourceTypeDialog, source: String) -> NewsSourceParameters {
+        var newsSourceParams: NewsSourceParameters
+        if dialog == .language {
+            newsSourceParams = NewsSourceParameters(language: source)
+        } else if dialog == .category{
+            newsSourceParams = NewsSourceParameters(category: source)
+        } else {
+            newsSourceParams = NewsSourceParameters(country: source)
+        }
+        return newsSourceParams
+    }
 }
 
