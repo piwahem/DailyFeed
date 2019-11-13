@@ -15,12 +15,14 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
         return searchCollectionView
     }
     
+    //MARK: - Config
+    var router: INewsSearchRouter?
     
     // MARK: - IBOutlets
-    @IBOutlet weak private var searchCollectionView: UICollectionView!
+    @IBOutlet weak var searchCollectionView: UICollectionView!
     
     // MARK: - Variable declaration
-    private var searchItems: [DailyFeedModel] = [] {
+    var searchItems: [DailyFeedModel] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.searchCollectionView.reloadSections([0])
@@ -32,7 +34,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     private let transition = NewsDetailPopAnimator()
     
-    private var selectedCell = UICollectionViewCell()
+    var selectedCell = UICollectionViewCell()
     
     
     private var resultsSearchController: UISearchController = {
@@ -51,6 +53,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        config()
         //setup UI
         setupUI()
     }
@@ -132,25 +135,14 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) {
-            self.performSegue(withIdentifier: R.segue.newsSearchViewController.newsSearchSegue,
-                              sender: cell)
+            router?.navigateToDetail(sender: cell)
         }
         
     }
     
     // MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.newsSearchViewController.newsSearchSegue.identifier {
-            if let vc = segue.destination as? NewsDetailViewController {
-                guard let cell = sender as? UICollectionViewCell else { return }
-                guard let indexpath = self.searchCollectionView?.indexPath(for: cell) else { return }
-                selectedCell = cell
-                vc.transitioningDelegate = self
-                vc.modalPresentationStyle = .formSheet
-                vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: searchItems[indexpath.row])
-                vc.receivedItemNumber = indexpath.row + 1
-            }
-        }
+        router?.passDataToNextScene(segue: segue, sender: sender)
     }
     
     
@@ -236,5 +228,13 @@ extension NewsSearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelega
     
     func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
         return true
+    }
+}
+
+extension NewsSearchViewController{
+    
+    private func config() {
+        router = NewsSearchRouter()
+        (router as! NewsSearchRouter).viewController = self
     }
 }
