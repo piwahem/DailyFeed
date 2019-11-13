@@ -9,6 +9,30 @@ import UIKit
 import PromiseKit
 import DZNEmptyDataSet
 
+protocol INewsSearchView: class {
+    func onLoading()
+    func onList(_ list: [DailyFeedModel])
+    func onError(_ message: String)
+}
+
+extension NewsSearchViewController: INewsSearchView{
+    func onLoading() {
+        setupSpinner(hidden: true)
+    }
+    
+    func onList(_ list: [DailyFeedModel]) {
+        self.searchItems = list
+        setupSpinner(hidden: false)
+    }
+    
+    func onError(_ message: String) {
+        self.showError(message)
+        setupSpinner(hidden: false)
+    }
+    
+    
+}
+
 class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
     
     var scrollView: UIScrollView {
@@ -17,6 +41,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     //MARK: - Config
     var router: INewsSearchRouter?
+    var interactor: INewsSearchInteractor?
     
     // MARK: - IBOutlets
     @IBOutlet weak var searchCollectionView: UICollectionView!
@@ -159,13 +184,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Load data from network
     func loadNews(with query: String) {
-        firstly {
-            newsClient.searchNews(with: query)
-            }.done { result in
-                self.searchItems = result.articles
-            }.catch(on: .main) { err in
-                self.showError(err.localizedDescription)
-        }
+        interactor?.searchNews(query)
     }
     
 }
@@ -234,7 +253,11 @@ extension NewsSearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelega
 extension NewsSearchViewController{
     
     private func config() {
+        let presenter = NewsSearchPresenter()
+        interactor = NewsSearchInteractor(worker: NewsSearchWorker())
         router = NewsSearchRouter()
         (router as! NewsSearchRouter).viewController = self
+        (presenter as! NewsSearchPresenter).view = self
+        (interactor as! NewsSearchInteractor).presenter = presenter
     }
 }

@@ -34,6 +34,6 @@ class NewsSearchRouter: INewsSearchRouter {
     
     func navigateToDetail(sender: Any?) {
         viewController.performSegue(withIdentifier: R.segue.newsSearchViewController.newsSearchSegue,
-                          sender: sender)
+                                    sender: sender)
     }
 }
