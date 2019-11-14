@@ -138,7 +138,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         resultsSearchController.searchResultsUpdater = self
         if #available(iOS 11.0, *) {
             navigationItem.searchController = resultsSearchController
-            navigationItem.hidesSearchBarWhenScrolling = true
+            navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             navigationItem.titleView = resultsSearchController.searchBar
         }

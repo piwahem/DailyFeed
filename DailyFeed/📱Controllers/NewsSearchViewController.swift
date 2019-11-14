@@ -17,20 +17,18 @@ protocol INewsSearchView: class {
 
 extension NewsSearchViewController: INewsSearchView{
     func onLoading() {
-        setupSpinner(hidden: true)
+        setupSpinner(hidden: false)
     }
     
     func onList(_ list: [DailyFeedModel]) {
         self.searchItems = list
-        setupSpinner(hidden: false)
+        setupSpinner(hidden: true)
     }
     
     func onError(_ message: String) {
         self.showError(message)
-        setupSpinner(hidden: false)
+        setupSpinner(hidden: true)
     }
-    
-    
 }
 
 class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
@@ -74,7 +72,6 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     }()
     
     private let spinningActivityIndicator = TSSpinnerView()
-    private let newsClient = NewsClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
