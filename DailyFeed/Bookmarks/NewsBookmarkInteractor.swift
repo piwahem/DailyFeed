@@ -12,6 +12,7 @@ import RealmSwift
 protocol INewsBookmarkInteractor {
     func observerData() -> Results<DailyFeedRealmModel>
     func deleteData(item: DailyFeedRealmModel)
+    func addData(item: DailyFeedModel)
 }
 
 class NewsBookmarkInteractor: INewsBookmarkInteractor {
@@ -26,8 +27,12 @@ class NewsBookmarkInteractor: INewsBookmarkInteractor {
         return worker.observerData()
     }
     
+    
     func deleteData(item: DailyFeedRealmModel) {
         worker.deleteData(item: item)
     }
     
+    func addData(item: DailyFeedModel){
+        worker.addData(item: item)
+    }
 }

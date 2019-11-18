@@ -142,12 +142,8 @@ extension BookmarkViewController: UICollectionViewDropDelegate {
             if itemProvider.canLoadObject(ofClass: DailyFeedModel.self) {
                 itemProvider.loadObject(ofClass: DailyFeedModel.self) { (object, error) in
                     DispatchQueue.main.async {
-                        let realm = try! Realm()
                         if let dailyfeedmodel = object as? DailyFeedModel {
-                            let dailyfeedRealmModel = DailyFeedRealmModel.toDailyFeedRealmModel(from: dailyfeedmodel)
-                            try! realm.write {
-                                realm.add(dailyfeedRealmModel, update: true)
-                            }
+                            self.interactor?.addData(item: dailyfeedmodel)
                         } else {
                             //self.displayError(error)
                         }
