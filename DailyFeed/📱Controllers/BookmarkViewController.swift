@@ -35,29 +35,11 @@ class BookmarkViewController: UIViewController {
     }
     
     func observeDatabase() {
-        newsItems = interactor?.observerData()
-        
-        notificationToken = newsItems.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let collectionview = self?.bookmarkCollectionView else { return }
-            switch changes {
-            case .initial:
-                collectionview.reloadData()
-                break
-            case .update( _, let deletions, let insertions, _):
-                collectionview.performBatchUpdates({
-                    collectionview.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0) }))
-                    
-                    collectionview.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
-                    
-                }, completion: nil)
-                
-                if self?.newsItems.count == 0 || self?.newsItems.count == 1 { collectionview.reloadEmptyDataSet() }
-                break
-            case .error(let error):
-                fatalError("\(error)")
-                break
-            }
-        }
+        newsItems = interactor?.observerData(action: { (changes) in
+            self.handleChangesBookmark(changes: changes)
+        }, completion: { (notificationToken) in
+            self.notificationToken = notificationToken
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -161,6 +143,28 @@ extension BookmarkViewController{
         (router as! NewsBookmarkRouter).viewController = self
         
         interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker())
+    }
+    
+    private func handleChangesBookmark(changes: RealmCollectionChange<Results<DailyFeedRealmModel>>){
+        guard let collectionview = self.bookmarkCollectionView else { return }
+        switch changes {
+        case .initial:
+            collectionview.reloadData()
+            break
+        case .update( _, let deletions, let insertions, _):
+            collectionview.performBatchUpdates({
+                collectionview.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0) }))
+                
+                collectionview.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
+                
+            }, completion: nil)
+            
+            if self.newsItems.count == 0 || self.newsItems.count == 1 { collectionview.reloadEmptyDataSet() }
+            break
+        case .error(let error):
+            fatalError("\(error)")
+            break
+        }
     }
 }
 

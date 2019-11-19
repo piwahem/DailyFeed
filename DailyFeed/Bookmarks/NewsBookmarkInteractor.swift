@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 protocol INewsBookmarkInteractor {
-    func observerData() -> Results<DailyFeedRealmModel>
+    func observerData(action: @escaping ((RealmCollectionChange<Results<DailyFeedRealmModel>>))->Void, completion: (NotificationToken)->Void) -> Results<DailyFeedRealmModel>
     func deleteData(item: DailyFeedRealmModel)
     func addData(item: DailyFeedModel)
 }
@@ -23,10 +23,14 @@ class NewsBookmarkInteractor: INewsBookmarkInteractor {
         self.worker = worker
     }
     
-    func observerData() -> Results<DailyFeedRealmModel> {
-        return worker.observerData()
+    func observerData(action: @escaping ((RealmCollectionChange<Results<DailyFeedRealmModel>>)) -> Void, completion: (NotificationToken)->Void) -> Results<DailyFeedRealmModel> {
+        let data =  worker.observerData()
+        let notificationToken = data.observe { [weak self] (changes: RealmCollectionChange) in
+            action(changes)
+        }
+        completion(notificationToken)
+        return data
     }
-    
     
     func deleteData(item: DailyFeedRealmModel) {
         worker.deleteData(item: item)
