@@ -25,3 +25,16 @@ struct DailySourceModel: Codable {
         case isoLanguageCode = "language"
     }
 }
+
+extension Sources {
+    var countries: [String] {
+        return Array(Set(sources.map { $0.country }))
+    }
+    var languages: [String]{
+        return Array(Set(sources.map { $0.isoLanguageCode }))
+    }
+    
+    var categories: [String]{
+        return Array(Set(sources.map {$0.category}))
+    }
+}

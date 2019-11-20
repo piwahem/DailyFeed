@@ -19,8 +19,12 @@ class BookmarkViewController: UIViewController {
     
     var notificationToken: NotificationToken? = nil
     
+    var router: INewsBookmarkRouter? = nil
+    var interactor: INewsBookmarkInteractor? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        config()
         bookmarkCollectionView.register(R.nib.bookmarkItemsCell)
         bookmarkCollectionView.emptyDataSetDelegate = self
         bookmarkCollectionView.emptyDataSetSource = self
@@ -31,42 +35,15 @@ class BookmarkViewController: UIViewController {
     }
     
     func observeDatabase() {
-        
-        let realm = try! Realm()
-        newsItems = realm.objects(DailyFeedRealmModel.self)
-        
-        notificationToken = newsItems.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let collectionview = self?.bookmarkCollectionView else { return }
-            switch changes {
-            case .initial:
-                collectionview.reloadData()
-                break
-            case .update( _, let deletions, let insertions, _):
-                collectionview.performBatchUpdates({
-                    collectionview.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0) }))
-                    
-                    collectionview.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
-                    
-                }, completion: nil)
-                
-                if self?.newsItems.count == 0 || self?.newsItems.count == 1 { collectionview.reloadEmptyDataSet() }
-                break
-            case .error(let error):
-                fatalError("\(error)")
-                break
-            }
-        }
+        newsItems = interactor?.observerData(action: { (changes) in
+            self.handleChangesBookmark(changes: changes)
+        }, completion: { (notificationToken) in
+            self.notificationToken = notificationToken
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.bookmarkViewController.bookmarkSourceSegue.identifier {
-            if let vc = segue.destination as? NewsDetailViewController {
-                guard let cell = sender as? UICollectionViewCell else { return }
-                guard let indexpath = self.bookmarkCollectionView.indexPath(for: cell) else { return }
-                vc.receivedItemNumber = indexpath.row + 1
-                vc.receivedNewsItem = newsItems[indexpath.row]
-            }
-        }
+        router?.passDataToNextScene(segue: segue, sender: sender)
     }
     
     deinit {
@@ -92,11 +69,7 @@ extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewData
         newsCell?.cellTapped = { cell in
             if let cellToDelete = self.bookmarkCollectionView.indexPath(for: cell)?.row {
                 let item = self.newsItems[cellToDelete]
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.delete(item)
-                }
-                
+                self.interactor?.deleteData(item: item)
             }
         }
         return newsCell!
@@ -108,7 +81,7 @@ extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        self.performSegue(withIdentifier: R.segue.bookmarkViewController.bookmarkSourceSegue, sender: cell)
+        router?.navigateToDetail(sender: cell)
     }
 }
 
@@ -151,18 +124,46 @@ extension BookmarkViewController: UICollectionViewDropDelegate {
             if itemProvider.canLoadObject(ofClass: DailyFeedModel.self) {
                 itemProvider.loadObject(ofClass: DailyFeedModel.self) { (object, error) in
                     DispatchQueue.main.async {
-                        let realm = try! Realm()
                         if let dailyfeedmodel = object as? DailyFeedModel {
-                            let dailyfeedRealmModel = DailyFeedRealmModel.toDailyFeedRealmModel(from: dailyfeedmodel)
-                            try! realm.write {
-                                realm.add(dailyfeedRealmModel, update: true)
-                            }
+                            self.interactor?.addData(item: dailyfeedmodel)
                         } else {
                             //self.displayError(error)
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+extension BookmarkViewController{
+    
+    func config(){
+        router = NewsBookmarkRouter()
+        (router as! NewsBookmarkRouter).viewController = self
+        
+        interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker())
+    }
+    
+    private func handleChangesBookmark(changes: RealmCollectionChange<Results<DailyFeedRealmModel>>){
+        guard let collectionview = self.bookmarkCollectionView else { return }
+        switch changes {
+        case .initial:
+            collectionview.reloadData()
+            break
+        case .update( _, let deletions, let insertions, _):
+            collectionview.performBatchUpdates({
+                collectionview.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0) }))
+                
+                collectionview.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
+                
+            }, completion: nil)
+            
+            if self.newsItems.count == 0 || self.newsItems.count == 1 { collectionview.reloadEmptyDataSet() }
+            break
+        case .error(let error):
+            fatalError("\(error)")
+            break
         }
     }
 }
