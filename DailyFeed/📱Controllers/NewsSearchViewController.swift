@@ -9,18 +9,43 @@ import UIKit
 import PromiseKit
 import DZNEmptyDataSet
 
+protocol INewsSearchView: class {
+    func onLoading()
+    func onList(_ list: [DailyFeedModel])
+    func onError(_ message: String)
+}
+
+extension NewsSearchViewController: INewsSearchView{
+    func onLoading() {
+        setupSpinner(hidden: false)
+    }
+    
+    func onList(_ list: [DailyFeedModel]) {
+        self.searchItems = list
+        setupSpinner(hidden: true)
+    }
+    
+    func onError(_ message: String) {
+        self.showError(message)
+        setupSpinner(hidden: true)
+    }
+}
+
 class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
     
     var scrollView: UIScrollView {
         return searchCollectionView
     }
     
+    //MARK: - Config
+    var router: INewsSearchRouter?
+    var interactor: INewsSearchInteractor?
     
     // MARK: - IBOutlets
-    @IBOutlet weak private var searchCollectionView: UICollectionView!
+    @IBOutlet weak var searchCollectionView: UICollectionView!
     
     // MARK: - Variable declaration
-    private var searchItems: [DailyFeedModel] = [] {
+    var searchItems: [DailyFeedModel] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.searchCollectionView.reloadSections([0])
@@ -32,7 +57,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     private let transition = NewsDetailPopAnimator()
     
-    private var selectedCell = UICollectionViewCell()
+    var selectedCell = UICollectionViewCell()
     
     
     private var resultsSearchController: UISearchController = {
@@ -47,10 +72,10 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     }()
     
     private let spinningActivityIndicator = TSSpinnerView()
-    private let newsClient = NewsClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        config()
         //setup UI
         setupUI()
     }
@@ -132,25 +157,14 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) {
-            self.performSegue(withIdentifier: R.segue.newsSearchViewController.newsSearchSegue,
-                              sender: cell)
+            router?.navigateToDetail(sender: cell)
         }
         
     }
     
     // MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == R.segue.newsSearchViewController.newsSearchSegue.identifier {
-            if let vc = segue.destination as? NewsDetailViewController {
-                guard let cell = sender as? UICollectionViewCell else { return }
-                guard let indexpath = self.searchCollectionView?.indexPath(for: cell) else { return }
-                selectedCell = cell
-                vc.transitioningDelegate = self
-                vc.modalPresentationStyle = .formSheet
-                vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: searchItems[indexpath.row])
-                vc.receivedItemNumber = indexpath.row + 1
-            }
-        }
+        router?.passDataToNextScene(segue: segue, sender: sender)
     }
     
     
@@ -167,13 +181,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Load data from network
     func loadNews(with query: String) {
-        firstly {
-            newsClient.searchNews(with: query)
-            }.done { result in
-                self.searchItems = result.articles
-            }.catch(on: .main) { err in
-                self.showError(err.localizedDescription)
-        }
+        interactor?.searchNews(query)
     }
     
 }
@@ -236,5 +244,17 @@ extension NewsSearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelega
     
     func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
         return true
+    }
+}
+
+extension NewsSearchViewController{
+    
+    private func config() {
+        let presenter = NewsSearchPresenter()
+        interactor = NewsSearchInteractor(worker: NewsSearchWorker())
+        router = NewsSearchRouter()
+        (router as! NewsSearchRouter).viewController = self
+        (presenter as! NewsSearchPresenter).view = self
+        (interactor as! NewsSearchInteractor).presenter = presenter
     }
 }

@@ -28,8 +28,7 @@ extension DailyFeedNewsController: UICollectionViewDataSource, UICollectionViewD
         collectionView.performBatchUpdates(nil, completion: nil)
         if let cell = collectionView.cellForItem(at: indexPath) {
             selectedCell = cell
-            self.performSegue(withIdentifier: R.segue.dailyFeedNewsController.newsDetailSegue,
-                              sender: cell)
+            self.router?.navigateToDetail(sender: cell)
         }
 
     }

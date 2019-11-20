@@ -10,7 +10,10 @@ import SafariServices
 import RealmSwift
 
 class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate, UIViewControllerTransitioningDelegate {
-
+    
+    //MARK: - Config
+    var router: INewsDetailRouter?
+    
     // MARK: - Variable declaration
     
     var receivedNewsItem: DailyFeedRealmModel?
@@ -22,7 +25,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
     var receivedItemNumber: Int?
     
     var isLanguageRightToLeftDetailView: Bool = false
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak var newsImageView: TSImageView! {
         didSet {
@@ -31,7 +34,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             newsImageView.downloadedFromLink(imageURL)
         }
     }
-
+    
     @IBOutlet weak var newsTitleLabel: UILabel! {
         didSet {
             newsTitleLabel.text = receivedNewsItem?.title
@@ -43,7 +46,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             }
         }
     }
-
+    
     @IBOutlet weak var contentTextView: UITextView! {
         didSet {
             contentTextView.text = receivedNewsItem?.articleDescription
@@ -58,7 +61,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             }
         }
     }
-
+    
     @IBOutlet weak var newsAuthorLabel: UILabel! {
         didSet {
             newsAuthorLabel.text = receivedNewsItem?.author
@@ -70,7 +73,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             }
         }
     }
-
+    
     @IBOutlet weak var backButton: UIButton! {
         didSet {
             backButton.layer.shadowColor = UIColor.black.cgColor
@@ -79,7 +82,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             backButton.layer.shadowOffset = CGSize(width: 0, height: 1)
         }
     }
-
+    
     @IBOutlet weak var shareButton: UIButton! {
         didSet {
             shareButton.layer.shadowColor = UIColor.black.cgColor
@@ -88,7 +91,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             shareButton.layer.shadowOffset = CGSize(width: 0, height: 1)
         }
     }
-
+    
     @IBOutlet weak var swipeLeftButton: UIButton! {
         didSet {
             swipeLeftButton.layer.cornerRadius = 10.0
@@ -106,12 +109,12 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             }
         }
     }
-
+    
     @IBOutlet weak var newsSourceImageView: TSImageView! {
         didSet {
             guard receivedNewsSourceLogo != nil else { return }
             //newsSourceImageView.downloadedFromLink(newsSourceLogo)
-
+            
         }
     }
     
@@ -124,7 +127,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             newsItemNumberLabel.layer.cornerRadius = 5.0
         }
     }
-
+    
     
     // MARK: - View Controller Lifecycle Methods
     override func viewDidLoad() {
@@ -135,7 +138,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
         newsImageView.addGradient([UIColor(white: 0, alpha: 0.6).cgColor, UIColor.clear.cgColor,
                                    UIColor(white: 0, alpha: 0.6).cgColor],
                                   locations: [0.0, 0.05, 0.85])
-
+        
         //Setting articleStringURL for state restoration
         articleStringURL = receivedNewsItem?.url
         
@@ -144,6 +147,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             dragInteraction.isEnabled = true
             newsImageView.addInteraction(dragInteraction)
         }
+        config()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -151,7 +155,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
         newsTitleLabel.center.y += 20
         newsAuthorLabel.center.y += 20
         contentTextView.center.y += 20
-
+        
         UIView.animate(withDuration: 0.07, delay: 0.0, options: .curveEaseIn, animations: {
             self.newsTitleLabel.alpha = 1.0
             self.newsTitleLabel.center.y -= 20
@@ -167,14 +171,14 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
+        
     }
     
     // MARK: - Status Bar Color
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
     // MARK: - Back Button Dismiss action
     @IBAction func dismissButtonTapped() {
         presentingViewController?.dismiss(animated: true, completion: nil)
@@ -187,12 +191,12 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
     
     // MARK: - share article
     @IBAction func shareArticle(_ sender: UIButton) {
-
+        
         fadeUIElements(with: 0.0)
-
+        
         let delay = DispatchTime.now() + 0.11
         DispatchQueue.main.asyncAfter(deadline: delay) {
-
+            
             guard let shareURL = self.articleStringURL,
                 let articleImage = self.captureScreenShot(),
                 let articleToBookmarkData = self.receivedNewsItem else {return}
@@ -215,52 +219,49 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
                                                 .postToVimeo,
                                                 .print,
                                                 .postToWeibo]
-
+            
             activityVC.completionWithItemsHandler = {(activityType, completed: Bool, _, _) in
                 self.fadeUIElements(with: 1.0)
             }
             
             // Popover for iPad only
-
+            
             let popOver = activityVC.popoverPresentationController
             popOver?.sourceView = self.shareButton
             popOver?.sourceRect = self.shareButton.bounds
             self.present(activityVC, animated: true, completion: nil)
         }
     }
-
+    
     // Helper to toggle UI elements before and after screenshot capture
-     func fadeUIElements(with alpha: CGFloat) {
+    func fadeUIElements(with alpha: CGFloat) {
         UIView.animate(withDuration: 0.1) {
             self.backButton.alpha = alpha
             self.shareButton.alpha = alpha
             self.swipeLeftButton.alpha = alpha
         }
     }
-
+    
     // Helper method to generate article screenshots
-     func captureScreenShot() -> UIImage? {
+    func captureScreenShot() -> UIImage? {
         //Create the UIImage
         let bounds = UIScreen.main.bounds
         UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
         self.view.drawHierarchy(in: bounds, afterScreenUpdates: false)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return image
-
+        
     }
-
+    
     @IBAction func openArticleInSafari(_ sender: UIButton) {
         openInSafari()
     }
-
+    
     // Helper method to open articles in Safari
     func openInSafari() {
-        guard let articleString = articleStringURL, let url = URL(string: articleString) else { return }
-        let svc = DFSafariViewController(url: url)
-        svc.delegate = self
-        self.present(svc, animated: true, completion: nil)
+        router?.openSafari()
     }
 }
 
@@ -274,4 +275,12 @@ extension NewsDetailViewController: UIDragInteractionDelegate {
         return [item]
     }
     
+}
+
+extension NewsDetailViewController{
+    
+    private func config() {
+        router = NewsDetailRouter()
+        (router as! NewsDetailRouter).viewController = self
+    }
 }
