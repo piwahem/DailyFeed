@@ -11,12 +11,17 @@ import RealmSwift
 
 class CacheClient<T: Object> {
     
-    var getIdParams: ((T) -> String)?
+    var getIdParams: ((T) -> String?)?
 
     
-    func addData(list: [T]) {
+    func addData(addList: [T]) {
+        
+        let cached = getData()
+        let oldList = Array(cached)
+        let newList = merge(oldList: oldList, newList: addList)
+        
         let realm = try! Realm()
-        list.forEach { (item) in
+        newList.forEach { (item) in
             try! realm.write {
                 realm.add(item, update: true)
             }
@@ -40,7 +45,7 @@ class CacheClient<T: Object> {
             return [T]()
         }
         
-        let ids = newList.map { (item) -> String in
+        let ids = newList.map { (item) -> String? in
             getId(item)
         }
         
