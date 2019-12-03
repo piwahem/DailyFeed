@@ -76,3 +76,37 @@ extension DailyFeedModel: NSItemProviderReading {
     }
 }
 
+extension DailyFeedModel{
+    class func converFrom(from: ArticleRealmModel) -> DailyFeedModel {
+        let item = DailyFeedModel()
+        if let title = from.title{
+            item.title = title
+        }
+        
+        if let author = from.author{
+            item.author = author
+        }
+        
+        if let artDescription = from.articleDescription {
+            item.articleDescription = artDescription
+        }
+        
+        if let writer = from.author {
+            item.author = writer
+        }
+        
+        if let publishedTime = from.publishedAt {
+            item.publishedAt = publishedTime
+        }
+        
+        if let url = from.url {
+            item.url = url
+        }
+        
+        if let imageFromUrl = from.urlToImage {
+            item.urlToImage = imageFromUrl
+        }
+        
+        return item
+    }
+}

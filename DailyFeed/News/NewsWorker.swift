@@ -51,4 +51,22 @@ class NewsWorker: INewsWorker {
                 callback(nil, err)
         }
     }
+    
+    private func handleResponse(_ article: inout Articles) -> Articles{
+        let newsCache = CacheClient<ArticleRealmModel>()
+        newsCache.getIdParams = { item in
+            item.url ?? nil
+        }
+        
+        let reamlItems = article.articles.map { (item) -> ArticleRealmModel in
+            ArticleRealmModel.converFrom(from: item)
+        }
+        newsCache.addData(addList: reamlItems)
+        
+        let data = newsCache.getData()
+        let list = Array(data)
+        let items = list.map {DailyFeedModel.converFrom(from: $0)}
+        article.articles = items
+        return article
+    }
 }
