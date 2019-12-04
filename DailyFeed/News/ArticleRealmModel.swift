@@ -22,7 +22,7 @@ public final class ArticleRealmModel: Object{
         return "url"
     }
     
-    class func converFrom(from: DailyFeedModel) -> ArticleRealmModel {
+    class func convertFrom(from: DailyFeedModel) -> ArticleRealmModel {
         let item = ArticleRealmModel()
         item.title = from.title
         
@@ -45,11 +45,14 @@ public final class ArticleRealmModel: Object{
         
         if let url = from.url {
             item.url = url
-            item.sourceID = URL(string: url)?.baseURL?.absoluteString
         }
         
         if let imageFromUrl = from.urlToImage {
             item.urlToImage = imageFromUrl
+        }
+        
+        if let sourceId = from.source.id{
+            item.sourceID = sourceId
         }
         
         return item

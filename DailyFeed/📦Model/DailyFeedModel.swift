@@ -17,6 +17,11 @@ enum DailyFeedModelError: Error {
     case invalidDailyFeedModel
 }
 
+enum DailySourceConstant: String{
+    case emptyId = "emptyId"
+    case emptyName = "emptyName"
+}
+
 struct Articles: Codable {
     var articles: [DailyFeedModel]
 }
@@ -30,11 +35,17 @@ final class DailyFeedModel: NSObject, Serializable {
     public var urlToImage: String?
     public var articleDescription: String?
     public var url: String?
+    public var source: DailyFeedSource = DailyFeedSource(id: DailySourceConstant.emptyId.rawValue, name: DailySourceConstant.emptyName.rawValue)
     
     private enum CodingKeys: String, CodingKey {
         case articleDescription = "description"
-        case title, author, publishedAt, urlToImage, url
+        case title, author, publishedAt, urlToImage, url, source
     }
+}
+
+struct DailyFeedSource: Codable {
+    public var id: String?
+    public var name: String?
 }
 
 // MARK :- NSProvider read/write method implementations
@@ -77,7 +88,7 @@ extension DailyFeedModel: NSItemProviderReading {
 }
 
 extension DailyFeedModel{
-    class func converFrom(from: ArticleRealmModel) -> DailyFeedModel {
+    class func convertFrom(from: ArticleRealmModel) -> DailyFeedModel {
         let item = DailyFeedModel()
         if let title = from.title{
             item.title = title
@@ -105,6 +116,10 @@ extension DailyFeedModel{
         
         if let imageFromUrl = from.urlToImage {
             item.urlToImage = imageFromUrl
+        }
+        
+        if let sourceId = from.sourceID {
+            item.source.id = sourceId
         }
         
         return item
