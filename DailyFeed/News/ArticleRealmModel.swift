@@ -16,7 +16,7 @@ public final class ArticleRealmModel: Object{
     @objc dynamic  var publishedAt: String?
     @objc dynamic  var content: String?
     
-    @objc dynamic  var sourceID: String?
+    @objc dynamic  var source: SourceRealmModel?
     
     override public static func primaryKey() -> String? {
         return "url"
@@ -51,8 +51,8 @@ public final class ArticleRealmModel: Object{
             item.urlToImage = imageFromUrl
         }
         
-        if let sourceId = from.source.id{
-            item.sourceID = sourceId
+        if let source = from.source{
+            item.source = SourceRealmModel.convertFrom(from: source)
         }
         
         return item

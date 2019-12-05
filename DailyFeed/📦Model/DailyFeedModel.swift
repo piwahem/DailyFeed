@@ -35,7 +35,8 @@ final class DailyFeedModel: NSObject, Serializable {
     public var urlToImage: String?
     public var articleDescription: String?
     public var url: String?
-    public var source: DailyFeedSource = DailyFeedSource(id: DailySourceConstant.emptyId.rawValue, name: DailySourceConstant.emptyName.rawValue)
+    
+    public var source: DailySourceModel?
     
     private enum CodingKeys: String, CodingKey {
         case articleDescription = "description"
@@ -118,8 +119,8 @@ extension DailyFeedModel{
             item.urlToImage = imageFromUrl
         }
         
-        if let sourceId = from.sourceID {
-            item.source.id = sourceId
+        if let source = from.source {
+            item.source = DailySourceModel.convertFrom(from: source)
         }
         
         return item

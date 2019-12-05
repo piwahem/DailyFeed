@@ -221,9 +221,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
         if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid ?? "").url)
         } else {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid!).url)
         }
         return cell!
     }
@@ -245,7 +245,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         filteredSourceItems.removeAll(keepingCapacity: false)
         
         if let searchString = searchController.searchBar.text {
-            let searchResults = sourceItems.filter { $0.name.lowercased().contains(searchString.lowercased()) }
+            let searchResults = sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
             filteredSourceItems = searchResults
         }
     }

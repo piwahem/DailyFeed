@@ -76,22 +76,16 @@ class NewsWorker: INewsWorker {
             ArticleRealmModel.convertFrom(from: item)
         }
         newsCache.addData(addList: reamlItems)
-        
+
         let data = newsCache.getData()
         let list = Array(data)
         let items = list.map {DailyFeedModel.convertFrom(from: $0)}
         article.articles = items
+        
         article.articles.sort { (a, b) -> Bool in
             if let dateA = a.publishedAt?.dateFromTimestamp,
-                let dateB = b.publishedAt?.dateFromTimestamp,
-                let sourceA = a.source.id,
-                let sourceB = b.source.id {
-                
-                if sourceA == source || sourceB == source {
-                    return true
-                }else{
-                    return (dateA, sourceB) > (dateB, sourceA)
-                }
+                let dateB = b.publishedAt?.dateFromTimestamp{
+                return dateA > dateB
             }
             return false
         }

@@ -75,7 +75,7 @@ class NewsRouter: INewsRouter {
             let oldSource = (viewController.interactor?.source)!
             let oldIsLanguageRightToLeft = viewController.isLanguageRightToLeft
             
-            viewController.isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
+            viewController.isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode?.direction == .rightToLeft
             viewController.interactor?.source = sourceId
             viewController.loadNewsData(){ success in
                 if (!success){
