@@ -20,7 +20,7 @@ public final class SourceRealmModel: Object{
     @objc dynamic var url: String?
     
     override public static func primaryKey() -> String? {
-        return "url"
+        return "id"
     }
     
     class func convertFrom(from: DailySourceModel) -> SourceRealmModel{

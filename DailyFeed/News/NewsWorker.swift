@@ -72,15 +72,13 @@ class NewsWorker: INewsWorker {
             item.url ?? nil
         }
         
-        let reamlItems = article.articles.map { (item) -> ArticleRealmModel in
+        newsCache.addData(addList: article.articles.map { (item) -> ArticleRealmModel in
             ArticleRealmModel.convertFrom(from: item)
-        }
-        newsCache.addData(addList: reamlItems)
+        })
 
-        let data = newsCache.getData()
-        let list = Array(data)
-        let items = list.map {DailyFeedModel.convertFrom(from: $0)}
-        article.articles = items
+        article.articles = Array(newsCache.getData())
+                            .filter{$0.source?.id == source}
+                            .map {DailyFeedModel.convertFrom(from: $0)}
         
         article.articles.sort { (a, b) -> Bool in
             if let dateA = a.publishedAt?.dateFromTimestamp,
