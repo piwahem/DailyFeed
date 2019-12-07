@@ -8,7 +8,7 @@
 //Data Model
 
 struct Sources: Codable {
-    public let sources: [DailySourceModel]
+    public var sources: [DailySourceModel]
 }
 
 struct DailySourceModel: Codable {

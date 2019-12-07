@@ -27,7 +27,12 @@ class SourceWorker: ISourceWorker {
         
         firstly {
             newsClient.getNewsSource(sourceRequestParams: sourceRequestParams)
-            }.done { result in
+            }
+            .then { sources -> Promise<Sources> in
+                var result = sources
+                return self.handleResponse(&result)
+            }
+            .done { result in
                 if (self.isInit(sourceRequestParams: sourceRequestParams)){
                     self.sources = result
                 }
@@ -47,5 +52,35 @@ class SourceWorker: ISourceWorker {
         return sourceRequestParams.category == nil &&
             sourceRequestParams.country == nil &&
             sourceRequestParams.language == nil
+    }
+    
+    private func handleResponse(_ source: inout Sources) -> Promise<Sources>{
+        return Promise { seal in
+            let result = self.updateResponse(&source)
+            seal.fulfill(result)
+        }
+    }
+    
+    private func updateResponse(_ res: inout Sources) -> Sources{
+        let newsCache = CacheClient<SourceRealmModel>()
+        newsCache.getIdParams = { item in
+            item.id ?? nil
+        }
+        
+        newsCache.addData(addList: res.sources.map { (item) -> SourceRealmModel in
+            SourceRealmModel.convertFrom(from: item)
+        })
+        
+        res.sources = Array(newsCache.getData())
+            .map {DailySourceModel.convertFrom(from: $0)}
+        
+        res.sources.sort { (a, b) -> Bool in
+            if let idA = a.sid,
+                let idB = b.sid {
+                return idA < idB
+            }
+            return false
+        }
+        return res
     }
 }
