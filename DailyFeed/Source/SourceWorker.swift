@@ -30,7 +30,7 @@ class SourceWorker: ISourceWorker {
             }
             .then { sources -> Promise<Sources> in
                 var result = sources
-                return self.handleResponse(&result)
+                return self.handleResponse(&result, sourceRequestParams: sourceRequestParams)
             }
             .done { result in
                 if (self.isInit(sourceRequestParams: sourceRequestParams)){
@@ -54,14 +54,14 @@ class SourceWorker: ISourceWorker {
             sourceRequestParams.language == nil
     }
     
-    private func handleResponse(_ source: inout Sources) -> Promise<Sources>{
+    private func handleResponse(_ source: inout Sources, sourceRequestParams: NewsSourceParameters) -> Promise<Sources>{
         return Promise { seal in
-            let result = self.updateResponse(&source)
+            let result = self.updateResponse(&source, sourceRequestParams: sourceRequestParams)
             seal.fulfill(result)
         }
     }
     
-    private func updateResponse(_ res: inout Sources) -> Sources{
+    private func updateResponse(_ res: inout Sources, sourceRequestParams: NewsSourceParameters) -> Sources{
         let newsCache = CacheClient<SourceRealmModel>()
         newsCache.getIdParams = { item in
             item.id ?? nil
@@ -72,6 +72,22 @@ class SourceWorker: ISourceWorker {
         })
         
         res.sources = Array(newsCache.getData())
+            .filter({ (item) -> Bool in
+                var isCategory = true
+                var isLanguage = true
+                var isCountry = true
+                if let category = sourceRequestParams.category{
+                    isCategory = category == item.category
+                }
+                if let language = sourceRequestParams.language{
+                    isLanguage = language == item.language
+                }
+                if let country = sourceRequestParams.country{
+                    isCountry = country == item.country
+                }
+                
+                return isCountry && isLanguage && isCategory
+            })
             .map {DailySourceModel.convertFrom(from: $0)}
         
         res.sources.sort { (a, b) -> Bool in
