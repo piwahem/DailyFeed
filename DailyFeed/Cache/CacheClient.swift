@@ -15,13 +15,8 @@ class CacheClient<T: Object> {
 
     
     func addData(addList: [T]) {
-        
-        let cached = getData()
-        let oldList = Array(cached)
-        let newList = merge(oldList: oldList, newList: addList)
-        
         let realm = try! Realm()
-        newList.forEach { (item) in
+        addList.forEach { (item) in
             try! realm.write {
                 realm.add(item, update: true)
             }
@@ -39,22 +34,4 @@ class CacheClient<T: Object> {
             realm.delete(item)
         }
     }
-    
-    func merge(oldList: [T], newList: [T]) -> [T]{
-        guard let getId = getIdParams else {
-            return [T]()
-        }
-        
-        let ids = newList.map { (item) -> String? in
-            getId(item)
-        }
-        
-        var result = oldList.filter { (item) -> Bool in
-            !ids.contains(getId(item))
-        }
-        
-        result.append(contentsOf: newList)
-        return result
-    }
-
 }

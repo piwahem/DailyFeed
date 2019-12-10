@@ -39,14 +39,20 @@ class NewsWorker: INewsWorker {
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
                  completetion: @escaping ()->Void) {
+        
         let newsClient = NewsClient()
+        let newsCached = CacheNewsClient()
         
         firstly {
-            newsClient.getNewsItems(source: source)
+            newsCached.getNews(source: source)
+            }
+            .then { article -> Promise<Articles> in
+                callback(article, nil)
+                return newsClient.getNewsItems(source: source)
             }
             .then { article -> Promise<Articles> in
                 var result = article
-                return self.handleResponse(&result, source: source)
+                return newsCached.addNews(&result, source: source)
             }
             .done{ result in
                 callback(result, nil)
@@ -57,36 +63,5 @@ class NewsWorker: INewsWorker {
             .catch(on: .main) { err in
                 callback(nil, err)
         }
-    }
-    
-    private func handleResponse(_ article: inout Articles, source: String) -> Promise<Articles>{
-        return Promise { seal in
-            let result = self.updateResponse(&article, source: source)
-            seal.fulfill(result)
-        }
-    }
-    
-    private func updateResponse(_ article: inout Articles, source: String) -> Articles{
-        let newsCache = CacheClient<ArticleRealmModel>()
-        newsCache.getIdParams = { item in
-            item.url ?? nil
-        }
-        
-        newsCache.addData(addList: article.articles.map { (item) -> ArticleRealmModel in
-            ArticleRealmModel.convertFrom(from: item)
-        })
-
-        article.articles = Array(newsCache.getData())
-                            .filter{$0.source?.id == source}
-                            .map {DailyFeedModel.convertFrom(from: $0)}
-        
-        article.articles.sort { (a, b) -> Bool in
-            if let dateA = a.publishedAt?.dateFromTimestamp,
-                let dateB = b.publishedAt?.dateFromTimestamp{
-                return dateA > dateB
-            }
-            return false
-        }
-        return article
     }
 }

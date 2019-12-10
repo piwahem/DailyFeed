@@ -24,6 +24,9 @@ enum DailySourceConstant: String{
 
 struct Articles: Codable {
     var articles: [DailyFeedModel]
+    init() {
+        articles = [DailyFeedModel]()
+    }
 }
 
 //Data Model
