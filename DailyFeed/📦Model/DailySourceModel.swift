@@ -9,6 +9,9 @@
 
 struct Sources: Codable {
     public var sources: [DailySourceModel]
+    init() {
+        sources = [DailySourceModel]()
+    }
 }
 
 struct DailySourceModel: Codable {
