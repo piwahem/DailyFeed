@@ -22,25 +22,14 @@ class CacheNewsClient: CacheClient<ArticleRealmModel> {
         return Promise { seal in
             var article = Articles()
             let predicate = NSPredicate(format: "title CONTAINS[c] %@ OR articleDescription CONTAINS[c] %@ OR content CONTAINS[c] %@", query, query, query)
-            var result = Array(getData().filter(predicate))
-                            .map {DailyFeedModel.convertFrom(from: $0)}
-            result.sort { (a, b) -> Bool in
-                if let dateA = a.publishedAt?.dateFromTimestamp,
-                    let dateB = b.publishedAt?.dateFromTimestamp{
-                    return dateA > dateB
-                }
-                return false
-            }
-            article.articles = result
-            seal.fulfill(article)
+            seal.fulfill(self.update(&article, predicate: predicate))
         }
     }
     
     func getNews(source: String) -> Promise<Articles> {
         return Promise { seal in
             var article = Articles()
-            update(&article, source: source)
-            seal.fulfill(article)
+            seal.fulfill(update(&article ,predicate: NSPredicate(format: "source.id == %@", source)))
         }
     }
     
@@ -55,15 +44,17 @@ class CacheNewsClient: CacheClient<ArticleRealmModel> {
         addData(addList: article.articles.map { (item) -> ArticleRealmModel in
             ArticleRealmModel.convertFrom(from: item)
         })
-        update(&article, source: source)
+        return update(&article, predicate: NSPredicate(format: "source.id == %@", source))
+    }
+    
+    private func update(_ article: inout Articles, predicate: NSPredicate) -> Articles{
+        article.articles = Array(getData().filter(predicate))
+            .map {DailyFeedModel.convertFrom(from: $0)}
+        sort(&article)
         return article
     }
     
-    private func update(_ article: inout Articles, source: String){
-        article.articles = Array(getData())
-            .filter{$0.source?.id == source}
-            .map {DailyFeedModel.convertFrom(from: $0)}
-        
+    private func sort(_ article: inout Articles){
         article.articles.sort { (a, b) -> Bool in
             if let dateA = a.publishedAt?.dateFromTimestamp,
                 let dateB = b.publishedAt?.dateFromTimestamp{
