@@ -21,15 +21,13 @@ class CacheSourceClient: CacheClient<SourceRealmModel> {
     func getSources(sourceRequestParams: NewsSourceParameters) -> Promise<Sources> {
         return Promise { seal in
             var sources = Sources()
-            update(&sources, sourceRequestParams: sourceRequestParams)
-            seal.fulfill(sources)
+            seal.fulfill(update(&sources, sourceRequestParams: sourceRequestParams))
         }
     }
     
     func addSources(_ article: inout Sources, sourceRequestParams: NewsSourceParameters) -> Promise<Sources>{
         return Promise { seal in
-            let result = self.updateSources(&article, sourceRequestParams: sourceRequestParams)
-            seal.fulfill(result)
+            seal.fulfill(self.updateSources(&article, sourceRequestParams: sourceRequestParams))
         }
     }
     
@@ -37,8 +35,7 @@ class CacheSourceClient: CacheClient<SourceRealmModel> {
         addData(addList: source.sources.map { (item) -> SourceRealmModel in
             SourceRealmModel.convertFrom(from: item)
         })
-        update(&source, sourceRequestParams: sourceRequestParams)
-        return source
+        return update(&source, sourceRequestParams: sourceRequestParams)
     }
     
     private func update(_ res: inout Sources, sourceRequestParams: NewsSourceParameters) -> Sources{

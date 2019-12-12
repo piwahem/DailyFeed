@@ -18,6 +18,24 @@ class CacheNewsClient: CacheClient<ArticleRealmModel> {
         }
     }
     
+    func searchNews(query: String) -> Promise<Articles> {
+        return Promise { seal in
+            var article = Articles()
+            let predicate = NSPredicate(format: "title CONTAINS[c] %@ OR articleDescription CONTAINS[c] %@ OR content CONTAINS[c] %@", query, query, query)
+            var result = Array(getData().filter(predicate))
+                            .map {DailyFeedModel.convertFrom(from: $0)}
+            result.sort { (a, b) -> Bool in
+                if let dateA = a.publishedAt?.dateFromTimestamp,
+                    let dateB = b.publishedAt?.dateFromTimestamp{
+                    return dateA > dateB
+                }
+                return false
+            }
+            article.articles = result
+            seal.fulfill(article)
+        }
+    }
+    
     func getNews(source: String) -> Promise<Articles> {
         return Promise { seal in
             var article = Articles()
