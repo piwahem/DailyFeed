@@ -17,6 +17,7 @@ public final class ArticleTestRealmModel: Object{
     @objc dynamic  var urlToImage: String?
     @objc dynamic  var publishedAt: String?
     @objc dynamic  var content: String?
+    @objc dynamic  var isBookmark: Bool = false
     
     @objc dynamic  var source: SourceRealmModel?
     
