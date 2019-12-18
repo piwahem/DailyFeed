@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 enum CacheVersion:Int {
-    case CURRENT_VERSION = 11
+    case CURRENT_VERSION = 12
     
 }
 
@@ -31,7 +31,9 @@ class MigrationManager {
             case 0..<7:
                 CacheMigration(migration: migration, oldSchemaVersion: Int64(i)).migrating()
             case 8:
-                NineMigration(migration: migration).migrating()
+                ToNineMigration(migration: migration).migrating()
+            case 11:
+                ToTwelveMigration(migration: migration).migrating()
             default:
                 CacheMigration(migration: migration, oldSchemaVersion: Int64(i)).migrating()
             }

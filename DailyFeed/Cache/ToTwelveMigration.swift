@@ -1,18 +1,18 @@
 //
-//  NineMigration.swift
+//  ToTwelveMigration.swift
 //  DailyFeed
 //
-//  Created by Admin on 12/17/19.
+//  Created by Admin on 12/18/19.
 //  Copyright © 2019 trianz. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class NineMigration: CacheMigration{
+class ToTwelveMigration: CacheMigration{
     
     init(migration: Migration) {
-        super.init(migration: migration, oldSchemaVersion: 8)
+        super.init(migration: migration, oldSchemaVersion: 11)
     }
     
     override func migrating() {
