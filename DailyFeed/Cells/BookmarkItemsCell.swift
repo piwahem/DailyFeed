@@ -37,6 +37,16 @@ class BookmarkItemsCell: UICollectionViewCell {
         self.newsArticleImageView.downloadedFromLink(newsitems.urlToImage)
     }
     
+    func configure(with newsitems: ArticleTestRealmModel) {
+        self.newsArticleTitleLabel.text = newsitems.title
+        self.newsArticleAuthorLabel.text = newsitems.author
+        self.newsArticleTimeLabel.text = newsitems.publishedAt?.dateFromTimestamp?.relativelyFormatted(short: true)
+        
+        if let downloadUrl = newsitems.urlToImage{
+            self.newsArticleImageView.downloadedFromLink(downloadUrl)
+        }
+    }
+    
     @IBAction func deleteBookmarkArticle(_ sender: UIButton) {
         cellTapped?(self)
     }
