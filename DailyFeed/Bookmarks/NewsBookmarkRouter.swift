@@ -24,7 +24,8 @@ class NewsBookmarkRouter: INewsBookmarkRouter {
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexpath = viewController.bookmarkCollectionView.indexPath(for: cell) else { return }
                 vc.receivedItemNumber = indexpath.row + 1
-                vc.receivedNewsItem = viewController.newsItems[indexpath.row]
+                let item = viewController.newsItems[indexpath.row]
+                vc.receivedNewsItem = ArticleTestRealmModel.convertFrom(from: item)
             }
         }
     }
