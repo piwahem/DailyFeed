@@ -26,10 +26,7 @@ class NewsBookmarkTestWorker: INewsBookmarkTestWorker {
     }
     
     func deleteData(item: ArticleTestRealmModel){
-        let bookmarkItem = realm.objects(ArticleTestRealmModel.self).filter { (newsItem) -> Bool in
-            item.url == newsItem.url
-        }.first
-        if let item = bookmarkItem{
+        if let url = item.url, let item = getBookmarkItem(url: url){
             try! realm.write {
                 item.isBookmark = false
             }
@@ -37,10 +34,23 @@ class NewsBookmarkTestWorker: INewsBookmarkTestWorker {
     }
     
     func addData(item: DailyFeedModel) {
-        let article = ArticleRealmModel.convertFrom(from: item)
-        let testArticle = ArticleTestRealmModel.convertFrom(from: article)
-        try! realm.write {
-            realm.add(testArticle, update: true)
+        if let url = item.url, let updateItem = getBookmarkItem(url: url){
+            try! realm.write {
+                updateItem.isBookmark = true
+            }
+        } else {
+            let article = ArticleRealmModel.convertFrom(from: item)
+            let testArticle = ArticleTestRealmModel.convertFrom(from: article)
+            try! realm.write {
+                realm.add(testArticle, update: true)
+            }
         }
+    }
+    
+    private func getBookmarkItem(url: String)-> ArticleTestRealmModel?{
+        let bookmarkItem = realm.objects(ArticleTestRealmModel.self).filter { (newsItem) -> Bool in
+            url == newsItem.url
+            }.first
+        return bookmarkItem
     }
 }

@@ -21,19 +21,20 @@ class BookmarkActivity: UIActivity {
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         for activity in activityItems {
-            if activity is DailyFeedRealmModel {
+            if activity is ArticleTestRealmModel {
                 return true
-                }
             }
+        }
         return false
     }
-
+    
     
     override func prepare(withActivityItems activityItems: [Any]) {
         for activity in activityItems {
-            if let activity = activity as? DailyFeedRealmModel {
+            if let activity = activity as? ArticleTestRealmModel{
                 let realm = try! Realm()
                 try! realm.write {
+                    activity.isBookmark = true
                     realm.add(activity, update: true)
                     bookMarkSuccessful?()
                 }

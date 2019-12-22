@@ -18,10 +18,12 @@ class TestViewController: UIViewController {
     @IBOutlet weak var bookmarkCollectionView: UICollectionView!
     
     var newsItems: Results<ArticleTestRealmModel>!
-    
     var notificationToken: NotificationToken? = nil
+    var router: INewsBookmarkTestRouter? = nil
+    var interactor: INewsBookmarkTestInteractor? = nil
     
     override func viewDidLoad() {
+        config()
         bookmarkCollectionView.register(R.nib.bookmarkItemsCell)
         bookmarkCollectionView.emptyDataSetDelegate = self
         bookmarkCollectionView.emptyDataSetSource = self
@@ -49,6 +51,10 @@ class TestViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        router?.passDataToNextScene(segue: segue, sender: sender)
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -70,7 +76,7 @@ extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if let cellToDelete = self.bookmarkCollectionView.indexPath(for: cell)?.row {
                 let item = self.newsItems[cellToDelete]
                 // MARK: to delete data
-                //                self.interactor?.deleteData(item: item)
+                self.interactor?.deleteData(item: item)
             }
         }
         return newsCell!
@@ -83,7 +89,7 @@ extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         // MARK: to navigate to detail
-        //        router?.navigateToDetail(sender: cell)
+        router?.navigateToDetail(sender: cell)
     }
 }
 
@@ -128,9 +134,9 @@ extension TestViewController: UICollectionViewDropDelegate {
                     DispatchQueue.main.async {
                         if let dailyfeedmodel = object as? DailyFeedModel {
                             // MARK: - add data
-                            //                            self.interactor?.addData(item: dailyfeedmodel)
+                            self.interactor?.addData(item: dailyfeedmodel)
                         } else {
-                            //self.displayError(error)
+//                            self.displayError(error)
                         }
                     }
                 }
@@ -141,12 +147,12 @@ extension TestViewController: UICollectionViewDropDelegate {
 
 extension TestViewController{
     
-    //    func config(){
-    //        router = NewsBookmarkRouter()
-    //        (router as! NewsBookmarkRouter).viewController = self
-    //
-    //        interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker())
-    //    }
+        func config(){
+            router = NewsBookmarkTestRouter()
+            (router as! NewsBookmarkTestRouter).viewController = self
+    
+            interactor = NewsBookmarkTestInteractor(worker: NewsBookmarkTestWorker())
+        }
     
     private func handleChangesBookmark(changes: RealmCollectionChange<Results<ArticleTestRealmModel>>){
         guard let collectionview = self.bookmarkCollectionView else { return }
