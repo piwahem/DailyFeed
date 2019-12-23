@@ -60,15 +60,4 @@ public final class ArticleTestRealmModel: Object{
         
         return item
     }
-    
-    class func convertFrom(from: DailyFeedRealmModel) -> ArticleTestRealmModel {
-        let item = ArticleTestRealmModel()
-        item.title = from.title
-        item.author = from.author
-        item.articleDescription = from.articleDescription
-        item.publishedAt = from.publishedAt
-        item.url = from.url
-        item.urlToImage = from.urlToImage
-        return item
-    }
 }

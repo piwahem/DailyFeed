@@ -30,14 +30,7 @@ class BookmarkItemsCell: UICollectionViewCell {
         self.layer.cornerRadius = 4
     }
     
-    func configure(with newsitems: DailyFeedRealmModel) {
-        self.newsArticleTitleLabel.text = newsitems.title
-        self.newsArticleAuthorLabel.text = newsitems.author
-        self.newsArticleTimeLabel.text = newsitems.publishedAt.dateFromTimestamp?.relativelyFormatted(short: true)
-        self.newsArticleImageView.downloadedFromLink(newsitems.urlToImage)
-    }
-    
-    func configure(with newsitems: ArticleTestRealmModel) {
+    func configure(with newsitems: ArticleRealmModel) {
         self.newsArticleTitleLabel.text = newsitems.title
         self.newsArticleAuthorLabel.text = newsitems.author
         self.newsArticleTimeLabel.text = newsitems.publishedAt?.dateFromTimestamp?.relativelyFormatted(short: true)

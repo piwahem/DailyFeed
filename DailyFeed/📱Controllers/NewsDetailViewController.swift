@@ -16,7 +16,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
     
     // MARK: - Variable declaration
     
-    var receivedNewsItem: ArticleTestRealmModel?
+    var receivedNewsItem: ArticleRealmModel?
     
     var receivedNewsSourceLogo: String?
     

@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 protocol INewsBookmarkWorker {
-    func observerData() -> Results<DailyFeedRealmModel>
-    func deleteData(item: DailyFeedRealmModel)
+    func observerData() -> Results<ArticleRealmModel>
+    func deleteData(item: ArticleRealmModel)
     func addData(item: DailyFeedModel)
 }
 
@@ -19,19 +19,21 @@ class NewsBookmarkWorker: INewsBookmarkWorker {
     
     let realm = try! Realm()
 
-    func observerData() -> Results<DailyFeedRealmModel> {
-        return realm.objects(DailyFeedRealmModel.self)
+    func observerData() -> Results<ArticleRealmModel> {
+        let predicate = NSPredicate(format: "isBookmark = %@", NSNumber(value: true))
+        return realm.objects(ArticleRealmModel.self).filter(predicate)
     }
     
-    func deleteData(item: DailyFeedRealmModel){
+    func deleteData(item: ArticleRealmModel){
         try! realm.write {
             realm.delete(item)
         }
     }
     
     func addData(item: DailyFeedModel) {
-        let dailyfeedRealmModel = DailyFeedRealmModel.toDailyFeedRealmModel(from: item)
+        let dailyfeedRealmModel = ArticleRealmModel.convertFrom(from: item)
         try! realm.write {
+            dailyfeedRealmModel.isBookmark = true
             realm.add(dailyfeedRealmModel, update: true)
         }
     }

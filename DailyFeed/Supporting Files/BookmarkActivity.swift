@@ -21,7 +21,7 @@ class BookmarkActivity: UIActivity {
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         for activity in activityItems {
-            if activity is ArticleTestRealmModel {
+            if activity is ArticleRealmModel {
                 return true
             }
         }
@@ -31,7 +31,7 @@ class BookmarkActivity: UIActivity {
     
     override func prepare(withActivityItems activityItems: [Any]) {
         for activity in activityItems {
-            if let activity = activity as? ArticleTestRealmModel{
+            if let activity = activity as? ArticleRealmModel{
                 let realm = try! Realm()
                 try! realm.write {
                     activity.isBookmark = true

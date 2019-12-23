@@ -17,7 +17,7 @@ class TestViewController: UIViewController {
     
     @IBOutlet weak var bookmarkCollectionView: UICollectionView!
     
-    var newsItems: Results<ArticleTestRealmModel>!
+    var newsItems: Results<ArticleRealmModel>!
     var notificationToken: NotificationToken? = nil
     var router: INewsBookmarkTestRouter? = nil
     var interactor: INewsBookmarkTestInteractor? = nil
@@ -45,7 +45,7 @@ class TestViewController: UIViewController {
     func onViewDidLoad() {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "isBookmark = %@", NSNumber(value: true))
-        newsItems = realm.objects(ArticleTestRealmModel.self).filter(predicate)
+        newsItems = realm.objects(ArticleRealmModel.self).filter(predicate)
         notificationToken = newsItems.observe { (changes) in
             self.handleChangesBookmark(changes: changes)
         }
@@ -154,7 +154,7 @@ extension TestViewController{
             interactor = NewsBookmarkTestInteractor(worker: NewsBookmarkTestWorker())
         }
     
-    private func handleChangesBookmark(changes: RealmCollectionChange<Results<ArticleTestRealmModel>>){
+    private func handleChangesBookmark(changes: RealmCollectionChange<Results<ArticleRealmModel>>){
         guard let collectionview = self.bookmarkCollectionView else { return }
         switch changes {
         case .initial:

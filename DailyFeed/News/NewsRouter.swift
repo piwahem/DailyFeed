@@ -63,7 +63,7 @@ class NewsRouter: INewsRouter {
             vc.transitioningDelegate = viewController
             vc.modalPresentationStyle = .formSheet
             let article = ArticleRealmModel.convertFrom(from: viewController.newsItems[indexpath.row])
-            vc.receivedNewsItem = ArticleTestRealmModel.convertFrom(from: article)
+            vc.receivedNewsItem = article
             vc.receivedItemNumber = indexpath.row + 1
             vc.receivedNewsSourceLogo = NewsSource.logo(source: (viewController.interactor?.source)!).url?.absoluteString
             vc.isLanguageRightToLeftDetailView = viewController.isLanguageRightToLeft

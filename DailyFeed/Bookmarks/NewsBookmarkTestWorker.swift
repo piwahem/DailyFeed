@@ -12,8 +12,8 @@ import Foundation
 import RealmSwift
 
 protocol INewsBookmarkTestWorker {
-    func observerData() -> Results<ArticleTestRealmModel>
-    func deleteData(item: ArticleTestRealmModel)
+    func observerData() -> Results<ArticleRealmModel>
+    func deleteData(item: ArticleRealmModel)
     func addData(item: DailyFeedModel)
 }
 
@@ -21,11 +21,11 @@ class NewsBookmarkTestWorker: INewsBookmarkTestWorker {
     
     let realm = try! Realm()
     
-    func observerData() -> Results<ArticleTestRealmModel> {
-        return realm.objects(ArticleTestRealmModel.self)
+    func observerData() -> Results<ArticleRealmModel> {
+        return realm.objects(ArticleRealmModel.self)
     }
     
-    func deleteData(item: ArticleTestRealmModel){
+    func deleteData(item: ArticleRealmModel){
         if let url = item.url, let item = getBookmarkItem(url: url){
             try! realm.write {
                 item.isBookmark = false
@@ -40,15 +40,15 @@ class NewsBookmarkTestWorker: INewsBookmarkTestWorker {
             }
         } else {
             let article = ArticleRealmModel.convertFrom(from: item)
-            let testArticle = ArticleTestRealmModel.convertFrom(from: article)
             try! realm.write {
-                realm.add(testArticle, update: true)
+                article.isBookmark = true
+                realm.add(article, update: true)
             }
         }
     }
     
-    private func getBookmarkItem(url: String)-> ArticleTestRealmModel?{
-        let bookmarkItem = realm.objects(ArticleTestRealmModel.self).filter { (newsItem) -> Bool in
+    private func getBookmarkItem(url: String)-> ArticleRealmModel?{
+        let bookmarkItem = realm.objects(ArticleRealmModel.self).filter { (newsItem) -> Bool in
             url == newsItem.url
             }.first
         return bookmarkItem

@@ -18,7 +18,7 @@ class ToNineMigration: CacheMigration{
     override func migrating() {
         super.migrating()
         var urlBookmarks = [String]()
-        self.migration.enumerateObjects(ofType: DailyFeedRealmModel.className(), { (old, newBook) in
+        self.migration.enumerateObjects(ofType: "DailyFeedRealmModel", { (old, newBook) in
             guard let old = old else {
                 return
             }
@@ -30,7 +30,7 @@ class ToNineMigration: CacheMigration{
         })
         
         var testNewList = [MigrationObject]()
-        self.migration.enumerateObjects(ofType: ArticleTestRealmModel.className(), { (old, new
+        self.migration.enumerateObjects(ofType: "ArticleTestRealmModel", { (old, new
             ) in
             guard let new = new else {
                 return
