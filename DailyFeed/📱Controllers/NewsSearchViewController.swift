@@ -169,14 +169,17 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     // MARK: - SearchBar Delegate
-    
+    var searchWorkItem: DispatchWorkItem?
     func updateSearchResults(for searchController: UISearchController) {
-        
         searchItems.removeAll(keepingCapacity: false)
-        
-        if let searchString = searchController.searchBar.text, searchString.count > 3 {
-            loadNews(with: searchString)
+        searchWorkItem?.cancel()
+        let workItem = DispatchWorkItem{
+            if let searchString = searchController.searchBar.text, searchString.count > 3 {
+                self.loadNews(with: searchString)
+            }
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7, execute: workItem)
+        searchWorkItem = workItem
     }
     
     // MARK: - Load data from network
