@@ -20,19 +20,19 @@ protocol ISourceView: class {
 extension NewsSourceViewController: ISourceView{
     
     func onLoading() {
-        setupSpinner(hidden: true)
+        setupSpinner(hidden: false)
     }
     
     func onList(_ list: [DailySourceModel]) {
         self.sourceItems = list
-        setupSpinner(hidden: false)
+        setupSpinner(hidden: true)
     }
     
     func onError(_ message: String) {
         self.showError(message) { _ in
-            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
         }
-        setupSpinner(hidden: false)
+        self.setupSpinner(hidden: true)
     }
     
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){

@@ -35,7 +35,7 @@ class RestClient {
             guard let url = resourceUrl else { seal.reject(JSONDecodingError.unknownError); return }
             
             if !Reach().isNetworkConnected() {
-                let error = "Internet connection appears to be offline"
+                let error = NetworkError.NO_INTERNET_CONNECTION.rawValue
                 seal.reject(error)
                 return
             }
