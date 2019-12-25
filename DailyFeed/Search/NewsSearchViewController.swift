@@ -175,6 +175,7 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
         searchWorkItem?.cancel()
         let workItem = DispatchWorkItem{
             if let searchString = searchController.searchBar.text, searchString.count > 3 {
+                print("searchItems")
                 self.loadNews(with: searchString)
             }
         }
