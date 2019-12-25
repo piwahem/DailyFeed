@@ -42,11 +42,13 @@ class NewsWorker: INewsWorker {
         
         let newsClient = NewsClient()
         let newsCached = CacheNewsClient()
+        var items: Articles?
         
         firstly {
             newsCached.getNews(source: source)
             }
             .then { article -> Promise<Articles> in
+                items = article
                 callback(article, nil)
                 return newsClient.getNewsItems(source: source)
             }
@@ -55,13 +57,30 @@ class NewsWorker: INewsWorker {
                 return newsCached.addNews(&result, source: source)
             }
             .done{ result in
+                items = result
                 callback(result, nil)
             }
             .ensure(on: .main) {
                 completetion()
             }
             .catch(on: .main) { err in
-                callback(nil, err)
+                if (self.isShowError(error: err.localizedDescription, article: items)){
+                    callback(nil, err)
+                }
         }
     }
+    
+    
+    private func isShowError(error: String, article: Articles?) -> Bool{
+        return !(isNetworkError(error: error) && !isResultEmpty(article: article))
+    }
+    
+    private func isNetworkError(error: String)->Bool{
+        return error == NetworkError.NO_INTERNET_CONNECTION.rawValue
+    }
+    
+    private func isResultEmpty(article: Articles?) -> Bool{
+        return article?.articles.isEmpty ?? true
+    }
+    
 }

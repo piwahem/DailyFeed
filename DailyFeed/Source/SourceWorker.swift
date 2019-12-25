@@ -25,6 +25,7 @@ class SourceWorker: ISourceWorker {
                     completetion: @escaping ()->Void) {
         let newsClient = NewsClient()
         let cachedClient = CacheSourceClient()
+        var sourceResult: Sources?
         
         firstly {
             cachedClient.getSources(sourceRequestParams: sourceRequestParams)
@@ -33,6 +34,7 @@ class SourceWorker: ISourceWorker {
                 if (cachedClient.isInit(sourceRequestParams: sourceRequestParams)){
                     self.sources = sources
                 }
+                sourceResult = sources
                 callback(sources, nil)
                 return newsClient.getNewsSource(sourceRequestParams: sourceRequestParams)
             }
@@ -44,15 +46,30 @@ class SourceWorker: ISourceWorker {
                 if (cachedClient.isInit(sourceRequestParams: sourceRequestParams)){
                     self.sources = result
                 }
+                sourceResult = result
                 callback(result, nil)
             }.ensure(on: .main) {
                 completetion()
             }.catch(on: .main) { err in
-                callback(nil, err)
+                if (self.isShowError(error: err.localizedDescription, source: sourceResult)){
+                    callback(nil, err)
+                }
         }
     }
     
     func getCurrentSources() -> Sources?{
         return sources
+    }
+    
+    private func isShowError(error: String, source: Sources?) -> Bool{
+        return !(isNetworkError(error: error) && !isResultEmpty(source: source))
+    }
+    
+    private func isNetworkError(error: String)->Bool{
+        return error == NetworkError.NO_INTERNET_CONNECTION.rawValue
+    }
+    
+    private func isResultEmpty(source: Sources?) -> Bool{
+        return source?.sources.isEmpty ?? true
     }
 }
