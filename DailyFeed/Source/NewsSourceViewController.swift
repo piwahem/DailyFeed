@@ -239,15 +239,20 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // MARK: - SearchBar Delegate
-    
+    var searchWorkItem: DispatchWorkItem?
     func updateSearchResults(for searchController: UISearchController) {
         
         filteredSourceItems.removeAll(keepingCapacity: false)
-        
-        if let searchString = searchController.searchBar.text {
-            let searchResults = sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
-            filteredSourceItems = searchResults
+
+        searchWorkItem?.cancel()
+        let workItem = DispatchWorkItem{
+            if let searchString = searchController.searchBar.text {
+                let searchResults = self.sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
+                self.filteredSourceItems = searchResults
+            }
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
+        searchWorkItem = workItem
     }
     
     var router: ISourceRouter?
