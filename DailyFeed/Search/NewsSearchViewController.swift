@@ -169,18 +169,12 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     // MARK: - SearchBar Delegate
-    var searchWorkItem: DispatchWorkItem?
+    var searchExcutor: ISearchExecutor?
     func updateSearchResults(for searchController: UISearchController) {
         searchItems.removeAll(keepingCapacity: false)
-        searchWorkItem?.cancel()
-        let workItem = DispatchWorkItem{
-            if let searchString = searchController.searchBar.text, searchString.count > 3 {
-                print("searchItems")
-                self.loadNews(with: searchString)
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7, execute: workItem)
-        searchWorkItem = workItem
+        searchExcutor?.execute(action: { (searchString) in
+            self.loadNews(with: searchString)
+        })
     }
     
     // MARK: - Load data from network
@@ -260,5 +254,8 @@ extension NewsSearchViewController{
         (router as! NewsSearchRouter).viewController = self
         (presenter as! NewsSearchPresenter).view = self
         (interactor as! NewsSearchInteractor).presenter = presenter
+        
+        
+        searchExcutor = NewsSearchExecutor(searchController: self.resultsSearchController)
     }
 }

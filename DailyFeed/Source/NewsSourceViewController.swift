@@ -239,20 +239,13 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // MARK: - SearchBar Delegate
-    var searchWorkItem: DispatchWorkItem?
+    var searchExcutor: ISearchExecutor?
     func updateSearchResults(for searchController: UISearchController) {
-        
         filteredSourceItems.removeAll(keepingCapacity: false)
-
-        searchWorkItem?.cancel()
-        let workItem = DispatchWorkItem{
-            if let searchString = searchController.searchBar.text {
-                let searchResults = self.sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
-                self.filteredSourceItems = searchResults
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
-        searchWorkItem = workItem
+        searchExcutor?.execute(action: { (searchString) in
+            let searchResults = self.sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
+            self.filteredSourceItems = searchResults
+        })
     }
     
     var router: ISourceRouter?
@@ -264,5 +257,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         (router as! SourceRouter).viewController = self
         (presenter as! SourcePresenter).view = self
         (interactor as! SourceInteractor).presenter = presenter
+        
+        searchExcutor = SourceSearchExecutor(searchController: self.resultsSearchController)
     }
 }
