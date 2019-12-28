@@ -62,7 +62,8 @@ class NewsRouter: INewsRouter {
             guard let indexpath = viewController.newsCollectionView?.indexPath(for: cell) else { return }
             vc.transitioningDelegate = viewController
             vc.modalPresentationStyle = .formSheet
-            vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: viewController.newsItems[indexpath.row])
+            let article = ArticleRealmModel.convertFrom(from: viewController.newsItems[indexpath.row])
+            vc.receivedNewsItem = article
             vc.receivedItemNumber = indexpath.row + 1
             vc.receivedNewsSourceLogo = NewsSource.logo(source: (viewController.interactor?.source)!).url?.absoluteString
             vc.isLanguageRightToLeftDetailView = viewController.isLanguageRightToLeft
@@ -75,7 +76,7 @@ class NewsRouter: INewsRouter {
             let oldSource = (viewController.interactor?.source)!
             let oldIsLanguageRightToLeft = viewController.isLanguageRightToLeft
             
-            viewController.isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode.direction == .rightToLeft
+            viewController.isLanguageRightToLeft = sourceVC.selectedItem?.isoLanguageCode?.direction == .rightToLeft
             viewController.interactor?.source = sourceId
             viewController.loadNewsData(){ success in
                 if (!success){

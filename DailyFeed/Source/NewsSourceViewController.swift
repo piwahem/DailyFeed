@@ -20,19 +20,19 @@ protocol ISourceView: class {
 extension NewsSourceViewController: ISourceView{
     
     func onLoading() {
-        setupSpinner(hidden: true)
+        setupSpinner(hidden: false)
     }
     
     func onList(_ list: [DailySourceModel]) {
         self.sourceItems = list
-        setupSpinner(hidden: false)
+        setupSpinner(hidden: true)
     }
     
     func onError(_ message: String) {
         self.showError(message) { _ in
-            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
         }
-        setupSpinner(hidden: false)
+        self.setupSpinner(hidden: true)
     }
     
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
@@ -221,9 +221,9 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
         if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid ?? "").url)
         } else {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid).url)
+            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid!).url)
         }
         return cell!
     }
@@ -239,15 +239,13 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     // MARK: - SearchBar Delegate
-    
+    var searchExcutor: ISearchExecutor?
     func updateSearchResults(for searchController: UISearchController) {
-        
         filteredSourceItems.removeAll(keepingCapacity: false)
-        
-        if let searchString = searchController.searchBar.text {
-            let searchResults = sourceItems.filter { $0.name.lowercased().contains(searchString.lowercased()) }
-            filteredSourceItems = searchResults
-        }
+        searchExcutor?.execute(action: { (searchString) in
+            let searchResults = self.sourceItems.filter { $0.name?.lowercased().contains(searchString.lowercased()) ?? false }
+            self.filteredSourceItems = searchResults
+        })
     }
     
     var router: ISourceRouter?
@@ -259,5 +257,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         (router as! SourceRouter).viewController = self
         (presenter as! SourcePresenter).view = self
         (interactor as! SourceInteractor).presenter = presenter
+        
+        searchExcutor = SourceSearchExecutor(searchController: self.resultsSearchController)
     }
 }
