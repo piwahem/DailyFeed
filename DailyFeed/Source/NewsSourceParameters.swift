@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsSourceParameters {
+public struct NewsSourceParameters {
     let category: String?
     let language: String?
     let country: String?

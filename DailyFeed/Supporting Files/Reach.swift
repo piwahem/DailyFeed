@@ -52,6 +52,10 @@ enum ReachabilityStatus: CustomStringConvertible  {
     }
 }
 
+enum NetworkError: String{
+    case NO_INTERNET_CONNECTION = "Internet connection appears to be offline"
+}
+
 public class Reach {
     
     func isNetworkConnected() -> Bool {
