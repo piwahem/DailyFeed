@@ -1,25 +1,25 @@
 //
-//  NewsBookmarkInteractor.swift
+//  NewsBookmarkTestInteractor.swift
 //  DailyFeed
 //
-//  Created by Admin on 11/18/19.
+//  Created by Admin on 12/21/19.
 //  Copyright © 2019 trianz. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-protocol INewsBookmarkInteractor {
+protocol INewsBookmarkTestInteractor {
     func observerData(action: @escaping ((RealmCollectionChange<Results<ArticleRealmModel>>))->Void, completion: (NotificationToken)->Void) -> Results<ArticleRealmModel>
     func deleteData(item: ArticleRealmModel)
     func addData(item: DailyFeedModel)
 }
 
-class NewsBookmarkInteractor: INewsBookmarkInteractor {
+class NewsBookmarkTestInteractor: INewsBookmarkTestInteractor {
     
-    var worker: INewsBookmarkWorker
+    var worker: INewsBookmarkTestWorker
     
-    required init(worker: INewsBookmarkWorker) {
+    required init(worker: INewsBookmarkTestWorker) {
         self.worker = worker
     }
     

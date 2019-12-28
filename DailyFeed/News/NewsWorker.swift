@@ -39,16 +39,48 @@ class NewsWorker: INewsWorker {
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
                  completetion: @escaping ()->Void) {
+        
         let newsClient = NewsClient()
+        let newsCached = CacheNewsClient()
+        var items: Articles?
         
         firstly {
-            newsClient.getNewsItems(source: source)
-            }.done { result in
+            newsCached.getNews(source: source)
+            }
+            .then { article -> Promise<Articles> in
+                items = article
+                callback(article, nil)
+                return newsClient.getNewsItems(source: source)
+            }
+            .then { article -> Promise<Articles> in
+                var result = article
+                return newsCached.addNews(&result, source: source)
+            }
+            .done{ result in
+                items = result
                 callback(result, nil)
-            }.ensure(on: .main) {
+            }
+            .ensure(on: .main) {
                 completetion()
-            }.catch(on: .main) { err in
-                callback(nil, err)
+            }
+            .catch(on: .main) { err in
+                if (self.isShowError(error: err.localizedDescription, article: items)){
+                    callback(nil, err)
+                }
         }
     }
+    
+    
+    private func isShowError(error: String, article: Articles?) -> Bool{
+        return !(isNetworkError(error: error) && !isResultEmpty(article: article))
+    }
+    
+    private func isNetworkError(error: String)->Bool{
+        return error == NetworkError.NO_INTERNET_CONNECTION.rawValue
+    }
+    
+    private func isResultEmpty(article: Articles?) -> Bool{
+        return article?.articles.isEmpty ?? true
+    }
+    
 }

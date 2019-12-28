@@ -15,7 +15,7 @@ class BookmarkViewController: UIViewController {
     
     @IBOutlet weak var bookmarkCollectionView: UICollectionView!
     
-    var newsItems: Results<DailyFeedRealmModel>!
+    var newsItems: Results<ArticleRealmModel>!
     
     var notificationToken: NotificationToken? = nil
     
@@ -145,19 +145,19 @@ extension BookmarkViewController{
         interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker())
     }
     
-    private func handleChangesBookmark(changes: RealmCollectionChange<Results<DailyFeedRealmModel>>){
+    private func handleChangesBookmark(changes: RealmCollectionChange<Results<ArticleRealmModel>>){
         guard let collectionview = self.bookmarkCollectionView else { return }
         switch changes {
         case .initial:
+            print("BookmarkViewController handleChangesBookmark initial")
             collectionview.reloadData()
             break
-        case .update( _, let deletions, let insertions, _):
-            collectionview.performBatchUpdates({
-                collectionview.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0) }))
-                
-                collectionview.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
-                
-            }, completion: nil)
+        case .update( let data, let deletions, let insertions, let modifications):
+            DispatchQueue.main.async {
+                let predicate = NSPredicate(format: "isBookmark = %@", NSNumber(value: true))
+                self.newsItems = self.newsItems.filter(predicate)
+                collectionview.reloadData()
+            }
             
             if self.newsItems.count == 0 || self.newsItems.count == 1 { collectionview.reloadEmptyDataSet() }
             break

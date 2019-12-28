@@ -30,11 +30,14 @@ class BookmarkItemsCell: UICollectionViewCell {
         self.layer.cornerRadius = 4
     }
     
-    func configure(with newsitems: DailyFeedRealmModel) {
+    func configure(with newsitems: ArticleRealmModel) {
         self.newsArticleTitleLabel.text = newsitems.title
         self.newsArticleAuthorLabel.text = newsitems.author
-        self.newsArticleTimeLabel.text = newsitems.publishedAt.dateFromTimestamp?.relativelyFormatted(short: true)
-        self.newsArticleImageView.downloadedFromLink(newsitems.urlToImage)
+        self.newsArticleTimeLabel.text = newsitems.publishedAt?.dateFromTimestamp?.relativelyFormatted(short: true)
+        
+        if let downloadUrl = newsitems.urlToImage{
+            self.newsArticleImageView.downloadedFromLink(downloadUrl)
+        }
     }
     
     @IBAction func deleteBookmarkArticle(_ sender: UIButton) {

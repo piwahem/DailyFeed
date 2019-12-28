@@ -26,7 +26,8 @@ class NewsSearchRouter: INewsSearchRouter {
                 viewController.selectedCell = cell
                 vc.transitioningDelegate = viewController
                 vc.modalPresentationStyle = .formSheet
-                vc.receivedNewsItem = DailyFeedRealmModel.toDailyFeedRealmModel(from: viewController.searchItems[indexpath.row])
+                let article = ArticleRealmModel.convertFrom(from:viewController.searchItems[indexpath.row])
+                vc.receivedNewsItem = article
                 vc.receivedItemNumber = indexpath.row + 1
             }
         }
