@@ -70,7 +70,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private var sourceItems: [DailySourceModel] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.sourceTableView.reloadSections([0], with: .automatic)
+                self.sourceTableView.reloadData()
                 self.setupSpinner(hidden: true)
             }
         }
