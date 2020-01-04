@@ -12,7 +12,7 @@ import PullToReach
 
 protocol ISourceView: class {
     func onLoading()
-    func onList(_ list: [DailySourceModel])
+    func onList(_ list: [DailySourceModel],_ isLastPage: Bool)
     func onError(_ message: String)
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String])
 }
@@ -21,18 +21,22 @@ extension NewsSourceViewController: ISourceView{
     
     func onLoading() {
         setupSpinner(hidden: false)
+        isLoadingMore = true
     }
     
-    func onList(_ list: [DailySourceModel]) {
+    func onList(_ list: [DailySourceModel],_ isAtLastPage: Bool) {
+        isLastPage = isAtLastPage
         self.sourceItems = list
         setupSpinner(hidden: true)
+        isLoadingMore = false
     }
     
     func onError(_ message: String) {
         self.showError(message) { _ in
-//            self.dismiss(animated: true, completion: nil)
+            //            self.dismiss(animated: true, completion: nil)
         }
         self.setupSpinner(hidden: true)
+        isLoadingMore = false
     }
     
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
@@ -83,7 +87,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     var selectedItem: DailySourceModel?
-        
+    
     private var resultsSearchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
@@ -103,7 +107,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         config()
         setupUI()
-        loadSourceData(sourceRequestParams: NewsSourceParameters())
+        params = NewsSourceParameters()
         setupPullToReach()
     }
     
@@ -149,6 +153,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private func setupTableView() {
         sourceTableView.register(R.nib.dailySourceItemCell)
         sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
+        sourceTableView.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner
@@ -188,7 +193,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.countryBarButton.image = nil
                 self.countryBarButton.title = source.countryFlagFromCountryCode
             }
-            self.interactor?.getSources(params: newsSourceParameters)
+            self.params = newsSourceParameters
         }
         
         // Popover for iPad only
@@ -248,6 +253,12 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    var params: NewsSourceParameters = NewsSourceParameters() {
+        didSet{
+            self.interactor?.getSources(params: params)
+        }
+    }
+    
     var router: ISourceRouter?
     var interactor: ISourceInteractor?
     private func config() {
@@ -259,5 +270,35 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         (interactor as! SourceInteractor).presenter = presenter
         
         searchExcutor = SourceSearchExecutor(searchController: self.resultsSearchController)
+    }
+}
+
+extension NewsSourceViewController: UITableViewDataSourcePrefetching{
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            if (isLastPage) {
+                return
+            }
+            
+            isLoadingMore = true
+            self.interactor?.getSources(params: params)
+        }
+    }
+    
+}
+
+var isLoadingMore = false
+var isLastPage = false
+private extension NewsSourceViewController {
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        let isLoading = indexPath.row == sourceItems.count - 1
+        return isLoading
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = sourceTableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 }

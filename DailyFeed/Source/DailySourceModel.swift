@@ -12,6 +12,18 @@ struct Sources: Codable {
     init() {
         sources = [DailySourceModel]()
     }
+    
+    var firstPage: Int?
+    var lastPage: Int?
+    
+    var dataToCurrentPage: Int?
+    
+    var isLastPage: Bool {
+        get {
+            return dataToCurrentPage == lastPage
+        }
+    }
+    
 }
 
 struct DailySourceModel: Codable {
@@ -30,15 +42,15 @@ struct DailySourceModel: Codable {
     }
     
     static func convertFrom(from: SourceRealmModel) -> DailySourceModel {
-            var sourceData  = DailySourceModel()
-            sourceData.sid = from.id
-            sourceData.name = from.name
-            sourceData.category = from.category
-            sourceData.isoLanguageCode = from.language
-            sourceData.country = from.country
-            sourceData.url = from.url
-            sourceData.description = from.description
-            return sourceData
+        var sourceData  = DailySourceModel()
+        sourceData.sid = from.id
+        sourceData.name = from.name
+        sourceData.category = from.category
+        sourceData.isoLanguageCode = from.language
+        sourceData.country = from.country
+        sourceData.url = from.url
+        sourceData.description = from.description
+        return sourceData
     }
 }
 

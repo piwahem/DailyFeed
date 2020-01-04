@@ -53,7 +53,9 @@ class PaginationExecutor<T: Codable> {
     }
     
     func getDataPagination() -> [T] {
-        doLoadPage()
+        if (isLastPage()){
+            return [T]()
+        }
         return getDataOfPage(page: page)
     }
     
@@ -70,6 +72,10 @@ class PaginationExecutor<T: Codable> {
     
     func getLastPage() -> Int {
         return getTrunkData().count
+    }
+    
+    func getFirstPage() -> Int {
+        return getTrunkData().count == 0 ? 0 : 1
     }
     
     func getCurrentPage() -> Int{
