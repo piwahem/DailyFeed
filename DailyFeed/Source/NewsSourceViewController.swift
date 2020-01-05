@@ -292,8 +292,9 @@ var isLoadingMore = false
 var isLastPage = false
 private extension NewsSourceViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        let isLoading = indexPath.row == sourceItems.count - 1
-        return isLoading
+        let lastRow = sourceTableView.indexPathsForVisibleRows?.last
+        let isLastVisible =  lastRow?.row ?? 0 == sourceItems.count - 1
+        return isLastVisible
     }
     
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
