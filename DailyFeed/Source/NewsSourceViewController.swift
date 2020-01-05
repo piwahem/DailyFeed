@@ -301,4 +301,24 @@ private extension NewsSourceViewController {
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
     }
+    
+    var loadingItem: DailySourceModel {
+        get {
+            return DailySourceModel(sid: "loading", name: nil, category: nil, description: nil, isoLanguageCode: nil, country: nil, url: nil)
+        }
+    }
+    
+    func showLoading() {
+        self.sourceItems.append(loadingItem)
+        sourceTableView.reloadData()
+    }
+    
+    func hideLoading() {
+        self.sourceItems = self.sourceItems.filter{$0.sid != "loading"}
+        sourceTableView.reloadData()
+    }
+    
+    func isLoading(_ loadingItem: DailySourceModel) -> Bool {
+       return loadingItem.sid == "loading"
+    }
 }
