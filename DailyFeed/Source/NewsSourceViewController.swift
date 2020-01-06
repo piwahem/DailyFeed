@@ -322,4 +322,27 @@ private extension NewsSourceViewController {
     func isLoading(_ loadingItem: DailySourceModel) -> Bool {
        return loadingItem.sid == "loading"
     }
+    
+    func getTextLoadingView() -> UIView{
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: sourceTableView.frame.width, height: 60))
+        customView.backgroundColor = UIColor.clear
+        let titleLabel = UILabel(frame: CGRect(x:10,y: 5 ,width:customView.frame.width,height:40))
+        titleLabel.numberOfLines = 0;
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.backgroundColor = UIColor.clear
+        titleLabel.textColor = UIColor.darkGray
+        titleLabel.font = UIFont(name: "Montserrat-Regular", size: 12)
+        titleLabel.text  = "Loading...."
+        titleLabel.textAlignment = .center
+        customView.addSubview(titleLabel)
+        return customView
+    }
+    
+    func getLoadingView() -> UIView {
+        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        indicator.startAnimating()
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: sourceTableView.bounds.width, height: 40.0)
+        indicator.center = view.center
+        return indicator
+    }
 }
