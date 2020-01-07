@@ -28,6 +28,7 @@ extension NewsSourceViewController: ISourceView{
         isLastPage = isAtLastPage
         self.sourceItems = list
         setupSpinner(hidden: true)
+        hideLoading()
         isLoadingMore = false
     }
     
@@ -36,6 +37,7 @@ extension NewsSourceViewController: ISourceView{
             //            self.dismiss(animated: true, completion: nil)
         }
         self.setupSpinner(hidden: true)
+        hideLoading()
         isLoadingMore = false
     }
     
@@ -119,6 +121,8 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewWillDisappear(animated)
         resultsSearchController.delegate = nil
         resultsSearchController.searchBar.delegate = nil
+        paginationWorkItem?.cancel()
+        
     }
     
     // MARK: - Setup UI
@@ -224,13 +228,19 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
-        if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid ?? "").url)
-        } else {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid!).url)
+        if (isLoading(sourceItems[indexPath.row])){
+            let cell = tableView.dequeueReusableCell(withIdentifier:R.reuseIdentifier.dailySourceLoadingCell, for: indexPath)
+            cell?.bind()
+            return cell!
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
+            if self.resultsSearchController.isActive {
+                cell?.bind(item: filteredSourceItems[indexPath.row], position: indexPath.row)
+            } else {
+                cell?.bind(item: sourceItems[indexPath.row], position: indexPath.row)
+            }
+            return cell!
         }
-        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -275,14 +285,22 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
 
 extension NewsSourceViewController: UITableViewDataSourcePrefetching{
     
+    
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
-            if (isLastPage) {
+            if (isLastPage || isLoadingMore) {
                 return
             }
             
+            paginationWorkItem?.cancel()
             isLoadingMore = true
-            self.interactor?.getSources(params: params)
+            showLoading()
+            
+            let workerItem = DispatchWorkItem{
+                self.interactor?.getSources(params: self.params)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
+            paginationWorkItem = workerItem
         }
     }
     
@@ -290,6 +308,8 @@ extension NewsSourceViewController: UITableViewDataSourcePrefetching{
 
 var isLoadingMore = false
 var isLastPage = false
+var paginationWorkItem: DispatchWorkItem?
+
 private extension NewsSourceViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         let lastRow = sourceTableView.indexPathsForVisibleRows?.last
@@ -310,17 +330,19 @@ private extension NewsSourceViewController {
     }
     
     func showLoading() {
-        self.sourceItems.append(loadingItem)
-        sourceTableView.reloadData()
+        //        self.sourceItems.append(loadingItem)
+        //        sourceTableView.reloadData()
+        sourceTableView.tableFooterView = getLoadingView()
     }
     
     func hideLoading() {
-        self.sourceItems = self.sourceItems.filter{$0.sid != "loading"}
-        sourceTableView.reloadData()
+        //        self.sourceItems = self.sourceItems.filter{$0.sid != "loading"}
+        //        sourceTableView.reloadData()
+        sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
     }
     
     func isLoading(_ loadingItem: DailySourceModel) -> Bool {
-       return loadingItem.sid == "loading"
+        return loadingItem.sid == "loading"
     }
     
     func getTextLoadingView() -> UIView{
