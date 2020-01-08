@@ -35,21 +35,39 @@ class NewsWorker: INewsWorker {
         }
     }
     
+    var article: Articles?
+    var pagination: PaginationExecutor<DailyFeedModel> = PaginationExecutor<DailyFeedModel>()
+    var articleResult: Articles?
+    var params: String?
+    var page = 0
     
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
                  completetion: @escaping ()->Void) {
         
+        if (self.params != source){
+            page = 1
+        }else{
+            page+=1
+        }
+        self.params = source
+        
         let newsClient = NewsClient()
         let newsCached = CacheNewsClient()
-        var items: Articles?
         
         firstly {
             newsCached.getNews(source: source)
             }
             .then { article -> Promise<Articles> in
-                items = article
-                callback(article, nil)
+                self.pagination.data = article.articles
+                
+                self.articleResult = article
+                self.articleResult?.articles = self.pagination.getDataToPage(page: self.page)
+                self.articleResult?.firstPage = self.pagination.getFirstPage()
+                self.articleResult?.lastPage = self.pagination.getLastPage()
+                self.articleResult?.dataToCurrentPage = self.page
+                
+                callback(self.articleResult, nil)
                 return newsClient.getNewsItems(source: source)
             }
             .then { article -> Promise<Articles> in
@@ -57,14 +75,21 @@ class NewsWorker: INewsWorker {
                 return newsCached.addNews(&result, source: source)
             }
             .done{ result in
-                items = result
-                callback(result, nil)
+                self.pagination.data = result.articles
+                
+                self.articleResult = result
+                self.articleResult?.articles = self.pagination.getDataToPage(page: self.page)
+                self.articleResult?.firstPage = self.pagination.getFirstPage()
+                self.articleResult?.lastPage = self.pagination.getLastPage()
+                self.articleResult?.dataToCurrentPage = self.page
+                
+                callback(self.articleResult, nil)
             }
             .ensure(on: .main) {
                 completetion()
             }
             .catch(on: .main) { err in
-                if (self.isShowError(error: err.localizedDescription, article: items)){
+                if (self.isShowError(error: err.localizedDescription, article: self.articleResult)){
                     callback(nil, err)
                 }
         }
