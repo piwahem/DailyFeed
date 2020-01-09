@@ -156,7 +156,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Setup TableView
     private func setupTableView() {
         sourceTableView.register(R.nib.dailySourceItemCell)
-        sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
+        sourceTableView.tableFooterView = getBottomView()
         sourceTableView.prefetchDataSource = self
     }
     
@@ -338,7 +338,7 @@ private extension NewsSourceViewController {
     func hideLoading() {
         //        self.sourceItems = self.sourceItems.filter{$0.sid != "loading"}
         //        sourceTableView.reloadData()
-        sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
+        sourceTableView.tableFooterView = getBottomView()
     }
     
     func isLoading(_ loadingItem: DailySourceModel) -> Bool {
@@ -366,5 +366,9 @@ private extension NewsSourceViewController {
         indicator.frame = CGRect(x: 0.0, y: 0.0, width: sourceTableView.bounds.width, height: 40.0)
         indicator.center = view.center
         return indicator
+    }
+    
+    func getBottomView() -> UIView {
+        return UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
     }
 }
