@@ -27,6 +27,17 @@ struct Articles: Codable {
     init() {
         articles = [DailyFeedModel]()
     }
+    
+    var firstPage: Int?
+    var lastPage: Int?
+    
+    var dataToCurrentPage: Int?
+    
+    var isLastPage: Bool {
+        get {
+            return dataToCurrentPage == lastPage
+        }
+    }
 }
 
 //Data Model

@@ -90,5 +90,36 @@ extension DailyFeedNewsController: UICollectionViewDragDelegate {
     }
 }
 
-
+extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        // Begin asynchronously fetching data for the requested index paths.
+        if indexPaths.contains(where: isLoadingCell) {
+            if (isLastPage || isLoadingMore) {
+                return
+            }
+            paginationWorkItem?.cancel()
+            isLoadingMore = true
+            //            showLoading()
+            
+            let workerItem = DispatchWorkItem{
+                self.interactor?.getNews()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
+            paginationWorkItem = workerItem
+        }
+    }
+    
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        let lastRow = self.newsCollectionView.indexPathsForVisibleItems.last
+        let isLastVisible =  lastRow?.row ?? 0 == newsItems.count - 1
+        return isLastVisible
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = newsCollectionView.indexPathsForVisibleItems ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+}
 

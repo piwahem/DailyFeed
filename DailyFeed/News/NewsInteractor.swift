@@ -34,7 +34,7 @@ class NewsInteractor: INewsInteractor {
             
             if let articles = data {
                 print("onNext = \(articles)")
-                self.presenter?.onList(articles.articles)
+                self.presenter?.onList(articles.articles, articles.isLastPage)
             }
             
         }) {

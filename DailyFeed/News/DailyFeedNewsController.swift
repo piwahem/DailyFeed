@@ -12,21 +12,24 @@ import PromiseKit
 
 protocol INewsView: class {
     func onLoading()
-    func onList(_ list: [DailyFeedModel])
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool)
     func onError(_ message: String)
 }
 
 extension DailyFeedNewsController: INewsView{
     
     func onLoading() {
+        isLoadingMore = true
         if !self.refreshControl.isRefreshing {
             setupSpinner()
         }
-        
         spinningActivityIndicator.start()
     }
     
-    func onList(_ list: [DailyFeedModel]) {
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
+        isLoadingMore = false
+        self.isLastPage = isLastPage
+        
         self.newsItems = list
         self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         
@@ -39,6 +42,7 @@ extension DailyFeedNewsController: INewsView{
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+        isLoadingMore = false
     }
 }
 
@@ -70,6 +74,11 @@ class DailyFeedNewsController: UIViewController {
     var selectedCell = UICollectionViewCell()
     
     var isLanguageRightToLeft = Bool()
+
+    var isLoadingMore = false
+    var isLastPage = false
+    var paginationWorkItem: DispatchWorkItem?
+
     
     // MARK: - IBOutlets
     
@@ -147,6 +156,7 @@ class DailyFeedNewsController: UIViewController {
             newsCollectionView?.dragDelegate = self
             newsCollectionView?.dragInteractionEnabled = true
         }
+        newsCollectionView?.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner
