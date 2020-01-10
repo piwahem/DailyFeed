@@ -22,6 +22,12 @@ enum DailySourceConstant: String{
     case emptyName = "emptyName"
 }
 
+enum DailyFeedItemType: String{
+    case itemLoading = "itemLoading"
+    case itemBottom = "itemBottom"
+}
+
+
 struct Articles: Codable {
     var articles: [DailyFeedModel]
     init() {
@@ -55,6 +61,18 @@ final class DailyFeedModel: NSObject, Serializable {
     private enum CodingKeys: String, CodingKey {
         case articleDescription = "description"
         case title, author, publishedAt, urlToImage, url, source
+    }
+    
+    static func itemLoading() -> DailyFeedModel{
+        let item =  DailyFeedModel()
+        item.url = DailyFeedItemType.itemLoading.rawValue
+        return item
+    }
+    
+    static func itemBottom() -> DailyFeedModel{
+        let item =  DailyFeedModel()
+        item.url = DailyFeedItemType.itemBottom.rawValue
+        return item
     }
 }
 
