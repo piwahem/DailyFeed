@@ -146,6 +146,10 @@ class DailyFeedNewsController: UIViewController {
     func setupCollectionView() {
         newsCollectionView?.register(R.nib.dailyFeedItemCell)
         newsCollectionView?.refreshControl = refreshControl
+        newsCollectionView?.register(R.nib.dailyFeedBottomCell)
+        newsCollectionView?.register(R.nib.dailyFeedLoadingCell)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier)
         refreshControl.addTarget(self,
                                  action: #selector(DailyFeedNewsController.refreshData(_:)),
                                  for: UIControl.Event.valueChanged)

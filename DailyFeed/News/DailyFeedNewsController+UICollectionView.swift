@@ -43,12 +43,26 @@ extension DailyFeedNewsController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView,
-                                 viewForSupplementaryElementOfKind kind: String,
-                                 at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.newsFooterView.identifier, for: indexPath)
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionFooter:
+            if (!isLastPage){
+                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier, for: indexPath) as! DailyFeedLoadingReusableView
+                footerView.bind()
+                return footerView
+            }else{
+                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, for: indexPath) as! DailyFeedBottomReusableView
+                footerView.bind()
+                return footerView
+            }
             
-        return footerView
+        default:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, for: indexPath) as! DailyFeedBottomReusableView
+            footerView.bind()
+            return footerView
+            assert(false, "Unexpected element kind")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -120,6 +134,16 @@ extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
         let indexPathsForVisibleRows = newsCollectionView.indexPathsForVisibleItems ?? []
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
+    }
+    
+    func showLoading() {
+        self.newsItems.append(DailyFeedModel.itemBottom())
+        newsCollectionView.reloadData()
+    }
+    
+    func hideLoading() {
+        self.newsItems = self.newsItems.filter{$0.url != DailyFeedItemType.itemBottom.rawValue}
+        newsCollectionView.reloadData()
     }
 }
 
