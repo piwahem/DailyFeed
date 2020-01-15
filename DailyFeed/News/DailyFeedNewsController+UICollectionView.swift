@@ -11,31 +11,31 @@ import MobileCoreServices
 
 // MARK: - CollectionView Delegate Methods
 extension DailyFeedNewsController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int) -> Int {
-
-            return self.newsItems.count
+                        numberOfItemsInSection section: Int) -> Int {
+        
+        return self.newsItems.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                                 didSelectItemAt indexPath: IndexPath) {
+                        didSelectItemAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         collectionView.performBatchUpdates(nil, completion: nil)
         if let cell = collectionView.cellForItem(at: indexPath) {
             selectedCell = cell
             self.router?.navigateToDetail(sender: cell)
         }
-
+        
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
-                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let gridCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.dailyFeedItemCell,
                                                           for: indexPath)
         gridCell?.configure(with: newsItems[indexPath.row], ltr: isLanguageRightToLeft)
@@ -68,11 +68,11 @@ extension DailyFeedNewsController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 10)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height / 10)
     }
 }
 
-  // MARK: - Drag & Drop Delegate Methods
+// MARK: - Drag & Drop Delegate Methods
 
 @available(iOS 11.0, *)
 extension DailyFeedNewsController: UICollectionViewDragDelegate {
@@ -105,10 +105,14 @@ extension DailyFeedNewsController: UICollectionViewDragDelegate {
 }
 
 extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
-    
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Begin asynchronously fetching data for the requested index paths.
-        if indexPaths.contains(where: isLoadingCell) {
+        if isLoadingCell(for: indexPath) {
             if (isLastPage || isLoadingMore) {
                 return
             }
@@ -125,9 +129,7 @@ extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        let lastRow = self.newsCollectionView.indexPathsForVisibleItems.last
-        let isLastVisible =  lastRow?.row ?? 0 == newsItems.count - 1
-        return isLastVisible
+        return indexPath.row == newsItems.count - 1
     }
     
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {

@@ -19,15 +19,14 @@ protocol INewsView: class {
 extension DailyFeedNewsController: INewsView{
     
     func onLoading() {
-        isLoadingMore = true
         if !self.refreshControl.isRefreshing {
             setupSpinner()
         }
         spinningActivityIndicator.start()
+        isLoadingMore = true
     }
     
     func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
-        isLoadingMore = false
         self.isLastPage = isLastPage
         
         self.newsItems = list
@@ -35,6 +34,7 @@ extension DailyFeedNewsController: INewsView{
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+        isLoadingMore = false
     }
     
     func onError(_ message: String) {
@@ -74,11 +74,11 @@ class DailyFeedNewsController: UIViewController {
     var selectedCell = UICollectionViewCell()
     
     var isLanguageRightToLeft = Bool()
-
+    
     var isLoadingMore = false
     var isLastPage = false
     var paginationWorkItem: DispatchWorkItem?
-
+    
     
     // MARK: - IBOutlets
     
