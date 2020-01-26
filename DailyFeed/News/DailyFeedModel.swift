@@ -74,6 +74,14 @@ final class DailyFeedModel: NSObject, Serializable {
         item.url = DailyFeedItemType.itemBottom.rawValue
         return item
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let item = object as? DailyFeedModel else{
+            return false
+        }
+
+        return self.url == item.url
+    }
 }
 
 struct DailyFeedSource: Codable {

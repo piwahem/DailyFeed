@@ -23,12 +23,14 @@ class SourceWorker: ISourceWorker {
     var sourceResult: Sources?
     var params: NewsSourceParameters = NewsSourceParameters()
     var page = 0
+    var isHasData = false
     
     func getSources(params sourceRequestParams: NewsSourceParameters,
                     callback: @escaping ((Sources?, Error?) -> Void),
                     completetion: @escaping ()->Void) {
         
         if (self.params != sourceRequestParams){
+            isHasData = false
             page = 1
         }else{
             page+=1
@@ -52,9 +54,14 @@ class SourceWorker: ISourceWorker {
                 self.sourceResult?.lastPage = self.pagination.getLastPage()
                 self.sourceResult?.dataToCurrentPage = self.page
                 callback(self.sourceResult, nil)
-                return newsClient.getNewsSource(sourceRequestParams: self.params)
+                if (!self.isHasData){
+                    return newsClient.getNewsSource(sourceRequestParams: self.params)
+                }else{
+                    return cachedClient.getSources(sourceRequestParams: self.params)
+                }
             }
             .then { sources -> Promise<Sources> in
+                self.isHasData = self.isCacheDataHasNetworkData(networkData: sources)
                 var result = sources
                 return cachedClient.addSources(&result, sourceRequestParams: self.params)
             }
@@ -94,5 +101,15 @@ class SourceWorker: ISourceWorker {
     
     private func isResultEmpty(source: Sources?) -> Bool{
         return source?.sources.isEmpty ?? true
+    }
+    
+    private func isCacheDataHasNetworkData(networkData: Sources) -> Bool{
+        
+        guard let cache = pagination.data else{
+                return false
+        }
+        
+        let isHasData = cache.contains(array: networkData.sources)
+        return isHasData
     }
 }

@@ -40,12 +40,14 @@ class NewsWorker: INewsWorker {
     var articleResult: Articles?
     var params: String?
     var page = 0
+    var isHasData = false
     
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
                  completetion: @escaping ()->Void) {
         
         if (self.params != source){
+            isHasData = false
             page = 1
         }else{
             page+=1
@@ -68,9 +70,14 @@ class NewsWorker: INewsWorker {
                 self.articleResult?.dataToCurrentPage = self.page
                 
                 callback(self.articleResult, nil)
-                return newsClient.getNewsItems(source: source)
+                if (!self.isHasData){
+                    return newsClient.getNewsItems(source: source)
+                }else{
+                    return newsCached.getNews(source: source)
+                }
             }
             .then { article -> Promise<Articles> in
+                self.isHasData = self.isCacheDataHasNetworkData(networkData: article)
                 var result = article
                 return newsCached.addNews(&result, source: source)
             }
@@ -106,6 +113,16 @@ class NewsWorker: INewsWorker {
     
     private func isResultEmpty(article: Articles?) -> Bool{
         return article?.articles.isEmpty ?? true
+    }
+    
+    private func isCacheDataHasNetworkData(networkData: Articles) -> Bool{
+        
+        guard let cache = pagination.data else{
+            return false
+        }
+        
+        let isHasData = cache.contains(array: networkData.articles)
+        return isHasData
     }
     
 }

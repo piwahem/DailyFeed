@@ -26,7 +26,7 @@ struct Sources: Codable {
     
 }
 
-struct DailySourceModel: Codable {
+struct DailySourceModel: Codable, Equatable {
     public var sid: String? = ""
     public var name: String? = ""
     public var category: String? = ""
@@ -51,6 +51,10 @@ struct DailySourceModel: Codable {
         sourceData.url = from.url
         sourceData.description = from.description
         return sourceData
+    }
+    
+    static func ==(lhs: DailySourceModel, rhs: DailySourceModel) -> Bool {
+        return lhs.url == rhs.url
     }
 }
 
