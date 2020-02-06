@@ -303,7 +303,6 @@
 		06D04C1D1E1248DA0013B4AA /* DailyFeed */ = {
 			isa = PBXGroup;
 			children = (
-				953C685321A070EB006750F8 /* 📱Controllers */,
 				953C685121A070A5006750F8 /* 📦Model */,
 				84DC6FA8237C3FB800FF8B61 /* Search */,
 				84DC6FB12382E31600FF8B61 /* Bookmarks */,
@@ -454,13 +453,6 @@
 				208FBB5A1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		953C685321A070EB006750F8 /* 📱Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "📱Controllers";
 			sourceTree = "<group>";
 		};
 		953C685421A0713C006750F8 /* Supporting Files */ = {
