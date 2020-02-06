@@ -12,7 +12,11 @@ class PaginationExecutor<T: Codable> {
     var data: [T]?
     var batchSize: Int = 20
     
-    private func getTrunkData() -> [[T]]{
+    var page: Int = 0
+    var dataOfPage: [T]?
+    var currentData: [T]?
+    
+    func getTrunkData() -> [[T]]{
         guard let data = data else {
             return [[T]]()
         }
@@ -39,6 +43,47 @@ class PaginationExecutor<T: Codable> {
         }
         print("trunk getDataToPage \(result.count)")
         return result
+    }
+    
+    func getDataOfPage(page: Int) -> [T] {
+        var result = [T]()
+        result.append(contentsOf: onNext(page: page))
+        print("trunk getDataOfPage \(result.count)")
+        return result
+    }
+    
+    func getDataPagination() -> [T] {
+        if (isLastPage()){
+            return [T]()
+        }
+        return getDataOfPage(page: page)
+    }
+    
+    func doLoadPage(){
+        if (!isLastPage()){
+            page+=1
+        }
+    }
+    
+    func isLastPage() -> Bool{
+        let trunkData = getTrunkData()
+        return trunkData.count == page
+    }
+    
+    func getLastPage() -> Int {
+        return getTrunkData().count
+    }
+    
+    func getFirstPage() -> Int {
+        return getTrunkData().count == 0 ? 0 : 1
+    }
+    
+    func getCurrentPage() -> Int{
+        return page
+    }
+    
+    func resetPage(){
+        page = 0
     }
 }
 

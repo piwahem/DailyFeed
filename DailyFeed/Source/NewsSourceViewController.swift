@@ -12,7 +12,7 @@ import PullToReach
 
 protocol ISourceView: class {
     func onLoading()
-    func onList(_ list: [DailySourceModel])
+    func onList(_ list: [DailySourceModel],_ isLastPage: Bool)
     func onError(_ message: String)
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String])
 }
@@ -23,16 +23,18 @@ extension NewsSourceViewController: ISourceView{
         setupSpinner(hidden: false)
     }
     
-    func onList(_ list: [DailySourceModel]) {
+    func onList(_ list: [DailySourceModel],_ isAtLastPage: Bool) {
         self.sourceItems = list
         setupSpinner(hidden: true)
+        hideLoading()
     }
     
     func onError(_ message: String) {
         self.showError(message) { _ in
-//            self.dismiss(animated: true, completion: nil)
+            //            self.dismiss(animated: true, completion: nil)
         }
         self.setupSpinner(hidden: true)
+        hideLoading()
     }
     
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
@@ -70,7 +72,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private var sourceItems: [DailySourceModel] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.sourceTableView.reloadSections([0], with: .automatic)
+                self.sourceTableView.reloadData()
                 self.setupSpinner(hidden: true)
             }
         }
@@ -83,7 +85,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     var selectedItem: DailySourceModel?
-        
+    
     private var resultsSearchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.dimsBackgroundDuringPresentation = false
@@ -103,7 +105,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         config()
         setupUI()
-        loadSourceData(sourceRequestParams: NewsSourceParameters())
+        params = NewsSourceParameters()
         setupPullToReach()
     }
     
@@ -148,7 +150,8 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Setup TableView
     private func setupTableView() {
         sourceTableView.register(R.nib.dailySourceItemCell)
-        sourceTableView.tableFooterView = UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
+        sourceTableView.tableFooterView = getBottomView()
+//        sourceTableView.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner
@@ -188,7 +191,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.countryBarButton.image = nil
                 self.countryBarButton.title = source.countryFlagFromCountryCode
             }
-            self.interactor?.getSources(params: newsSourceParameters)
+            self.params = newsSourceParameters
         }
         
         // Popover for iPad only
@@ -219,13 +222,19 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
-        if self.resultsSearchController.isActive {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: filteredSourceItems[indexPath.row].sid ?? "").url)
-        } else {
-            cell?.sourceImageView.downloadedFromLink(NewsSource.logo(source: sourceItems[indexPath.row].sid!).url)
+        if (isLoading(sourceItems[indexPath.row])){
+            let cell = tableView.dequeueReusableCell(withIdentifier:R.reuseIdentifier.dailySourceLoadingCell, for: indexPath)
+            cell?.bind()
+            return cell!
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.dailySourceItemCell, for: indexPath)
+            if self.resultsSearchController.isActive {
+                cell?.bind(item: filteredSourceItems[indexPath.row], position: indexPath.row)
+            } else {
+                cell?.bind(item: sourceItems[indexPath.row], position: indexPath.row)
+            }
+            return cell!
         }
-        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -248,6 +257,12 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    var params: NewsSourceParameters = NewsSourceParameters() {
+        didSet{
+            self.interactor?.getSources(params: params)
+        }
+    }
+    
     var router: ISourceRouter?
     var interactor: ISourceInteractor?
     private func config() {
@@ -259,5 +274,95 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         (interactor as! SourceInteractor).presenter = presenter
         
         searchExcutor = SourceSearchExecutor(searchController: self.resultsSearchController)
+    }
+}
+
+//extension NewsSourceViewController: UITableViewDataSourcePrefetching{
+//
+//
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        if indexPaths.contains(where: isLoadingCell) {
+////            if (isLastPage || isLoadingMore) {
+////                return
+////            }
+////
+////            paginationWorkItem?.cancel()
+////            isLoadingMore = true
+//            showLoading()
+//
+//            let workerItem = DispatchWorkItem{
+//                self.interactor?.getSources(params: self.params)
+//            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
+////            paginationWorkItem = workerItem
+//        }
+//    }
+//
+//}
+
+//var isLoadingMore = false
+//var isLastPage = false
+//var paginationWorkItem: DispatchWorkItem?
+
+private extension NewsSourceViewController {
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        let lastRow = sourceTableView.indexPathsForVisibleRows?.last
+        let isLastVisible =  lastRow?.row ?? 0 == sourceItems.count - 1
+        return isLastVisible
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = sourceTableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
+    var loadingItem: DailySourceModel {
+        get {
+            return DailySourceModel(sid: "loading", name: nil, category: nil, description: nil, isoLanguageCode: nil, country: nil, url: nil)
+        }
+    }
+    
+    func showLoading() {
+        //        self.sourceItems.append(loadingItem)
+        //        sourceTableView.reloadData()
+        sourceTableView.tableFooterView = getLoadingView()
+    }
+    
+    func hideLoading() {
+        //        self.sourceItems = self.sourceItems.filter{$0.sid != "loading"}
+        //        sourceTableView.reloadData()
+        sourceTableView.tableFooterView = getBottomView()
+    }
+    
+    func isLoading(_ loadingItem: DailySourceModel) -> Bool {
+        return loadingItem.sid == "loading"
+    }
+    
+    func getTextLoadingView() -> UIView{
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: sourceTableView.frame.width, height: 60))
+        customView.backgroundColor = UIColor.clear
+        let titleLabel = UILabel(frame: CGRect(x:10,y: 5 ,width:customView.frame.width,height:40))
+        titleLabel.numberOfLines = 0;
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.backgroundColor = UIColor.clear
+        titleLabel.textColor = UIColor.darkGray
+        titleLabel.font = UIFont(name: "Montserrat-Regular", size: 12)
+        titleLabel.text  = "Loading...."
+        titleLabel.textAlignment = .center
+        customView.addSubview(titleLabel)
+        return customView
+    }
+    
+    func getLoadingView() -> UIView {
+        let indicator: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        indicator.startAnimating()
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: sourceTableView.bounds.width, height: 40.0)
+        indicator.center = view.center
+        return indicator
+    }
+    
+    func getBottomView() -> UIView {
+        return UIView(frame: CGRect.init(x: 0, y: 0, width: sourceTableView.bounds.width, height: 50))
     }
 }

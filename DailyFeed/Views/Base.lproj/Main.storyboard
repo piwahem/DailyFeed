@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tPD-2t-72W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tPD-2t-72W">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,30 +24,10 @@
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" sectionInsetReference="safeArea" id="amj-Mm-qtC">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="newsFooterView" id="fVD-Bi-e1p">
-                                    <rect key="frame" x="0.0" y="5" width="320" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by NewsAPI.org" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjy-mz-ff4">
-                                            <rect key="frame" x="74" y="16" width="172" height="18"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=regular">
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            </variation>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="hjy-mz-ff4" firstAttribute="centerX" secondItem="fVD-Bi-e1p" secondAttribute="centerX" id="YlJ-0W-DKU"/>
-                                        <constraint firstItem="hjy-mz-ff4" firstAttribute="centerY" secondItem="fVD-Bi-e1p" secondAttribute="centerY" id="jle-H8-RV4"/>
-                                    </constraints>
-                                </collectionReusableView>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroModifierString" value="fade"/>
                                 </userDefinedRuntimeAttributes>
@@ -75,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPz-nt-a5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3294.375" y="434.15492957746477"/>
+            <point key="canvasLocation" x="2481" y="393"/>
         </scene>
         <!--Sources-->
         <scene sceneID="rtQ-Cl-8QZ">
@@ -370,7 +350,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rA-1O-3TN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2741" y="-311"/>
+            <point key="canvasLocation" x="4734.375" y="-311.61971830985914"/>
         </scene>
         <!--DailyFeed-->
         <scene sceneID="loe-6Q-P3R">
@@ -392,7 +372,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="li0-xW-Zoi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1667" y="434"/>
+            <point key="canvasLocation" x="1114" y="394"/>
         </scene>
         <!--TEST-->
         <scene sceneID="VI3-jJ-f0h">
@@ -403,7 +383,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TFH-SW-VEL">
-                                <rect key="frame" x="8" y="64" width="304" height="455"/>
+                                <rect key="frame" x="8" y="64" width="304" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pB7-eZ-W57">
                                     <size key="itemSize" width="50" height="50"/>
@@ -431,7 +411,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjE-RH-cgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590.625" y="-329.57746478873241"/>
+            <point key="canvasLocation" x="1667" y="-934"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6Lw-D9-i9k">
@@ -451,7 +431,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8h-a5-ppX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="506" y="436"/>
+            <point key="canvasLocation" x="-1099" y="338"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="NqL-UD-vrJ">
@@ -494,7 +474,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RHV-y6-7y5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="844" y="1268.8155922038982"/>
+            <point key="canvasLocation" x="1114" y="1269"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VqY-0o-oNm">
@@ -515,7 +495,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iwj-Al-Uyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2229" y="1364"/>
+            <point key="canvasLocation" x="2738" y="1725"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="zGn-92-Mtf">
@@ -572,20 +552,20 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNV-WN-ag7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-408.75" y="-330.63380281690144"/>
+            <point key="canvasLocation" x="-411" y="-1017"/>
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="36" height="36"/>
-        <image name="bookmark" width="24" height="24"/>
-        <image name="country" width="24" height="24"/>
-        <image name="filter" width="24" height="24"/>
-        <image name="language" width="24" height="24"/>
-        <image name="logo" width="24" height="24"/>
-        <image name="search" width="24" height="24"/>
-        <image name="share" width="24" height="24"/>
+        <image name="back" width="72" height="72"/>
+        <image name="bookmark" width="48" height="48"/>
+        <image name="country" width="48" height="48"/>
+        <image name="filter" width="48" height="48"/>
+        <image name="language" width="48" height="48"/>
+        <image name="logo" width="11.520000457763672" height="11.520000457763672"/>
+        <image name="search" width="48" height="48"/>
+        <image name="share" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gmI-5G-sff"/>
+        <segue reference="uhP-41-mqj"/>
     </inferredMetricsTieBreakers>
 </document>
