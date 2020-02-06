@@ -21,15 +21,12 @@ extension NewsSourceViewController: ISourceView{
     
     func onLoading() {
         setupSpinner(hidden: false)
-        isLoadingMore = true
     }
     
     func onList(_ list: [DailySourceModel],_ isAtLastPage: Bool) {
-        isLastPage = isAtLastPage
         self.sourceItems = list
         setupSpinner(hidden: true)
         hideLoading()
-        isLoadingMore = false
     }
     
     func onError(_ message: String) {
@@ -38,7 +35,6 @@ extension NewsSourceViewController: ISourceView{
         }
         self.setupSpinner(hidden: true)
         hideLoading()
-        isLoadingMore = false
     }
     
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String]){
@@ -121,8 +117,6 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewWillDisappear(animated)
         resultsSearchController.delegate = nil
         resultsSearchController.searchBar.delegate = nil
-        paginationWorkItem?.cancel()
-        
     }
     
     // MARK: - Setup UI
@@ -157,7 +151,7 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     private func setupTableView() {
         sourceTableView.register(R.nib.dailySourceItemCell)
         sourceTableView.tableFooterView = getBottomView()
-        sourceTableView.prefetchDataSource = self
+//        sourceTableView.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner
@@ -283,32 +277,32 @@ class NewsSourceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 }
 
-extension NewsSourceViewController: UITableViewDataSourcePrefetching{
-    
-    
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
-            if (isLastPage || isLoadingMore) {
-                return
-            }
-            
-            paginationWorkItem?.cancel()
-            isLoadingMore = true
-            showLoading()
-            
-            let workerItem = DispatchWorkItem{
-                self.interactor?.getSources(params: self.params)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
-            paginationWorkItem = workerItem
-        }
-    }
-    
-}
+//extension NewsSourceViewController: UITableViewDataSourcePrefetching{
+//
+//
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        if indexPaths.contains(where: isLoadingCell) {
+////            if (isLastPage || isLoadingMore) {
+////                return
+////            }
+////
+////            paginationWorkItem?.cancel()
+////            isLoadingMore = true
+//            showLoading()
+//
+//            let workerItem = DispatchWorkItem{
+//                self.interactor?.getSources(params: self.params)
+//            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
+////            paginationWorkItem = workerItem
+//        }
+//    }
+//
+//}
 
-var isLoadingMore = false
-var isLastPage = false
-var paginationWorkItem: DispatchWorkItem?
+//var isLoadingMore = false
+//var isLastPage = false
+//var paginationWorkItem: DispatchWorkItem?
 
 private extension NewsSourceViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
