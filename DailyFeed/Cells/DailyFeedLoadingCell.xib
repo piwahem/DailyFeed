@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DailyFeedLoadingCell" id="RmL-w4-wMC" customClass="DailyFeedLoadingCell" customModule="DailyFeed" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="223" height="122"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="223" height="122"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nvr-Bi-4dG">
+                        <rect key="frame" x="101.5" y="51" width="20" height="20"/>
+                    </activityIndicatorView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="nvr-Bi-4dG" firstAttribute="centerX" secondItem="RmL-w4-wMC" secondAttribute="centerX" id="KcG-Pf-h4z"/>
+                <constraint firstItem="nvr-Bi-4dG" firstAttribute="centerY" secondItem="RmL-w4-wMC" secondAttribute="centerY" id="sWB-zK-4b5"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="HBU-jU-ZHQ"/>
+            <size key="customSize" width="223" height="122"/>
+            <connections>
+                <outlet property="loadingIndicator" destination="nvr-Bi-4dG" id="5oa-BP-HZc"/>
+            </connections>
+            <point key="canvasLocation" x="207.19999999999999" y="44.07796101949026"/>
+        </collectionViewCell>
+    </objects>
+</document>

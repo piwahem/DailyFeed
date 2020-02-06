@@ -22,10 +22,27 @@ enum DailySourceConstant: String{
     case emptyName = "emptyName"
 }
 
+enum DailyFeedItemType: String{
+    case itemLoading = "itemLoading"
+    case itemBottom = "itemBottom"
+}
+
+
 struct Articles: Codable {
     var articles: [DailyFeedModel]
     init() {
         articles = [DailyFeedModel]()
+    }
+    
+    var firstPage: Int?
+    var lastPage: Int?
+    
+    var dataToCurrentPage: Int?
+    
+    var isLastPage: Bool {
+        get {
+            return dataToCurrentPage == lastPage
+        }
     }
 }
 
@@ -44,6 +61,26 @@ final class DailyFeedModel: NSObject, Serializable {
     private enum CodingKeys: String, CodingKey {
         case articleDescription = "description"
         case title, author, publishedAt, urlToImage, url, source
+    }
+    
+    static func itemLoading() -> DailyFeedModel{
+        let item =  DailyFeedModel()
+        item.url = DailyFeedItemType.itemLoading.rawValue
+        return item
+    }
+    
+    static func itemBottom() -> DailyFeedModel{
+        let item =  DailyFeedModel()
+        item.url = DailyFeedItemType.itemBottom.rawValue
+        return item
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let item = object as? DailyFeedModel else{
+            return false
+        }
+
+        return self.url == item.url
     }
 }
 

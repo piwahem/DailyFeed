@@ -12,7 +12,7 @@ import PromiseKit
 
 protocol INewsView: class {
     func onLoading()
-    func onList(_ list: [DailyFeedModel])
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool)
     func onError(_ message: String)
 }
 
@@ -22,16 +22,19 @@ extension DailyFeedNewsController: INewsView{
         if !self.refreshControl.isRefreshing {
             setupSpinner()
         }
-        
         spinningActivityIndicator.start()
+//        isLoadingMore = true
     }
     
-    func onList(_ list: [DailyFeedModel]) {
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
+//        self.isLastPage = isLastPage
+        
         self.newsItems = list
         self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+//        isLoadingMore = false
     }
     
     func onError(_ message: String) {
@@ -39,6 +42,7 @@ extension DailyFeedNewsController: INewsView{
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+//        isLoadingMore = false
     }
 }
 
@@ -70,6 +74,11 @@ class DailyFeedNewsController: UIViewController {
     var selectedCell = UICollectionViewCell()
     
     var isLanguageRightToLeft = Bool()
+    
+//    var isLoadingMore = false
+//    var isLastPage = false
+//    var paginationWorkItem: DispatchWorkItem?
+    
     
     // MARK: - IBOutlets
     
@@ -137,6 +146,10 @@ class DailyFeedNewsController: UIViewController {
     func setupCollectionView() {
         newsCollectionView?.register(R.nib.dailyFeedItemCell)
         newsCollectionView?.refreshControl = refreshControl
+        newsCollectionView?.register(R.nib.dailyFeedBottomCell)
+        newsCollectionView?.register(R.nib.dailyFeedLoadingCell)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier)
         refreshControl.addTarget(self,
                                  action: #selector(DailyFeedNewsController.refreshData(_:)),
                                  for: UIControl.Event.valueChanged)
@@ -147,6 +160,7 @@ class DailyFeedNewsController: UIViewController {
             newsCollectionView?.dragDelegate = self
             newsCollectionView?.dragInteractionEnabled = true
         }
+//        newsCollectionView?.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner

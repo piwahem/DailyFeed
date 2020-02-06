@@ -23,6 +23,7 @@ class SourceWorker: ISourceWorker {
     func getSources(params sourceRequestParams: NewsSourceParameters,
                     callback: @escaping ((Sources?, Error?) -> Void),
                     completetion: @escaping ()->Void) {
+        
         let newsClient = NewsClient()
         let cachedClient = CacheSourceClient()
         var sourceResult: Sources?
@@ -31,7 +32,7 @@ class SourceWorker: ISourceWorker {
             cachedClient.getSources(sourceRequestParams: sourceRequestParams)
             }
             .then { sources -> Promise<Sources> in
-                if (cachedClient.isInit(sourceRequestParams: sourceRequestParams)){
+                if (cachedClient.isInit(sourceRequestParams:sourceRequestParams)){
                     self.sources = sources
                 }
                 sourceResult = sources
@@ -48,6 +49,7 @@ class SourceWorker: ISourceWorker {
                 }
                 sourceResult = result
                 callback(result, nil)
+                
             }.ensure(on: .main) {
                 completetion()
             }.catch(on: .main) { err in

@@ -35,11 +35,9 @@ class NewsWorker: INewsWorker {
         }
     }
     
-    
     func getNews(_ source: String,
                  callback: @escaping ((Articles?, Error?) -> Void),
                  completetion: @escaping ()->Void) {
-        
         let newsClient = NewsClient()
         let newsCached = CacheNewsClient()
         var items: Articles?
@@ -83,4 +81,13 @@ class NewsWorker: INewsWorker {
         return article?.articles.isEmpty ?? true
     }
     
+//    private func isCacheDataHasNetworkData(networkData: Articles) -> Bool{
+//
+//        guard let cache = pagination.data else{
+//            return false
+//        }
+//
+//        let isHasData = cache.contains(array: networkData.articles)
+//        return isHasData
+//    }
 }

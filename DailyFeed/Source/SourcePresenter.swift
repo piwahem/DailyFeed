@@ -16,7 +16,7 @@ public enum SourceTypeDialog: String {
 
 protocol ISourcePresenter: class {
     func onLoading()
-    func onList(_ list: [DailySourceModel])
+    func onList(_ list: [DailySourceModel],_ isLastPage: Bool)
     func onError(_ message: String)
     func onShowDialog(type dialog: SourceTypeDialog, filterSources: [String])
 }
@@ -29,8 +29,8 @@ class SourcePresenter: ISourcePresenter {
         view?.onLoading()
     }
     
-    func onList(_ list: [DailySourceModel]) {
-        view?.onList(list)
+    func onList(_ list: [DailySourceModel],_ isLastPage: Bool) {
+        view?.onList(list, isLastPage)
     }
     
     func onError(_ message: String) {
