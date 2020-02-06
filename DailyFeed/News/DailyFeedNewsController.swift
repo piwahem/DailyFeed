@@ -23,18 +23,18 @@ extension DailyFeedNewsController: INewsView{
             setupSpinner()
         }
         spinningActivityIndicator.start()
-        isLoadingMore = true
+//        isLoadingMore = true
     }
     
     func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
-        self.isLastPage = isLastPage
+//        self.isLastPage = isLastPage
         
         self.newsItems = list
         self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
-        isLoadingMore = false
+//        isLoadingMore = false
     }
     
     func onError(_ message: String) {
@@ -42,7 +42,7 @@ extension DailyFeedNewsController: INewsView{
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
-        isLoadingMore = false
+//        isLoadingMore = false
     }
 }
 
@@ -75,9 +75,9 @@ class DailyFeedNewsController: UIViewController {
     
     var isLanguageRightToLeft = Bool()
     
-    var isLoadingMore = false
-    var isLastPage = false
-    var paginationWorkItem: DispatchWorkItem?
+//    var isLoadingMore = false
+//    var isLastPage = false
+//    var paginationWorkItem: DispatchWorkItem?
     
     
     // MARK: - IBOutlets
@@ -160,7 +160,7 @@ class DailyFeedNewsController: UIViewController {
             newsCollectionView?.dragDelegate = self
             newsCollectionView?.dragInteractionEnabled = true
         }
-        newsCollectionView?.prefetchDataSource = self
+//        newsCollectionView?.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner

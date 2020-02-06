@@ -47,15 +47,9 @@ extension DailyFeedNewsController: UICollectionViewDataSource, UICollectionViewD
                         at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionFooter:
-            if (!isLastPage){
-                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier, for: indexPath) as! DailyFeedLoadingReusableView
-                footerView.bind()
-                return footerView
-            }else{
-                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, for: indexPath) as! DailyFeedBottomReusableView
-                footerView.bind()
-                return footerView
-            }
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, for: indexPath) as! DailyFeedBottomReusableView
+            footerView.bind()
+            return footerView
             
         default:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, for: indexPath) as! DailyFeedBottomReusableView
@@ -104,48 +98,48 @@ extension DailyFeedNewsController: UICollectionViewDragDelegate {
     }
 }
 
-extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        // Begin asynchronously fetching data for the requested index paths.
-        if isLoadingCell(for: indexPath) {
-            if (isLastPage || isLoadingMore) {
-                return
-            }
-            paginationWorkItem?.cancel()
-            isLoadingMore = true
-            //            showLoading()
-            
-            let workerItem = DispatchWorkItem{
-                self.interactor?.getNews()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
-            paginationWorkItem = workerItem
-        }
-    }
-    
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row == newsItems.count - 1
-    }
-    
-    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = newsCollectionView.indexPathsForVisibleItems ?? []
-        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-        return Array(indexPathsIntersection)
-    }
-    
-    func showLoading() {
-        self.newsItems.append(DailyFeedModel.itemBottom())
-        newsCollectionView.reloadData()
-    }
-    
-    func hideLoading() {
-        self.newsItems = self.newsItems.filter{$0.url != DailyFeedItemType.itemBottom.rawValue}
-        newsCollectionView.reloadData()
-    }
-}
+//extension DailyFeedNewsController: UICollectionViewDataSourcePrefetching{
+//    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+//
+//    }
+//
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        // Begin asynchronously fetching data for the requested index paths.
+//        if isLoadingCell(for: indexPath) {
+//            if (isLastPage || isLoadingMore) {
+//                return
+//            }
+//            paginationWorkItem?.cancel()
+//            isLoadingMore = true
+//            //            showLoading()
+//
+//            let workerItem = DispatchWorkItem{
+//                self.interactor?.getNews()
+//            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workerItem)
+//            paginationWorkItem = workerItem
+//        }
+//    }
+//
+//    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+//        return indexPath.row == newsItems.count - 1
+//    }
+//
+//    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+//        let indexPathsForVisibleRows = newsCollectionView.indexPathsForVisibleItems ?? []
+//        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+//        return Array(indexPathsIntersection)
+//    }
+//
+//    func showLoading() {
+//        self.newsItems.append(DailyFeedModel.itemBottom())
+//        newsCollectionView.reloadData()
+//    }
+//
+//    func hideLoading() {
+//        self.newsItems = self.newsItems.filter{$0.url != DailyFeedItemType.itemBottom.rawValue}
+//        newsCollectionView.reloadData()
+//    }
+//}
 
