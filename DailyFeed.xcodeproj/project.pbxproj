@@ -72,6 +72,10 @@
 		849408E1236894A40019025D /* NewsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849408E0236894A40019025D /* NewsWorker.swift */; };
 		849AB983239FF2E700ACA0E9 /* CacheNewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */; };
 		849AB98523A1544100ACA0E9 /* CacheSourceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849AB98423A1544100ACA0E9 /* CacheSourceClient.swift */; };
+		84B4ABA023F19FF100AD3F2B /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */; };
+		84B4ABA123F19FF100AD3F2B /* SettingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B4AB9F23F19FF100AD3F2B /* SettingTableViewController.xib */; };
+		84B4ABA623F1A3FA00AD3F2B /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */; };
+		84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */; };
 		84DC6F99236DBEFF00FF8B61 /* NewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC6F98236DBEFF00FF8B61 /* NewsRouter.swift */; };
 		84DC6F9E2371BF4E00FF8B61 /* SourceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC6F9D2371BF4E00FF8B61 /* SourceRouter.swift */; };
 		84DC6FA02371C7A900FF8B61 /* SourceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC6F9F2371C7A900FF8B61 /* SourceWorker.swift */; };
@@ -210,6 +214,10 @@
 		849408E0236894A40019025D /* NewsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWorker.swift; sourceTree = "<group>"; };
 		849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheNewsClient.swift; sourceTree = "<group>"; };
 		849AB98423A1544100ACA0E9 /* CacheSourceClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheSourceClient.swift; sourceTree = "<group>"; };
+		84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		84B4AB9F23F19FF100AD3F2B /* SettingTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewController.xib; sourceTree = "<group>"; };
+		84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		84DC6F98236DBEFF00FF8B61 /* NewsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRouter.swift; sourceTree = "<group>"; };
 		84DC6F9D2371BF4E00FF8B61 /* SourceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRouter.swift; sourceTree = "<group>"; };
 		84DC6F9F2371C7A900FF8B61 /* SourceWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceWorker.swift; sourceTree = "<group>"; };
@@ -303,6 +311,7 @@
 		06D04C1D1E1248DA0013B4AA /* DailyFeed */ = {
 			isa = PBXGroup;
 			children = (
+				84B4AB9D23F19EA600AD3F2B /* Settings */,
 				953C685121A070A5006750F8 /* 📦Model */,
 				84DC6FA8237C3FB800FF8B61 /* Search */,
 				84DC6FB12382E31600FF8B61 /* Bookmarks */,
@@ -377,6 +386,17 @@
 				06D04C4C1E1249430013B4AA /* DailyFeedModel.swift */,
 			);
 			path = News;
+			sourceTree = "<group>";
+		};
+		84B4AB9D23F19EA600AD3F2B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */,
+				84B4AB9F23F19FF100AD3F2B /* SettingTableViewController.xib */,
+				84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */,
+				84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		84DC6F9C2371BEED00FF8B61 /* Source */ = {
@@ -642,6 +662,7 @@
 			files = (
 				953C685821A071CC006750F8 /* IconTransitions.json in Resources */,
 				842AFEAC23C77D1900E1AA6A /* DailyFeedLoadingCell.xib in Resources */,
+				84B4ABA123F19FF100AD3F2B /* SettingTableViewController.xib in Resources */,
 				06D04C551E13945D0013B4AA /* DailyFeedItemCell.xib in Resources */,
 				064FA8F41E52D48900693D12 /* BookmarkItemsCell.xib in Resources */,
 				8409DB3B23C3893200E1D9E2 /* DailySourceLoadingCell.xib in Resources */,
@@ -649,6 +670,7 @@
 				8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */,
 				208C18271EA3CD81007BC052 /* Settings.bundle in Resources */,
 				8432F6F123CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib in Resources */,
+				84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */,
 				06D04C261E1248DB0013B4AA /* Assets.xcassets in Resources */,
 				842AFEB223C77F2D00E1AA6A /* DailyFeedBottomCell.xib in Resources */,
 				0621695A1E260AE800ECB0AB /* DailySourceItemCell.xib in Resources */,
@@ -804,6 +826,7 @@
 				06D04C211E1248DB0013B4AA /* DailyFeedNewsController.swift in Sources */,
 				84DC6F99236DBEFF00FF8B61 /* NewsRouter.swift in Sources */,
 				063504FC1E151C4A002510B0 /* DFSafariViewController.swift in Sources */,
+				84B4ABA023F19FF100AD3F2B /* SettingTableViewController.swift in Sources */,
 				84E0C05A23B109E00065B8D9 /* ToThirteenMigration.swift in Sources */,
 				84717110239563A60068BCFB /* SourceRealmModel.swift in Sources */,
 				8409DB3D23C38A8000E1D9E2 /* DailySourceLoadingCell.swift in Sources */,
@@ -854,6 +877,7 @@
 				84E2D9B723A924BC00E90266 /* MigrationManager.swift in Sources */,
 				06D04C1F1E1248DB0013B4AA /* AppDelegate.swift in Sources */,
 				845C4DE723AA8A3C00D52B96 /* ToTwelveMigration.swift in Sources */,
+				84B4ABA623F1A3FA00AD3F2B /* SettingTableViewCell.swift in Sources */,
 				848073722360A3E600A6EDB2 /* BaseURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
