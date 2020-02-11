@@ -23,6 +23,9 @@ class SettingTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(R.nib.settingTableViewCell)
+        tableView.tableFooterView = getFooterView()
+        tableView.separatorStyle = .singleLine
+        tableView.allowsMultipleSelection = false
     }
 
     // MARK: - Table view data source
@@ -44,6 +47,24 @@ class SettingTableViewController: UITableViewController {
         let name = settings[position]
         cell.bind(name: name)
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath){
+            cell.contentView.layer.opacity = 0.3
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath){
+            cell.contentView.layer.opacity = 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAt position = \(indexPath.row)")
     }
 
     /*
@@ -91,4 +112,7 @@ class SettingTableViewController: UITableViewController {
     }
     */
     
+    private func getFooterView() -> UIView{
+        return UIView(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: 1))
+    }
 }

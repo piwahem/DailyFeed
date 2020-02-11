@@ -14,6 +14,10 @@ class SettingTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle  = .none
+        let zeroInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.separatorInset = zeroInset
+        self.layoutMargins = zeroInset
     }
     
     func bind(name: String){
