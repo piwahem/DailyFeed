@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SettingTableViewController: UITableViewController {
     
@@ -23,7 +24,7 @@ class SettingTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(R.nib.settingTableViewCell)
-        tableView.tableFooterView = getFooterView()
+        tableView.tableFooterView = getFooterView2()
         tableView.separatorStyle = .singleLine
         tableView.allowsMultipleSelection = false
     }
@@ -65,6 +66,14 @@ class SettingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("didSelectRowAt position = \(indexPath.row)")
+        let position = indexPath.row
+        if (position == 0){
+            openAppSetting()
+        } else if (position == 3){
+            openTermOfUse()
+        } else if (position == 4){
+            openPrivacyPolicy()
+        }
     }
 
     /*
@@ -112,7 +121,47 @@ class SettingTableViewController: UITableViewController {
     }
     */
     
+    // remove redudant and last separator line of cell
     private func getFooterView() -> UIView{
         return UIView(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: 1))
     }
+    
+    // remove redudant separator line of cell
+    private func getFooterView2() -> UIView{
+        return UIView(frame: CGRect.zero)
+    }
+    
+    private func openAppSetting() {
+        if #available(iOS 11.0, *) {
+            // Running iOS 11 OR NEWER
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            // Earlier version of iOS
+            if let url = URL(string: "App-Prefs:root=General") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    func openTermOfUse(){
+        openSafari(url: AppUrl.TERM_OF_USE.rawValue)
+    }
+    
+    func openPrivacyPolicy(){
+        openSafari(url: AppUrl.PRIVATE_POLICY.rawValue)
+    }
+    
+    private func openSafari(url: String){
+        if let url = URL(string: url) {
+            let svc = DFSafariViewController(url: url)
+            svc.delegate = self
+            present(svc, animated: true, completion: nil)
+        }
+    }
+}
+
+extension SettingTableViewController: SFSafariViewControllerDelegate{
+    
 }

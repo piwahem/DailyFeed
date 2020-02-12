@@ -49,6 +49,7 @@
 		20EA15751EA28C6700047523 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EA15741EA28C6700047523 /* Reach.swift */; };
 		8409DB3B23C3893200E1D9E2 /* DailySourceLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8409DB3A23C3893200E1D9E2 /* DailySourceLoadingCell.xib */; };
 		8409DB3D23C38A8000E1D9E2 /* DailySourceLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409DB3C23C38A8000E1D9E2 /* DailySourceLoadingCell.swift */; };
+		841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FBB8E23F453C300DF8029 /* AppUrl.swift */; };
 		842AFEAC23C77D1900E1AA6A /* DailyFeedLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842AFEAB23C77D1900E1AA6A /* DailyFeedLoadingCell.xib */; };
 		842AFEAE23C77E1300E1AA6A /* DailyFeedLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AFEAD23C77E1300E1AA6A /* DailyFeedLoadingCell.swift */; };
 		842AFEB023C77EB100E1AA6A /* DailyFeedBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AFEAF23C77EB100E1AA6A /* DailyFeedBottomCell.swift */; };
@@ -190,6 +191,7 @@
 		7314A561F80C2D11A6AB0E63 /* Pods-DailyFeedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyFeedTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DailyFeedTests/Pods-DailyFeedTests.release.xcconfig"; sourceTree = "<group>"; };
 		8409DB3A23C3893200E1D9E2 /* DailySourceLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailySourceLoadingCell.xib; sourceTree = "<group>"; };
 		8409DB3C23C38A8000E1D9E2 /* DailySourceLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySourceLoadingCell.swift; sourceTree = "<group>"; };
+		841FBB8E23F453C300DF8029 /* AppUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUrl.swift; sourceTree = "<group>"; };
 		842AFEAB23C77D1900E1AA6A /* DailyFeedLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedLoadingCell.xib; sourceTree = "<group>"; };
 		842AFEAD23C77E1300E1AA6A /* DailyFeedLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedLoadingCell.swift; sourceTree = "<group>"; };
 		842AFEAF23C77EB100E1AA6A /* DailyFeedBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedBottomCell.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */,
 				84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */,
 				84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */,
+				841FBB8E23F453C300DF8029 /* AppUrl.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -867,6 +870,7 @@
 				849AB983239FF2E700ACA0E9 /* CacheNewsClient.swift in Sources */,
 				848073742360A46500A6EDB2 /* NewsClient.swift in Sources */,
 				84DC6FB0237C47C300FF8B61 /* NewsSearchPresenter.swift in Sources */,
+				841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */,
 				06529E7D1E408DC6003DA45B /* NewsDetailViewController+StateRestoration.swift in Sources */,
 				068496AC1E23AA2900DBD5A6 /* UIViewControllerExtension.swift in Sources */,
 				84DC6FAA237C3FD000FF8B61 /* NewsSearchRouter.swift in Sources */,
