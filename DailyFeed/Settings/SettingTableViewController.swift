@@ -27,6 +27,7 @@ class SettingTableViewController: UITableViewController {
         tableView.tableFooterView = getFooterView2()
         tableView.separatorStyle = .singleLine
         tableView.allowsMultipleSelection = false
+        print("AppVersion: \(Bundle.main.appVersion)")
     }
 
     // MARK: - Table view data source
@@ -69,6 +70,8 @@ class SettingTableViewController: UITableViewController {
         let position = indexPath.row
         if (position == 0){
             openAppSetting()
+        } else if (position == 2){
+            openAbout()
         } else if (position == 3){
             openTermOfUse()
         } else if (position == 4){
@@ -159,6 +162,10 @@ class SettingTableViewController: UITableViewController {
             svc.delegate = self
             present(svc, animated: true, completion: nil)
         }
+    }
+    
+    private func openAbout(){
+        performSegue(withIdentifier: R.segue.settingTableViewController.aboutSettingViewController, sender: self)
     }
 }
 

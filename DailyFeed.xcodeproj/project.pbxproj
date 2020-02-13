@@ -47,6 +47,8 @@
 		208C18271EA3CD81007BC052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 208C18261EA3CD81007BC052 /* Settings.bundle */; };
 		208FBB5B1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208FBB5A1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift */; };
 		20EA15751EA28C6700047523 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EA15741EA28C6700047523 /* Reach.swift */; };
+		8407AA9423F58C170068F52D /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407AA9323F58C170068F52D /* BundleExtension.swift */; };
+		8407AA9623F58DA80068F52D /* AboutSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407AA9523F58DA80068F52D /* AboutSettingViewController.swift */; };
 		8409DB3B23C3893200E1D9E2 /* DailySourceLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8409DB3A23C3893200E1D9E2 /* DailySourceLoadingCell.xib */; };
 		8409DB3D23C38A8000E1D9E2 /* DailySourceLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409DB3C23C38A8000E1D9E2 /* DailySourceLoadingCell.swift */; };
 		841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FBB8E23F453C300DF8029 /* AppUrl.swift */; };
@@ -189,6 +191,8 @@
 		58B2007D05E7918650A75085 /* Pods_DailyFeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DailyFeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FC3839392D2356ACF37A1F7 /* Pods_News_Now.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_News_Now.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7314A561F80C2D11A6AB0E63 /* Pods-DailyFeedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyFeedTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DailyFeedTests/Pods-DailyFeedTests.release.xcconfig"; sourceTree = "<group>"; };
+		8407AA9323F58C170068F52D /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		8407AA9523F58DA80068F52D /* AboutSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingViewController.swift; sourceTree = "<group>"; };
 		8409DB3A23C3893200E1D9E2 /* DailySourceLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailySourceLoadingCell.xib; sourceTree = "<group>"; };
 		8409DB3C23C38A8000E1D9E2 /* DailySourceLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySourceLoadingCell.swift; sourceTree = "<group>"; };
 		841FBB8E23F453C300DF8029 /* AppUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUrl.swift; sourceTree = "<group>"; };
@@ -395,6 +399,7 @@
 				84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */,
 				84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */,
 				841FBB8E23F453C300DF8029 /* AppUrl.swift */,
+				8407AA9523F58DA80068F52D /* AboutSettingViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				068496AB1E23AA2900DBD5A6 /* UIViewControllerExtension.swift */,
 				1DD3CDCF227F295900C374BC /* R.generated.swift */,
 				8432F6F223D3510000F54DF2 /* Array+Extension.swift */,
+				8407AA9323F58C170068F52D /* BundleExtension.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -827,6 +833,7 @@
 				063504FC1E151C4A002510B0 /* DFSafariViewController.swift in Sources */,
 				84B4ABA023F19FF100AD3F2B /* SettingTableViewController.swift in Sources */,
 				84E0C05A23B109E00065B8D9 /* ToThirteenMigration.swift in Sources */,
+				8407AA9423F58C170068F52D /* BundleExtension.swift in Sources */,
 				84717110239563A60068BCFB /* SourceRealmModel.swift in Sources */,
 				8409DB3D23C38A8000E1D9E2 /* DailySourceLoadingCell.swift in Sources */,
 				06D04C571E13948C0013B4AA /* TSImageView.swift in Sources */,
@@ -843,6 +850,7 @@
 				06CAC5981E28A3D600EF72BB /* NewsSource.swift in Sources */,
 				8455AAF923CCC507009A7913 /* DailyFeedBottomReusableView.swift in Sources */,
 				84DC6FAE237C46C700FF8B61 /* NewsSearchInteractor.swift in Sources */,
+				8407AA9623F58DA80068F52D /* AboutSettingViewController.swift in Sources */,
 				847EB2E22369D9DF0077BF25 /* NewsPresenter.swift in Sources */,
 				06D04C511E126BD40013B4AA /* UIImageExtension.swift in Sources */,
 				060D64881E31EB400053F2AB /* DailySourceItemLayout.swift in Sources */,
