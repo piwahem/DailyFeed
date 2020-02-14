@@ -442,12 +442,66 @@
                     <view key="view" contentMode="scaleToFill" id="ShR-8N-LBd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bi7-qp-TSf" userLabel="vBackground">
+                                <rect key="frame" x="0.0" y="409.5" width="320" height="109.5"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NbM-6v-ezc">
+                                <rect key="frame" x="0.0" y="409.5" width="320" height="109.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © The economist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNP-rd-5sL">
+                                        <rect key="frame" x="54" y="16" width="212" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Newspaper Limited 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-VE-flq">
+                                        <rect key="frame" x="64" y="44.5" width="192.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIk-45-hGP">
+                                        <rect key="frame" x="91" y="73" width="138.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.1575835089" blue="0.1207419248" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="8" bottom="16" trailing="8"/>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lbAppVersion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAz-j8-j2h">
+                                <rect key="frame" x="109.5" y="64" width="101" height="440"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bi7-qp-TSf" firstAttribute="bottom" secondItem="NbM-6v-ezc" secondAttribute="bottom" id="INK-EY-hqU"/>
+                            <constraint firstItem="NbM-6v-ezc" firstAttribute="centerX" secondItem="ShR-8N-LBd" secondAttribute="centerX" id="PKv-Mg-pIK"/>
+                            <constraint firstItem="MAz-j8-j2h" firstAttribute="top" secondItem="ahL-x3-ApC" secondAttribute="top" id="SBv-Lz-buS"/>
+                            <constraint firstItem="bi7-qp-TSf" firstAttribute="top" secondItem="NbM-6v-ezc" secondAttribute="top" id="VN0-W4-DJG"/>
+                            <constraint firstItem="bi7-qp-TSf" firstAttribute="leading" secondItem="NbM-6v-ezc" secondAttribute="leading" id="fQg-Ao-sO3"/>
+                            <constraint firstItem="MAz-j8-j2h" firstAttribute="centerX" secondItem="NbM-6v-ezc" secondAttribute="centerX" id="lVX-8G-VoW"/>
+                            <constraint firstItem="ahL-x3-ApC" firstAttribute="trailing" secondItem="NbM-6v-ezc" secondAttribute="trailing" id="sBV-EM-wFA"/>
+                            <constraint firstItem="bi7-qp-TSf" firstAttribute="trailing" secondItem="NbM-6v-ezc" secondAttribute="trailing" id="sTT-ZE-6A8"/>
+                            <constraint firstItem="ahL-x3-ApC" firstAttribute="bottom" secondItem="NbM-6v-ezc" secondAttribute="bottom" id="ujD-bi-dkw"/>
+                            <constraint firstItem="NbM-6v-ezc" firstAttribute="leading" secondItem="ahL-x3-ApC" secondAttribute="leading" id="v8V-6a-gQL"/>
+                            <constraint firstItem="MAz-j8-j2h" firstAttribute="centerY" secondItem="ShR-8N-LBd" secondAttribute="centerY" id="wx6-uB-bLO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ahL-x3-ApC"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="Bd4-ps-DHV">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="tdh-e9-bYi"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="lbAppVersion" destination="MAz-j8-j2h" id="das-7J-6Ga"/>
+                        <outlet property="vBackground" destination="bi7-qp-TSf" id="aXg-mL-06Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n8R-YF-gnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

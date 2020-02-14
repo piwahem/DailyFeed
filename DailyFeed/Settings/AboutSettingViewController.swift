@@ -10,26 +10,26 @@ import UIKit
 
 class AboutSettingViewController: UIViewController {
 
+    @IBOutlet weak var vBackground: UIView!
+    @IBOutlet weak var lbAppVersion: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Setting", style: .plain, target: self, action: #selector(self.closeBackButtonPressed))
-        // Do any additional setup after loading the view.
+        
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "close"), for: [])
+        button.setTitle("Settings", for: [])
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(self.self.closeBackButtonPressed), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+        
+        vBackground.addTopBorder(with: UIColor.gray, andWidth: 1)
+        lbAppVersion.text = Bundle.main.appVersion
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @objc func closeBackButtonPressed(){
         self.dismiss(animated: false, completion: nil)
     }
 
+    
 }
