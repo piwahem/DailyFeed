@@ -59,6 +59,7 @@
 		8432F6F023CF64CB00F54DF2 /* DailyFeedLoadingReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432F6EE23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.swift */; };
 		8432F6F123CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432F6EF23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib */; };
 		8432F6F323D3510000F54DF2 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432F6F223D3510000F54DF2 /* Array+Extension.swift */; };
+		8452B3F523F9707E00CEA1BF /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */; };
 		8455AAF923CCC507009A7913 /* DailyFeedBottomReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */; };
 		8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */; };
 		845C4DE723AA8A3C00D52B96 /* ToTwelveMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */; };
@@ -205,6 +206,7 @@
 		8432F6EE23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedLoadingReusableView.swift; sourceTree = "<group>"; };
 		8432F6EF23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedLoadingReusableView.xib; sourceTree = "<group>"; };
 		8432F6F223D3510000F54DF2 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedBottomReusableView.swift; sourceTree = "<group>"; };
 		8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedBottomReusableView.xib; sourceTree = "<group>"; };
 		845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTwelveMigration.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				8432F6F223D3510000F54DF2 /* Array+Extension.swift */,
 				8407AA9323F58C170068F52D /* BundleExtension.swift */,
 				84C121D623F6F11C009E0171 /* UIView+Extension.swift */,
+				8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -888,6 +891,7 @@
 				84DC6FB0237C47C300FF8B61 /* NewsSearchPresenter.swift in Sources */,
 				841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */,
 				06529E7D1E408DC6003DA45B /* NewsDetailViewController+StateRestoration.swift in Sources */,
+				8452B3F523F9707E00CEA1BF /* UILabel+Extension.swift in Sources */,
 				068496AC1E23AA2900DBD5A6 /* UIViewControllerExtension.swift in Sources */,
 				84DC6FAA237C3FD000FF8B61 /* NewsSearchRouter.swift in Sources */,
 				84E2D9B723A924BC00E90266 /* MigrationManager.swift in Sources */,
