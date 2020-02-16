@@ -81,6 +81,16 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
+        super.viewWillAppear(true)
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) { // As soon as vc disappears
+        super.viewWillDisappear(true)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     /*
      Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

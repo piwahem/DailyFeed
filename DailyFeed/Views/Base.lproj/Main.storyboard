@@ -428,8 +428,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="D38-vT-Y7B"/>
                     <connections>
-                        <segue destination="c4S-Fy-KqN" kind="show" identifier="AboutSettingViewController" id="4gr-ay-m1f"/>
                         <segue destination="Gqy-F7-Uxu" kind="show" identifier="SettingContactTableViewController" id="6SH-ma-2w6"/>
+                        <segue destination="QkR-ZZ-QE7" kind="show" identifier="AboutSettingViewController" id="5R1-Pi-bv1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w3z-C3-hwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -625,9 +625,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ahL-x3-ApC"/>
                     </view>
-                    <navigationItem key="navigationItem" title="About" id="Bd4-ps-DHV">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="tdh-e9-bYi"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="About" id="Bd4-ps-DHV"/>
                     <connections>
                         <outlet property="lbAppVersion" destination="MAz-j8-j2h" id="das-7J-6Ga"/>
                         <outlet property="vBackground" destination="bi7-qp-TSf" id="aXg-mL-06Z"/>
@@ -797,24 +795,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wOA-bZ-Qou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1129" y="1128"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="aSV-pM-L80">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c4S-Fy-KqN" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yQ9-Lu-08t">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="QkR-ZZ-QE7" kind="relationship" relationship="rootViewController" id="rxL-ev-rwv"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hEQ-Al-VBA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-347" y="1951"/>
         </scene>
     </scenes>
     <resources>

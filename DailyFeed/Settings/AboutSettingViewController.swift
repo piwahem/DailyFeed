@@ -16,12 +16,12 @@ class AboutSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "close"), for: [])
-        button.setTitle("Settings", for: [])
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(self.self.closeBackButtonPressed), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(named: "close"), for: [])
+//        button.setTitle("Settings", for: [])
+//        button.sizeToFit()
+//        button.addTarget(self, action: #selector(self.self.closeBackButtonPressed), for: .touchUpInside)
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
         
         vBackground.addTopBorder(with: UIColor.gray, andWidth: 1)
         lbAppVersion.text = Bundle.main.appVersion
