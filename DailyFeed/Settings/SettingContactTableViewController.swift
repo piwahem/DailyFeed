@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class SettingContactTableViewController: UITableViewController {
     
@@ -31,6 +32,14 @@ class SettingContactTableViewController: UITableViewController {
         lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
         lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
         lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
+        
+        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
+        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
+        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
+        
+        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
+        lbNorthAmericanEmail.isUserInteractionEnabled = true
+        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
     }
     
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -42,4 +51,40 @@ class SettingContactTableViewController: UITableViewController {
         super.viewWillDisappear(true)
         showHideTabBarListner?.onShow(isShow: true)
     }
+    
+    @objc private func callNorthAmericanNumber(){
+        callNumber(number: lbNorthAmericanPhoneNumber.text!)
+    }
+    
+    private func callNumber(number: String){
+        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
+    @objc private func sendNorthAmericanEmail(){
+        let mailComposeViewController = configureMailComposer()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("Can't send email")
+        }
+    }
+    
+    func configureMailComposer() -> MFMailComposeViewController{
+        let mailComposeVC = MFMailComposeViewController()
+        mailComposeVC.mailComposeDelegate = self
+        mailComposeVC.setToRecipients(["recipent@gmail.com"])
+        mailComposeVC.setSubject("subject")
+        mailComposeVC.setMessageBody("body", isHTML: false)
+        return mailComposeVC
+    }
+}
+
+extension SettingContactTableViewController: MFMailComposeViewControllerDelegate{
+    
 }
