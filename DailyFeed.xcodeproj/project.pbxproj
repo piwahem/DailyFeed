@@ -80,6 +80,7 @@
 		84B4ABA623F1A3FA00AD3F2B /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */; };
 		84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */; };
 		84C121D723F6F11C009E0171 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C121D623F6F11C009E0171 /* UIView+Extension.swift */; };
+		84C1B0A123FAD93600AC0DF4 /* OnShowHideTabbarListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */; };
 		84CFB2DC23F90E590044A484 /* SettingContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */; };
 		84DC6F99236DBEFF00FF8B61 /* NewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC6F98236DBEFF00FF8B61 /* NewsRouter.swift */; };
 		84DC6F9E2371BF4E00FF8B61 /* SourceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC6F9D2371BF4E00FF8B61 /* SourceRouter.swift */; };
@@ -227,6 +228,7 @@
 		84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		84C121D623F6F11C009E0171 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnShowHideTabbarListener.swift; sourceTree = "<group>"; };
 		84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingContactTableViewController.swift; sourceTree = "<group>"; };
 		84DC6F98236DBEFF00FF8B61 /* NewsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRouter.swift; sourceTree = "<group>"; };
 		84DC6F9D2371BF4E00FF8B61 /* SourceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRouter.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				841FBB8E23F453C300DF8029 /* AppUrl.swift */,
 				8407AA9523F58DA80068F52D /* AboutSettingViewController.swift */,
 				84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */,
+				84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				84DC6FA22371C93000FF8B61 /* SourceInteractor.swift in Sources */,
 				84DC6FAC237C446800FF8B61 /* NewsSearchWorker.swift in Sources */,
 				1D98E964228B1AF60090B722 /* NewsSearchViewController.swift in Sources */,
+				84C1B0A123FAD93600AC0DF4 /* OnShowHideTabbarListener.swift in Sources */,
 				8432F6F023CF64CB00F54DF2 /* DailyFeedLoadingReusableView.swift in Sources */,
 				8471710C23901DDD0068BCFB /* CacheClient.swift in Sources */,
 				06D04C211E1248DB0013B4AA /* DailyFeedNewsController.swift in Sources */,

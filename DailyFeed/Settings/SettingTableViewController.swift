@@ -27,6 +27,7 @@ class SettingTableViewController: UITableViewController {
         tableView.tableFooterView = getFooterView2()
         tableView.separatorStyle = .singleLine
         tableView.allowsMultipleSelection = false
+        tabBarController?.hidesBottomBarWhenPushed = true
         print("AppVersion: \(Bundle.main.appVersion)")
     }
     
@@ -81,14 +82,16 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
-        super.viewWillAppear(true)
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) { // As soon as vc disappears
-        super.viewWillDisappear(true)
-        self.tabBarController?.tabBar.isHidden = true
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == R.segue.settingTableViewController.settingContactTableViewController.identifier {
+            if let vc = segue.destination as? SettingContactTableViewController {
+                vc.showHideTabBarListner = self
+            }
+        } else if segue.identifier == R.segue.settingTableViewController.aboutSettingViewController.identifier {
+            if let vc = segue.destination as? AboutSettingViewController {
+                vc.showHideTabBarListner = self
+            }
+        }
     }
     
     /*
@@ -187,4 +190,10 @@ class SettingTableViewController: UITableViewController {
 
 extension SettingTableViewController: SFSafariViewControllerDelegate{
     
+}
+
+extension SettingTableViewController: OnShowHideTabbarListener{
+    func onShow(isShow: Bool) {
+        self.tabBarController?.tabBar.isHidden = !isShow
+    }
 }
