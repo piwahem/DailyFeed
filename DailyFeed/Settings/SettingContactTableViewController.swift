@@ -11,9 +11,9 @@ import MessageUI
 
 class SettingContactTableViewController: UITableViewController {
     
-    @IBOutlet weak var lbSubcriber: UILabel!
-    @IBOutlet weak var lbNorthAmericanPhoneNumber: UILabel!
-    @IBOutlet weak var lbNorthAmericanEmail: UILabel!
+//    @IBOutlet weak var lbSubcriber: UILabel!
+//    @IBOutlet weak var lbNorthAmericanPhoneNumber: UILabel!
+//    @IBOutlet weak var lbNorthAmericanEmail: UILabel!
     
     var showHideTabBarListner: OnShowHideTabbarListener? = nil
     
@@ -28,8 +28,6 @@ class SettingContactTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        initStaticUI()
     }
     
 //    // MARK: - Table view data source
@@ -59,9 +57,9 @@ class SettingContactTableViewController: UITableViewController {
         showHideTabBarListner?.onShow(isShow: true)
     }
     
-    @objc private func callNorthAmericanNumber(){
-        callNumber(number: lbNorthAmericanPhoneNumber.text!)
-    }
+//    @objc private func callNorthAmericanNumber(){
+//        callNumber(number: lbNorthAmericanPhoneNumber.text!)
+//    }
     
     private func callNumber(number: String){
         if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
@@ -73,14 +71,14 @@ class SettingContactTableViewController: UITableViewController {
         }
     }
     
-    @objc private func sendNorthAmericanEmail(){
-        let mailComposeViewController = configureMailComposer(recipent: lbNorthAmericanEmail.text!, subject: "", message: "")
-        if MFMailComposeViewController.canSendMail(){
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        }else{
-            print("Can't send email")
-        }
-    }
+//    @objc private func sendNorthAmericanEmail(){
+//        let mailComposeViewController = configureMailComposer(recipent: lbNorthAmericanEmail.text!, subject: "", message: "")
+//        if MFMailComposeViewController.canSendMail(){
+//            self.present(mailComposeViewController, animated: true, completion: nil)
+//        }else{
+//            print("Can't send email")
+//        }
+//    }
     
     func configureMailComposer(recipent: String, subject: String, message: String) -> MFMailComposeViewController{
         let mailComposeVC = MFMailComposeViewController()
@@ -91,19 +89,19 @@ class SettingContactTableViewController: UITableViewController {
         return mailComposeVC
     }
     
-    func initStaticUI() {
-        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
-        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
-        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
-        
-        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
-        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
-        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
-        
-        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
-        lbNorthAmericanEmail.isUserInteractionEnabled = true
-        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
-    }
+//    func initStaticUI() {
+//        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
+//        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
+//        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
+//
+//        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
+//        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
+//        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
+//
+//        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
+//        lbNorthAmericanEmail.isUserInteractionEnabled = true
+//        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
+//    }
 }
 
 extension SettingContactTableViewController: MFMailComposeViewControllerDelegate{

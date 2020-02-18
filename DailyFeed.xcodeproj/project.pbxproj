@@ -72,6 +72,12 @@
 		848073702360A24100A6EDB2 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480736F2360A24100A6EDB2 /* RestClient.swift */; };
 		848073722360A3E600A6EDB2 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848073712360A3E600A6EDB2 /* BaseURL.swift */; };
 		848073742360A46500A6EDB2 /* NewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848073732360A46500A6EDB2 /* NewsClient.swift */; };
+		8483134C23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483134A23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.swift */; };
+		8483134D23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8483134B23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib */; };
+		8483135023FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483134E23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift */; };
+		8483135123FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8483134F23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib */; };
+		8483135423FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483135223FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift */; };
+		8483135523FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */; };
 		8490C1DE23B66AEA00A5A685 /* PaginationExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490C1DD23B66AEA00A5A685 /* PaginationExecutor.swift */; };
 		849408E1236894A40019025D /* NewsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849408E0236894A40019025D /* NewsWorker.swift */; };
 		849AB983239FF2E700ACA0E9 /* CacheNewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */; };
@@ -220,6 +226,12 @@
 		8480736F2360A24100A6EDB2 /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		848073712360A3E600A6EDB2 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
 		848073732360A46500A6EDB2 /* NewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsClient.swift; sourceTree = "<group>"; };
+		8483134A23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingContactInstructionTableViewCell.swift; sourceTree = "<group>"; };
+		8483134B23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingContactInstructionTableViewCell.xib; sourceTree = "<group>"; };
+		8483134E23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingContactLabelTableViewCell.swift; sourceTree = "<group>"; };
+		8483134F23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingContactLabelTableViewCell.xib; sourceTree = "<group>"; };
+		8483135223FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingContactInfoTableViewCell.swift; sourceTree = "<group>"; };
+		8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingContactInfoTableViewCell.xib; sourceTree = "<group>"; };
 		8490C1DD23B66AEA00A5A685 /* PaginationExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationExecutor.swift; sourceTree = "<group>"; };
 		849408E0236894A40019025D /* NewsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWorker.swift; sourceTree = "<group>"; };
 		849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheNewsClient.swift; sourceTree = "<group>"; };
@@ -410,6 +422,12 @@
 				8407AA9523F58DA80068F52D /* AboutSettingViewController.swift */,
 				84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */,
 				84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */,
+				8483134A23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.swift */,
+				8483134B23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib */,
+				8483134E23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift */,
+				8483134F23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib */,
+				8483135223FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift */,
+				8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -683,15 +701,18 @@
 				06D04C551E13945D0013B4AA /* DailyFeedItemCell.xib in Resources */,
 				064FA8F41E52D48900693D12 /* BookmarkItemsCell.xib in Resources */,
 				8409DB3B23C3893200E1D9E2 /* DailySourceLoadingCell.xib in Resources */,
+				8483135523FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib in Resources */,
 				06D04C291E1248DB0013B4AA /* LaunchScreen.storyboard in Resources */,
 				8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */,
 				208C18271EA3CD81007BC052 /* Settings.bundle in Resources */,
 				8432F6F123CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib in Resources */,
 				84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */,
+				8483134D23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib in Resources */,
 				06D04C261E1248DB0013B4AA /* Assets.xcassets in Resources */,
 				842AFEB223C77F2D00E1AA6A /* DailyFeedBottomCell.xib in Resources */,
 				0621695A1E260AE800ECB0AB /* DailySourceItemCell.xib in Resources */,
 				06D04C241E1248DB0013B4AA /* Main.storyboard in Resources */,
+				8483135123FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib in Resources */,
 				207A5C261E9C1C6E00E4FC45 /* DailyFeedDetailItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,6 +856,7 @@
 				842AFEAE23C77E1300E1AA6A /* DailyFeedLoadingCell.swift in Sources */,
 				84DC6FB72382E82300FF8B61 /* NewsBookmarkInteractor.swift in Sources */,
 				84E0C05423AE6ACF0065B8D9 /* NewsBookmarkTestWorker.swift in Sources */,
+				8483135423FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift in Sources */,
 				06A310381E4B24F30011E827 /* DailySourceModel.swift in Sources */,
 				84DC6FA22371C93000FF8B61 /* SourceInteractor.swift in Sources */,
 				84DC6FAC237C446800FF8B61 /* NewsSearchWorker.swift in Sources */,
@@ -844,6 +866,7 @@
 				8471710C23901DDD0068BCFB /* CacheClient.swift in Sources */,
 				06D04C211E1248DB0013B4AA /* DailyFeedNewsController.swift in Sources */,
 				84DC6F99236DBEFF00FF8B61 /* NewsRouter.swift in Sources */,
+				8483134C23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.swift in Sources */,
 				063504FC1E151C4A002510B0 /* DFSafariViewController.swift in Sources */,
 				84B4ABA023F19FF100AD3F2B /* SettingTableViewController.swift in Sources */,
 				84E0C05A23B109E00065B8D9 /* ToThirteenMigration.swift in Sources */,
@@ -872,6 +895,7 @@
 				208FBB5B1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift in Sources */,
 				84E0C06023B509450065B8D9 /* SourceSearchExecutor.swift in Sources */,
 				207A5C251E9C1C6E00E4FC45 /* DailyFeedDetailItemCell.swift in Sources */,
+				8483135023FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift in Sources */,
 				8471710E23955C200068BCFB /* ArticleRealmModel.swift in Sources */,
 				847EB2E02369D7B90077BF25 /* NewsInteractor.swift in Sources */,
 				20EA15751EA28C6700047523 /* Reach.swift in Sources */,
