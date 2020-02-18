@@ -29,18 +29,25 @@ class SettingContactTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
-        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
-        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
-        
-        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
-        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
-        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
-        
-        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
-        lbNorthAmericanEmail.isUserInteractionEnabled = true
-        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
+        initStaticUI()
     }
+    
+//    // MARK: - Table view data source
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 3
+//    }
+//
+//
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
+//        return cell
+//    }
     
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(true)
@@ -67,7 +74,7 @@ class SettingContactTableViewController: UITableViewController {
     }
     
     @objc private func sendNorthAmericanEmail(){
-        let mailComposeViewController = configureMailComposer()
+        let mailComposeViewController = configureMailComposer(recipent: lbNorthAmericanEmail.text!, subject: "", message: "")
         if MFMailComposeViewController.canSendMail(){
             self.present(mailComposeViewController, animated: true, completion: nil)
         }else{
@@ -75,13 +82,27 @@ class SettingContactTableViewController: UITableViewController {
         }
     }
     
-    func configureMailComposer() -> MFMailComposeViewController{
+    func configureMailComposer(recipent: String, subject: String, message: String) -> MFMailComposeViewController{
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = self
-        mailComposeVC.setToRecipients(["recipent@gmail.com"])
-        mailComposeVC.setSubject("subject")
-        mailComposeVC.setMessageBody("body", isHTML: false)
+        mailComposeVC.setToRecipients([recipent])
+        mailComposeVC.setSubject(subject)
+        mailComposeVC.setMessageBody(message, isHTML: false)
         return mailComposeVC
+    }
+    
+    func initStaticUI() {
+        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
+        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
+        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
+        
+        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
+        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
+        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
+        
+        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
+        lbNorthAmericanEmail.isUserInteractionEnabled = true
+        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
     }
 }
 
