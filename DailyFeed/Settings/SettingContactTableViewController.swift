@@ -30,6 +30,7 @@ class SettingContactTableViewController: UITableViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.register(R.nib.settingContactInstructionTableViewCell)
         tableView.register(R.nib.settingContactLabelTableViewCell)
+        tableView.register(R.nib.settingContactInfoTableViewCell)
         tableView.separatorStyle = .singleLine
         tableView.allowsMultipleSelection = false
         
@@ -45,7 +46,7 @@ class SettingContactTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return 6
     }
     
     
@@ -59,6 +60,17 @@ class SettingContactTableViewController: UITableViewController {
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactLabelTableViewCell, for: indexPath) as! SettingContactLabelTableViewCell
             (cell as! SettingContactLabelTableViewCell).bind()
+        case 2,3,4,5:
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInfoTableViewCell, for: indexPath) as! SettingContactInfoTableViewCell
+            if (position == 2){
+                (cell as! SettingContactInfoTableViewCell).bind(name: "North America", phoneNumber: "03332309200",email: "imeo@gmail.com")
+            } else if (position == 3){
+                (cell as! SettingContactInfoTableViewCell).bind(name: "United Kingdom", phoneNumber: "0980098000",email: "imeo@gmail.com")
+            } else if (position == 4){
+                (cell as! SettingContactInfoTableViewCell).bind(name: "North American", phoneNumber: "0980098000",email: "imeo@gmail.com")
+            } else if (position == 5){
+                (cell as! SettingContactInfoTableViewCell).bind(name: "North American", phoneNumber: "0980098000",email: "imeo@gmail.com")
+            }
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
             (cell as! SettingContactInstructionTableViewCell).bind()
@@ -80,10 +92,6 @@ class SettingContactTableViewController: UITableViewController {
         showHideTabBarListner?.onShow(isShow: true)
     }
     
-//    @objc private func callNorthAmericanNumber(){
-//        callNumber(number: lbNorthAmericanPhoneNumber.text!)
-//    }
-    
     private func callNumber(number: String){
         if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
@@ -94,15 +102,6 @@ class SettingContactTableViewController: UITableViewController {
         }
     }
     
-//    @objc private func sendNorthAmericanEmail(){
-//        let mailComposeViewController = configureMailComposer(recipent: lbNorthAmericanEmail.text!, subject: "", message: "")
-//        if MFMailComposeViewController.canSendMail(){
-//            self.present(mailComposeViewController, animated: true, completion: nil)
-//        }else{
-//            print("Can't send email")
-//        }
-//    }
-    
     func configureMailComposer(recipent: String, subject: String, message: String) -> MFMailComposeViewController{
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = self
@@ -111,20 +110,6 @@ class SettingContactTableViewController: UITableViewController {
         mailComposeVC.setMessageBody(message, isHTML: false)
         return mailComposeVC
     }
-    
-//    func initStaticUI() {
-//        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
-//        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
-//        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
-//
-//        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
-//        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
-//        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
-//
-//        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
-//        lbNorthAmericanEmail.isUserInteractionEnabled = true
-//        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
-//    }
 }
 
 extension SettingContactTableViewController: MFMailComposeViewControllerDelegate{
