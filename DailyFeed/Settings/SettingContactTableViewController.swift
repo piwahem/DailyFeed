@@ -28,24 +28,47 @@ class SettingContactTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.register(R.nib.settingContactInstructionTableViewCell)
+        tableView.register(R.nib.settingContactLabelTableViewCell)
+        tableView.separatorStyle = .singleLine
+        tableView.allowsMultipleSelection = false
+        
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 600
     }
     
-//    // MARK: - Table view data source
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 3
-//    }
-//
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
-//        return cell
-//    }
+    // MARK: - Table view data source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 2
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let position = indexPath.row
+        var cell: UITableViewCell?
+        switch position {
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
+            (cell as! SettingContactInstructionTableViewCell).bind()
+        case 1:
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactLabelTableViewCell, for: indexPath) as! SettingContactLabelTableViewCell
+            (cell as! SettingContactLabelTableViewCell).bind()
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
+            (cell as! SettingContactInstructionTableViewCell).bind()
+        }
+        return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
     
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(true)

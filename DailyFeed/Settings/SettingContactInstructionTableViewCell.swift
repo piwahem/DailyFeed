@@ -21,4 +21,8 @@ class SettingContactInstructionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func bind() {
+        selectionStyle = UITableViewCell.SelectionStyle.none
+    }
+    
 }
