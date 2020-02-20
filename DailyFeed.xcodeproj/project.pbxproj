@@ -85,6 +85,7 @@
 		84B4ABA023F19FF100AD3F2B /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */; };
 		84B4ABA623F1A3FA00AD3F2B /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */; };
 		84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */; };
+		84B6914023FEE7D200B3FEC3 /* OnActionInfoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6913F23FEE7D200B3FEC3 /* OnActionInfoListener.swift */; };
 		84C121D723F6F11C009E0171 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C121D623F6F11C009E0171 /* UIView+Extension.swift */; };
 		84C1B0A123FAD93600AC0DF4 /* OnShowHideTabbarListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */; };
 		84CFB2DC23F90E590044A484 /* SettingContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */; };
@@ -239,6 +240,7 @@
 		84B4AB9E23F19FF100AD3F2B /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		84B4ABA423F1A3FA00AD3F2B /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		84B4ABA523F1A3FA00AD3F2B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
+		84B6913F23FEE7D200B3FEC3 /* OnActionInfoListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnActionInfoListener.swift; sourceTree = "<group>"; };
 		84C121D623F6F11C009E0171 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		84C1B0A023FAD93600AC0DF4 /* OnShowHideTabbarListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnShowHideTabbarListener.swift; sourceTree = "<group>"; };
 		84CFB2DB23F90E590044A484 /* SettingContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingContactTableViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				8483134F23FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib */,
 				8483135223FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift */,
 				8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */,
+				84B6913F23FEE7D200B3FEC3 /* OnActionInfoListener.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				84DC6FA723799E4600FF8B61 /* NewsDetailRouter.swift in Sources */,
 				842AFEAE23C77E1300E1AA6A /* DailyFeedLoadingCell.swift in Sources */,
 				84DC6FB72382E82300FF8B61 /* NewsBookmarkInteractor.swift in Sources */,
+				84B6914023FEE7D200B3FEC3 /* OnActionInfoListener.swift in Sources */,
 				84E0C05423AE6ACF0065B8D9 /* NewsBookmarkTestWorker.swift in Sources */,
 				8483135423FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift in Sources */,
 				06A310381E4B24F30011E827 /* DailySourceModel.swift in Sources */,

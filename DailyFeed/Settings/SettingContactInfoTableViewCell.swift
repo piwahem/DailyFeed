@@ -7,21 +7,24 @@
 //
 
 import UIKit
+import MessageUI
 
 class SettingContactInfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbPhoneNumber: UILabel!
     @IBOutlet weak var lbEmail: UILabel!
-
+    
+    var onActionListener: OnActionInfoListener?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -32,34 +35,46 @@ class SettingContactInfoTableViewCell: UITableViewCell {
         
         lbPhoneNumber.embedIcon(image: UIImage(named: "close")!)
         lbEmail.embedIcon(image: UIImage(named: "bookmark")!)
+        
+        setUpCallNumber()
+        setUpSendEmail()
     }
     
-    //    func initStaticUI() {
-    //        lbSubcriber.font = UIFont.boldSystemFont(ofSize: 17.0)
-    //        lbNorthAmericanPhoneNumber.embedIcon(image: UIImage(named: "close")!)
-    //        lbNorthAmericanEmail.embedIcon(image: UIImage(named: "bookmark")!)
-    //
-    //        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.callNorthAmericanNumber))
-    //        lbNorthAmericanPhoneNumber.isUserInteractionEnabled = true
-    //        lbNorthAmericanPhoneNumber.addGestureRecognizer(tapCall)
-    //
-    //        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactTableViewController.sendNorthAmericanEmail))
-    //        lbNorthAmericanEmail.isUserInteractionEnabled = true
-    //        lbNorthAmericanEmail.addGestureRecognizer(tapSend)
-    //    }
+    private func setUpCallNumber(){
+        let tapCall = UITapGestureRecognizer(target: self, action: #selector(SettingContactInfoTableViewCell.callToNumber))
+        lbPhoneNumber.isUserInteractionEnabled = true
+        lbPhoneNumber.addGestureRecognizer(tapCall)
+    }
     
+    private func setUpSendEmail(){
+        let tapSend = UITapGestureRecognizer(target: self, action: #selector(SettingContactInfoTableViewCell.sendToEmail))
+        lbEmail.isUserInteractionEnabled = true
+        lbEmail.addGestureRecognizer(tapSend)
+    }
     
-    //    @objc private func sendNorthAmericanEmail(){
-    //        let mailComposeViewController = configureMailComposer(recipent: lbNorthAmericanEmail.text!, subject: "", message: "")
-    //        if MFMailComposeViewController.canSendMail(){
-    //            self.present(mailComposeViewController, animated: true, completion: nil)
-    //        }else{
-    //            print("Can't send email")
-    //        }
-    //    }
+    @objc private func sendToEmail(){
+        onActionListener?.onSendEmail(toUser: lbEmail.text!)
+    }
     
+    @objc private func callToNumber(){
+        if let phoneNumber = lbPhoneNumber.text{
+            callNumber(number: phoneNumber)
+        }
+    }
     
-    //    @objc private func callNorthAmericanNumber(){
-    //        callNumber(number: lbNorthAmericanPhoneNumber.text!)
-    //    }
+    private func callNumber(number: String){
+        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
 }
+
+extension SettingContactInfoTableViewCell: MFMailComposeViewControllerDelegate{
+    
+}
+
+

@@ -46,7 +46,7 @@ class SettingContactTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 6
+        return 7
     }
     
     
@@ -60,16 +60,19 @@ class SettingContactTableViewController: UITableViewController {
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactLabelTableViewCell, for: indexPath) as! SettingContactLabelTableViewCell
             (cell as! SettingContactLabelTableViewCell).bind()
-        case 2,3,4,5:
+        case 2,3,4,5, 6:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInfoTableViewCell, for: indexPath) as! SettingContactInfoTableViewCell
+            (cell as! SettingContactInfoTableViewCell).onActionListener = self
             if (position == 2){
                 (cell as! SettingContactInfoTableViewCell).bind(name: "North America", phoneNumber: "03332309200",email: "imeo@gmail.com")
             } else if (position == 3){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "United Kingdom", phoneNumber: "0980098000",email: "imeo@gmail.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "United Kingdom", phoneNumber: "03332309200",email: "emea@digital.economist.com")
             } else if (position == 4){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "North American", phoneNumber: "0980098000",email: "imeo@gmail.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Europe, Africa & Middle East", phoneNumber: "442075768488",email: "emea@digital.economist.com")
             } else if (position == 5){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "North American", phoneNumber: "0980098000",email: "imeo@gmail.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Latin American & Mexico", phoneNumber: "16364495702",email: "americas@digital.economist.com")
+            } else if (position == 6){
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Asia Pacifix", phoneNumber: "6565345166",email: "asia@digital.economist.com")
             }
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell
@@ -91,18 +94,28 @@ class SettingContactTableViewController: UITableViewController {
         super.viewWillDisappear(true)
         showHideTabBarListner?.onShow(isShow: true)
     }
+}
+
+extension SettingContactTableViewController: MFMailComposeViewControllerDelegate{
     
-    private func callNumber(number: String){
-        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
+}
+
+extension SettingContactTableViewController: OnActionInfoListener{
+    func onSendEmail(toUser: String){
+        let mailComposeViewController = configureMailComposer(recipent: toUser, subject: "", message: "")
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            print("Can't send email")
         }
     }
+
     
-    func configureMailComposer(recipent: String, subject: String, message: String) -> MFMailComposeViewController{
+    func onCallNumber() {
+        
+    }
+    
+    private func configureMailComposer(recipent: String, subject: String, message: String) -> MFMailComposeViewController{
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = self
         mailComposeVC.setToRecipients([recipent])
@@ -110,8 +123,4 @@ class SettingContactTableViewController: UITableViewController {
         mailComposeVC.setMessageBody(message, isHTML: false)
         return mailComposeVC
     }
-}
-
-extension SettingContactTableViewController: MFMailComposeViewControllerDelegate{
-    
 }
