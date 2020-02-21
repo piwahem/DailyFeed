@@ -29,6 +29,8 @@ class SettingContactInfoTableViewCell: UITableViewCell {
     }
     
     func bind(name: String, phoneNumber: String, email: String){
+        selectionStyle = UITableViewCell.SelectionStyle.none
+
         lbName.text = " " + name
         lbPhoneNumber.text = phoneNumber
         lbEmail.text = email
