@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  DailyFeed
+
+  Created by Admin on 2/22/20.
+  Copyright © 2020 trianz. All rights reserved.
+*/
+
+"DailyFeed" = "DailyFeed";
+"No Content 😥" = "No Content 😥";
+"Connect to Internet or try another source." = "Connect to Internet or try another source.";
+"Your Internet Connection appears to be offline." = "Your Internet Connection appears to be offline.";
+"Powered by NewsAPI.org" = "Powered by NewsAPI.org";

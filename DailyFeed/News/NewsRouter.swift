@@ -80,7 +80,7 @@ class NewsRouter: INewsRouter {
             viewController.interactor?.source = sourceId
             viewController.loadNewsData(){ success in
                 if (!success){
-                    self.viewController.showErrorWithDelay("Your Internet Connection appears to be offline.")
+                    self.viewController.showErrorWithDelay("Your Internet Connection appears to be offline.".localized)
                     self.viewController.interactor?.source = oldSource
                     self.viewController.isLanguageRightToLeft = oldIsLanguageRightToLeft
                 }
