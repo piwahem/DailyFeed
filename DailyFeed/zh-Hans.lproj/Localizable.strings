@@ -11,3 +11,14 @@
 "Connect to Internet or try another source." = "Chinese Connect to Internet or try another source.";
 "Your Internet Connection appears to be offline." = "Chinese Your Internet Connection appears to be offline.";
 "Powered by NewsAPI.org" = "Chinese Powered by NewsAPI.org";
+"%dy"="%dy chinese";
+"%dy" = "%dy chinese";
+"%dmo" = "%dmo chinese";
+"%dweeks" = "%dweeks chinese";
+"Just now" = "Just now chinese";
+"  y'day" = "  y'day chinese";
+"yesterday" = "yesterday chinese";
+"%dd"= "%dd chinese";
+"%dh"= "%dh chinese";
+"%d min"= "%d min chinese";
+"%ds" = "%ds chinese";

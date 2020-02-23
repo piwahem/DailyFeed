@@ -11,3 +11,14 @@
 "Connect to Internet or try another source." = "Connect to Internet or try another source.";
 "Your Internet Connection appears to be offline." = "Your Internet Connection appears to be offline.";
 "Powered by NewsAPI.org" = "Powered by NewsAPI.org";
+"%dy"="%dy";
+"%dy" = "%dy";
+"%dmo" = "%dmo";
+"%dweeks" = "%dweeks";
+"Just now" = "Just now";
+"  y'day" = "  y'day";
+"yesterday" = "yesterday";
+"%dd"= "%dd";
+"%dh"= "%dh";
+"%d min"= "%d min";
+"%ds" = "%ds";
