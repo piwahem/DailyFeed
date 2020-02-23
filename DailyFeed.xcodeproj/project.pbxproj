@@ -81,6 +81,7 @@
 		8483135523FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */; };
 		8490C1DE23B66AEA00A5A685 /* PaginationExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490C1DD23B66AEA00A5A685 /* PaginationExecutor.swift */; };
 		849408E1236894A40019025D /* NewsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849408E0236894A40019025D /* NewsWorker.swift */; };
+		849A1CA224028C39005AF706 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 849A1CA124028C39005AF706 /* Localizable.stringsdict */; };
 		849AB983239FF2E700ACA0E9 /* CacheNewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */; };
 		849AB98523A1544100ACA0E9 /* CacheSourceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849AB98423A1544100ACA0E9 /* CacheSourceClient.swift */; };
 		84A17E2A24004BE300AF121E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A17E2C24004BE300AF121E /* Localizable.strings */; };
@@ -238,6 +239,7 @@
 		8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingContactInfoTableViewCell.xib; sourceTree = "<group>"; };
 		8490C1DD23B66AEA00A5A685 /* PaginationExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationExecutor.swift; sourceTree = "<group>"; };
 		849408E0236894A40019025D /* NewsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWorker.swift; sourceTree = "<group>"; };
+		849A1CA124028C39005AF706 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		849AB982239FF2E700ACA0E9 /* CacheNewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheNewsClient.swift; sourceTree = "<group>"; };
 		849AB98423A1544100ACA0E9 /* CacheSourceClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheSourceClient.swift; sourceTree = "<group>"; };
 		84A17E242400495500AF121E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				953C685421A0713C006750F8 /* Supporting Files */,
 				06D04C2A1E1248DB0013B4AA /* Info.plist */,
 				84A17E2C24004BE300AF121E /* Localizable.strings */,
+				849A1CA124028C39005AF706 /* Localizable.stringsdict */,
 			);
 			path = DailyFeed;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */,
 				8483134D23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib in Resources */,
 				06D04C261E1248DB0013B4AA /* Assets.xcassets in Resources */,
+				849A1CA224028C39005AF706 /* Localizable.stringsdict in Resources */,
 				842AFEB223C77F2D00E1AA6A /* DailyFeedBottomCell.xib in Resources */,
 				0621695A1E260AE800ECB0AB /* DailySourceItemCell.xib in Resources */,
 				06D04C241E1248DB0013B4AA /* Main.storyboard in Resources */,

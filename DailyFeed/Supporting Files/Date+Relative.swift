@@ -24,7 +24,7 @@ extension Date {
                                                                      to: now)
 
         if let years = components.year, years > 0 {
-            return short ? "%dy".localizeWithFormat(arguments: years) : "\(years) year\(years == 1 ? "" : "s") ago"
+            return short ? "time_short_year".localizeWithFormat(arguments: years) :"time_long_year".localizeWithFormat(arguments: years)
         }
 
         if let months = components.month, months > 0 {
