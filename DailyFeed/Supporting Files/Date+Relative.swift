@@ -28,28 +28,33 @@ extension Date {
         }
 
         if let months = components.month, months > 0 {
-            return short ? "%dmo".localizeWithFormat(arguments: months) : "\(months) month\(months == 1 ? "" : "s") ago"
+            return short ? "time_short_month".localizeWithFormat(arguments: months) :
+            "time_long_month".localizeWithFormat(arguments: months)
         }
 
         if let weeks = components.weekOfYear, weeks > 0 {
-            return short ? "%dweeks".localizeWithFormat(arguments: weeks) : "\(weeks) week\(weeks == 1 ? "" : "s") ago"
+            return short ? "time_short_week".localizeWithFormat(arguments: weeks) :
+                "time_long_week".localizeWithFormat(arguments: weeks)
         }
-        if let days = components.day, days > 0 {
-            guard days > 1 else { return short ? "  y'day".localized : "yesterday".localized }
 
-            return short ? "%dd".localizeWithFormat(arguments: days) : "\(days) day\(days == 1 ? "" : "s") ago"
+        if let days = components.day, days > 0 {
+            return short ? "time_short_day".localizeWithFormat(arguments: days) :
+                "time_long_day".localizeWithFormat(arguments: days)
         }
 
         if let hours = components.hour, hours > 0 {
-            return short ? "%dh".localizeWithFormat(arguments: hours) : "\(hours) hour\(hours == 1 ? "" : "s") ago"
+            return short ? "time_short_hour".localizeWithFormat(arguments: hours) :
+                "time_long_hour".localizeWithFormat(arguments: hours)
         }
 
         if let minutes = components.minute, minutes > 0 {
-            return short ? "%d min".localizeWithFormat(arguments: minutes) : "\(minutes) minute\(minutes == 1 ? "" : "s") ago"
+            return short ? "time_short_minute".localizeWithFormat(arguments: minutes) :
+                "time_long_minute".localizeWithFormat(arguments: minutes)
         }
 
         if let seconds = components.second, seconds > 30 {
-            return short ? "%ds".localizeWithFormat(arguments: seconds) : "\(seconds) second\(seconds == 1 ? "" : "s") ago"
+            return short ? "time_short_second".localizeWithFormat(arguments: seconds) :
+                "time_long_second".localizeWithFormat(arguments: seconds)
         }
 
         return "Just now".localized
