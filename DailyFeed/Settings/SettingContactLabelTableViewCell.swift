@@ -9,6 +9,8 @@
 import UIKit
 
 class SettingContactLabelTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var lb: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +25,6 @@ class SettingContactLabelTableViewCell: UITableViewCell {
     
     func bind() {
         selectionStyle = UITableViewCell.SelectionStyle.none
+        lb.text = "Digital subscriber service centres".localized
     }
 }

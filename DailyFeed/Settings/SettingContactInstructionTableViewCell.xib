@@ -57,6 +57,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbContacting" destination="9Ez-hO-Sgw" id="rox-iF-RL1"/>
+                <outlet property="lbNote1" destination="jPT-Ad-YIl" id="FRZ-k5-eIc"/>
+                <outlet property="lbNote2" destination="61B-yJ-bEZ" id="jCm-G8-otY"/>
+                <outlet property="lbNote3" destination="7cA-Xf-2cq" id="2ok-29-tYo"/>
+            </connections>
             <point key="canvasLocation" x="204" y="17"/>
         </tableViewCell>
     </objects>

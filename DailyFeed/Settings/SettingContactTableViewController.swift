@@ -64,15 +64,15 @@ class SettingContactTableViewController: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInfoTableViewCell, for: indexPath) as! SettingContactInfoTableViewCell
             (cell as! SettingContactInfoTableViewCell).onActionListener = self
             if (position == 2){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "North America", phoneNumber: "03332309200",email: "imeo@gmail.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "North America".localized, phoneNumber: "03332309200",email: "imeo@gmail.com")
             } else if (position == 3){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "United Kingdom", phoneNumber: "03332309200",email: "emea@digital.economist.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "United Kingdom".localized, phoneNumber: "03332309200",email: "emea@digital.economist.com")
             } else if (position == 4){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "Europe, Africa & Middle East", phoneNumber: "442075768488",email: "emea@digital.economist.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Europe, Africa & Middle East".localized, phoneNumber: "442075768488",email: "emea@digital.economist.com")
             } else if (position == 5){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "Latin American & Mexico", phoneNumber: "16364495702",email: "americas@digital.economist.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Latin American & Mexico".localized, phoneNumber: "16364495702",email: "americas@digital.economist.com")
             } else if (position == 6){
-                (cell as! SettingContactInfoTableViewCell).bind(name: "Asia Pacifix", phoneNumber: "6565345166",email: "asia@digital.economist.com")
+                (cell as! SettingContactInfoTableViewCell).bind(name: "Asia Pacifix".localized, phoneNumber: "6565345166",email: "asia@digital.economist.com")
             }
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingContactInstructionTableViewCell, for: indexPath) as! SettingContactInstructionTableViewCell

@@ -11,7 +11,7 @@ import SafariServices
 
 class SettingTableViewController: UITableViewController {
     
-    var settings = ["Notifications", "Contact us", "About", "Term of use", "Privacy policy"]
+    var settings = ["Notifications".localized, "Contact us".localized, "About".localized, "Term of use".localized, "Privacy policy".localized]
     
     override func viewDidLoad() {
         super.viewDidLoad()

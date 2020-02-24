@@ -21,6 +21,6 @@ extension Bundle {
             let buildVersionNumber = buildVersionNumber else {
                 return ""
         }
-        return "Version \(releaseVersionNumber) (\(buildVersionNumber))"
+        return "Version %@ (%@)".localizeWithFormat(arguments: releaseVersionNumber, buildVersionNumber)
     }
 }
