@@ -13,9 +13,12 @@ import CoreSpotlight
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var currentLanguage = "en"
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         window?.makeKeyAndVisible()
+        UserDefaults.standard.set(currentLanguage, forKey: "AppleLanguage")
+        Bundle.swizzleLocalization()
         return true
     }
     

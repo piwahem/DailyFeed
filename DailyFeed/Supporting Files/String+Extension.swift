@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     var localized: String {
-        return NSLocalizedString(self, comment: "")
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let bundlePath = Bundle.main.path(forResource: appDelegate.currentLanguage, ofType: "lproj"),
+            let bundle = Bundle(path: bundlePath) else {
+            return NSLocalizedString(self, comment: "")
+        }
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, comment: "")
     }
     
     func localizeWithFormat(arguments: CVarArg...) -> String{
