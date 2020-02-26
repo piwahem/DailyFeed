@@ -40,8 +40,7 @@ extension Bundle {
     }
     
     @objc private func myLocaLizedString(forKey key: String,value: String?, table: String?) -> String {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let bundlePath = Bundle.main.path(forResource: appDelegate.currentLanguage, ofType: "lproj"),
+        guard let bundlePath = Bundle.main.path(forResource: AMPLocalizeUtils.defaultLocalizer.currentLanguage, ofType: "lproj"),
             let bundle = Bundle(path: bundlePath) else {
                 return Bundle.main.myLocaLizedString(forKey: key, value: value, table: table)
         }

@@ -11,8 +11,7 @@ import UIKit
 
 extension String {
     var localized: String {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let bundlePath = Bundle.main.path(forResource: appDelegate.currentLanguage, ofType: "lproj"),
+        guard let bundlePath = Bundle.main.path(forResource: AMPLocalizeUtils.defaultLocalizer.currentLanguage, ofType: "lproj"),
             let bundle = Bundle(path: bundlePath) else {
             return NSLocalizedString(self, comment: "")
         }

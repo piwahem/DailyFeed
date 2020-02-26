@@ -430,6 +430,7 @@
                     <connections>
                         <segue destination="Gqy-F7-Uxu" kind="show" identifier="SettingContactTableViewController" id="6SH-ma-2w6"/>
                         <segue destination="QkR-ZZ-QE7" kind="show" identifier="AboutSettingViewController" id="5R1-Pi-bv1"/>
+                        <segue destination="aIS-by-b8Q" kind="show" identifier="SettingChangeLanguageTableViewController" id="9qI-eI-LfM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w3z-C3-hwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -454,6 +455,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Stx-0O-eVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1139" y="2747"/>
+        </scene>
+        <!--Setting Change Language Table View Controller-->
+        <scene sceneID="Rha-f2-HUZ">
+            <objects>
+                <tableViewController id="aIS-by-b8Q" customClass="SettingChangeLanguageTableViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="InM-5U-GDI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="aIS-by-b8Q" id="yHS-Ss-kCf"/>
+                            <outlet property="delegate" destination="aIS-by-b8Q" id="Kw7-Pd-AB4"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pns-aC-sJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-52" y="2743"/>
         </scene>
         <!--About-->
         <scene sceneID="FbQ-Vz-ZFu">

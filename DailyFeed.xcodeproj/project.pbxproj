@@ -61,6 +61,9 @@
 		8432F6F123CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432F6EF23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib */; };
 		8432F6F323D3510000F54DF2 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432F6F223D3510000F54DF2 /* Array+Extension.swift */; };
 		844A26B624057F3E008BCC74 /* AMPLocalizeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A26B524057F3E008BCC74 /* AMPLocalizeUtils.swift */; };
+		844A26B82406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A26B72406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift */; };
+		844A26BB2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A26B92406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift */; };
+		844A26BC2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844A26BA2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib */; };
 		8452B3F523F9707E00CEA1BF /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */; };
 		8455AAF923CCC507009A7913 /* DailyFeedBottomReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */; };
 		8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */; };
@@ -220,6 +223,9 @@
 		8432F6EF23CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedLoadingReusableView.xib; sourceTree = "<group>"; };
 		8432F6F223D3510000F54DF2 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		844A26B524057F3E008BCC74 /* AMPLocalizeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPLocalizeUtils.swift; sourceTree = "<group>"; };
+		844A26B72406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingChangeLanguageTableViewController.swift; sourceTree = "<group>"; };
+		844A26B92406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingChangeLanguageTableViewCell.swift; sourceTree = "<group>"; };
+		844A26BA2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingChangeLanguageTableViewCell.xib; sourceTree = "<group>"; };
 		8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedBottomReusableView.swift; sourceTree = "<group>"; };
 		8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedBottomReusableView.xib; sourceTree = "<group>"; };
@@ -445,6 +451,9 @@
 				8483135223FC3A7000E3EF84 /* SettingContactInfoTableViewCell.swift */,
 				8483135323FC3A7000E3EF84 /* SettingContactInfoTableViewCell.xib */,
 				84B6913F23FEE7D200B3FEC3 /* OnActionInfoListener.swift */,
+				844A26B72406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift */,
+				844A26B92406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift */,
+				844A26BA2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -732,6 +741,7 @@
 				84586CA62404188700D1D12F /* Localizable.stringsdict in Resources */,
 				842AFEB223C77F2D00E1AA6A /* DailyFeedBottomCell.xib in Resources */,
 				0621695A1E260AE800ECB0AB /* DailySourceItemCell.xib in Resources */,
+				844A26BC2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib in Resources */,
 				06D04C241E1248DB0013B4AA /* Main.storyboard in Resources */,
 				84A17E2A24004BE300AF121E /* Localizable.strings in Resources */,
 				8483135123FC39DD00E3EF84 /* SettingContactLabelTableViewCell.xib in Resources */,
@@ -931,6 +941,7 @@
 				849408E1236894A40019025D /* NewsWorker.swift in Sources */,
 				84E0C05623AE6C670065B8D9 /* NewsBookmarkTestInteractor.swift in Sources */,
 				2085CBC41EF9216900D26594 /* JSONDecodingError.swift in Sources */,
+				844A26BB2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift in Sources */,
 				84DC6F9E2371BF4E00FF8B61 /* SourceRouter.swift in Sources */,
 				84E2D9B523A9221E00E90266 /* ToNineMigration.swift in Sources */,
 				84DC6FB32382E33300FF8B61 /* NewsBookmarkRouter.swift in Sources */,
@@ -945,6 +956,7 @@
 				841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */,
 				06529E7D1E408DC6003DA45B /* NewsDetailViewController+StateRestoration.swift in Sources */,
 				8452B3F523F9707E00CEA1BF /* UILabel+Extension.swift in Sources */,
+				844A26B82406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift in Sources */,
 				068496AC1E23AA2900DBD5A6 /* UIViewControllerExtension.swift in Sources */,
 				84DC6FAA237C3FD000FF8B61 /* NewsSearchRouter.swift in Sources */,
 				84E2D9B723A924BC00E90266 /* MigrationManager.swift in Sources */,
