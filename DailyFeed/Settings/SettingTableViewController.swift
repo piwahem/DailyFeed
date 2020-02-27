@@ -11,7 +11,7 @@ import SafariServices
 
 class SettingTableViewController: UITableViewController {
     
-    var settings = ["Notifications".localized, "Contact us".localized, "About".localized, "Term of use".localized, "Privacy policy".localized, "Change language".localized]
+    var settings: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,16 @@ class SettingTableViewController: UITableViewController {
         tableView.allowsMultipleSelection = false
         tabBarController?.hidesBottomBarWhenPushed = true
         print("AppVersion: \(Bundle.main.appVersion)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        settings = getSettingList()
+        tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
     }
     
     // MARK: - Table view data source
@@ -151,6 +161,10 @@ class SettingTableViewController: UITableViewController {
     
     private func openChangeLanguage(){
         performSegue(withIdentifier: R.segue.settingTableViewController.settingChangeLanguageTableViewController, sender: self)
+    }
+    
+    private func getSettingList() -> [String]{
+        return ["Notifications".localized, "Contact us".localized, "About".localized, "Term of use".localized, "Privacy policy".localized, "Change language".localized]
     }
 }
 

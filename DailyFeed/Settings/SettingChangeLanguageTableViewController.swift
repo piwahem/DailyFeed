@@ -10,12 +10,13 @@ import UIKit
 
 class SettingChangeLanguageTableViewController: UITableViewController {
     
-    var languages = ["English".localized, "Chinese".localized]
+    var languages: [SettingLanguages] = []
     var showHideTabBarListner: OnShowHideTabbarListener? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        languages = getLanguages()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(R.nib.settingChangeLanguageTableViewCell)
@@ -39,7 +40,8 @@ class SettingChangeLanguageTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.settingChangeLanguageTableViewCell, for: indexPath)
-        cell?.bind(name: languages[indexPath.row])
+        cell?.bind(name: languages[indexPath.row].language)
+        cell?.accessoryType = languages[indexPath.row].isCheck ? .checkmark : .none
         return cell!
     }
     
@@ -54,21 +56,35 @@ class SettingChangeLanguageTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAt position = \(indexPath.row)")
         let position = indexPath.row
         if (position == 0){
             AMPLocalizeUtils.defaultLocalizer.setSelectedLanguage(lang: "en")
         } else if (position == 1){
             AMPLocalizeUtils.defaultLocalizer.setSelectedLanguage(lang: "zh-Hans")
         }
+        updateCellState(indexPath: indexPath)
     }
     
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if let oldIndex = tableView.indexPathForSelectedRow {
-            tableView.cellForRow(at: oldIndex)?.accessoryType = .none
-        }
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        
-        return indexPath
+    private func getLanguages() -> [SettingLanguages] {
+        let eng = SettingLanguages(language: "English".localized, isCheck: false)
+        let han = SettingLanguages(language: "Chinese".localized, isCheck: false)
+        return [eng, han]
     }
+    
+    private func updateCellState(indexPath: IndexPath){
+        let size = languages.count
+        for index in 0..<size {
+            if (index == indexPath.row){
+                languages[index].isCheck = true
+            } else {
+                languages[index].isCheck = false
+            }
+        }
+        tableView.reloadData()
+    }
+}
+
+struct SettingLanguages {
+    var language: String
+    var isCheck: Bool
 }
