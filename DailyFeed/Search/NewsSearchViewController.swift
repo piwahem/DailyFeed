@@ -223,7 +223,7 @@ extension NewsSearchViewController: UIViewControllerTransitioningDelegate {
 extension NewsSearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Search for Articles above"
+        let str = "Search for Articles above".localized
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)]
         return NSAttributedString(string: str, attributes: attrs)
     }
