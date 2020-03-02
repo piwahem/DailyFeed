@@ -82,6 +82,10 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        (resultsSearchController.searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("Cancel".localized, for: .normal)
+        navigationItem.searchController?.searchBar.placeholder = "Search Anything...".localized;       searchCollectionView.reloadData()
+        
         guard !resultsSearchController.isActive else { return }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             self.resultsSearchController.searchBar.becomeFirstResponder()
