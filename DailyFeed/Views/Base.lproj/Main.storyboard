@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPz-nt-a5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2481" y="393"/>
+            <point key="canvasLocation" x="1532" y="339"/>
         </scene>
         <!--Sources-->
         <scene sceneID="rtQ-Cl-8QZ">
@@ -118,7 +118,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAK-n4-oSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JIT-8k-TPL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6731.25" y="1343.661971830986"/>
+            <point key="canvasLocation" x="2534" y="1150"/>
         </scene>
         <!--News Detail View Controller-->
         <scene sceneID="215-4y-uX3">
@@ -298,7 +298,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4680" y="464.78873239436621"/>
+            <point key="canvasLocation" x="2535" y="339"/>
         </scene>
         <!--Search News-->
         <scene sceneID="uWT-jZ-ENA">
@@ -350,7 +350,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rA-1O-3TN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4734.375" y="-311.61971830985914"/>
+            <point key="canvasLocation" x="2534" y="-1018"/>
         </scene>
         <!--DailyFeed-->
         <scene sceneID="loe-6Q-P3R">
@@ -372,7 +372,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="li0-xW-Zoi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="394"/>
+            <point key="canvasLocation" x="524" y="339"/>
         </scene>
         <!--TEST-->
         <scene sceneID="VI3-jJ-f0h">
@@ -411,138 +411,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjE-RH-cgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1667" y="-934"/>
+            <point key="canvasLocation" x="1623" y="-1018"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="xKz-CA-Npv">
+        <!--Setting-->
+        <scene sceneID="d1q-p2-pJh">
             <objects>
-                <tableViewController id="by6-P9-Xb9" customClass="SettingTableViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dae-It-2cc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="by6-P9-Xb9" id="kHo-Jb-4oj"/>
-                            <outlet property="delegate" destination="by6-P9-Xb9" id="WPB-gp-ast"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="D38-vT-Y7B"/>
-                    <connections>
-                        <segue destination="Gqy-F7-Uxu" kind="show" identifier="SettingContactTableViewController" id="6SH-ma-2w6"/>
-                        <segue destination="QkR-ZZ-QE7" kind="show" identifier="AboutSettingViewController" id="5R1-Pi-bv1"/>
-                        <segue destination="aIS-by-b8Q" kind="show" identifier="SettingChangeLanguageTableViewController" id="9qI-eI-LfM"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w3z-C3-hwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Setting" storyboardName="Setting" referencedIdentifier="Setting" id="ELg-ZU-xLj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="QHm-Bp-ibr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbg-JL-Ayq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1129" y="1952"/>
-        </scene>
-        <!--Setting Contact Table View Controller-->
-        <scene sceneID="hVd-HF-jbU">
-            <objects>
-                <tableViewController id="Gqy-F7-Uxu" customClass="SettingContactTableViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LxD-mw-4cS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="Gqy-F7-Uxu" id="70f-zf-wYa"/>
-                            <outlet property="delegate" destination="Gqy-F7-Uxu" id="chg-WU-NLC"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Stx-0O-eVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1139" y="2747"/>
-        </scene>
-        <!--Setting Change Language Table View Controller-->
-        <scene sceneID="Rha-f2-HUZ">
-            <objects>
-                <tableViewController id="aIS-by-b8Q" customClass="SettingChangeLanguageTableViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="InM-5U-GDI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="aIS-by-b8Q" id="yHS-Ss-kCf"/>
-                            <outlet property="delegate" destination="aIS-by-b8Q" id="Kw7-Pd-AB4"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pns-aC-sJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-52" y="2743"/>
-        </scene>
-        <!--About-->
-        <scene sceneID="FbQ-Vz-ZFu">
-            <objects>
-                <viewController id="QkR-ZZ-QE7" customClass="AboutSettingViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ShR-8N-LBd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bi7-qp-TSf" userLabel="vBackground">
-                                <rect key="frame" x="0.0" y="508.5" width="375" height="109.5"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NbM-6v-ezc">
-                                <rect key="frame" x="0.0" y="508.5" width="375" height="109.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © The economist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNP-rd-5sL">
-                                        <rect key="frame" x="81.5" y="16" width="212" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Newspaper Limited 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-VE-flq">
-                                        <rect key="frame" x="91.5" y="44.5" width="192.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIk-45-hGP">
-                                        <rect key="frame" x="118.5" y="73" width="138.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.1575835089" blue="0.1207419248" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="8" bottom="16" trailing="8"/>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lbAppVersion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAz-j8-j2h">
-                                <rect key="frame" x="137" y="64" width="101" height="539"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="bi7-qp-TSf" firstAttribute="bottom" secondItem="NbM-6v-ezc" secondAttribute="bottom" id="INK-EY-hqU"/>
-                            <constraint firstItem="NbM-6v-ezc" firstAttribute="centerX" secondItem="ShR-8N-LBd" secondAttribute="centerX" id="PKv-Mg-pIK"/>
-                            <constraint firstItem="MAz-j8-j2h" firstAttribute="top" secondItem="ahL-x3-ApC" secondAttribute="top" id="SBv-Lz-buS"/>
-                            <constraint firstItem="bi7-qp-TSf" firstAttribute="top" secondItem="NbM-6v-ezc" secondAttribute="top" id="VN0-W4-DJG"/>
-                            <constraint firstItem="bi7-qp-TSf" firstAttribute="leading" secondItem="NbM-6v-ezc" secondAttribute="leading" id="fQg-Ao-sO3"/>
-                            <constraint firstItem="MAz-j8-j2h" firstAttribute="centerX" secondItem="NbM-6v-ezc" secondAttribute="centerX" id="lVX-8G-VoW"/>
-                            <constraint firstItem="ahL-x3-ApC" firstAttribute="trailing" secondItem="NbM-6v-ezc" secondAttribute="trailing" id="sBV-EM-wFA"/>
-                            <constraint firstItem="bi7-qp-TSf" firstAttribute="trailing" secondItem="NbM-6v-ezc" secondAttribute="trailing" id="sTT-ZE-6A8"/>
-                            <constraint firstItem="ahL-x3-ApC" firstAttribute="bottom" secondItem="NbM-6v-ezc" secondAttribute="bottom" id="ujD-bi-dkw"/>
-                            <constraint firstItem="NbM-6v-ezc" firstAttribute="leading" secondItem="ahL-x3-ApC" secondAttribute="leading" id="v8V-6a-gQL"/>
-                            <constraint firstItem="MAz-j8-j2h" firstAttribute="centerY" secondItem="ShR-8N-LBd" secondAttribute="centerY" id="wx6-uB-bLO"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ahL-x3-ApC"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="About" id="Bd4-ps-DHV"/>
-                    <connections>
-                        <outlet property="lbAppVersion" destination="MAz-j8-j2h" id="das-7J-6Ga"/>
-                        <outlet property="vBackground" destination="bi7-qp-TSf" id="aXg-mL-06Z"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n8R-YF-gnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="390" y="1950"/>
+            <point key="canvasLocation" x="-1411" y="1797"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6Lw-D9-i9k">
@@ -606,7 +485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RHV-y6-7y5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2111.25" y="1268.661971830986"/>
+            <point key="canvasLocation" x="-564" y="2018"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VqY-0o-oNm">
@@ -627,7 +506,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iwj-Al-Uyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5730" y="1725"/>
+            <point key="canvasLocation" x="1532" y="1150"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="zGn-92-Mtf">
@@ -646,7 +525,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="re6-h4-7fi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1125" y="1268.661971830986"/>
+            <point key="canvasLocation" x="-564" y="1194"/>
         </scene>
         <!--Search-->
         <scene sceneID="fsM-ei-cII">
@@ -665,7 +544,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psn-rU-NIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3661.875" y="-310.56338028169017"/>
+            <point key="canvasLocation" x="524" y="-542"/>
         </scene>
         <!--TEST-->
         <scene sceneID="YKL-51-Tjb">
@@ -698,12 +577,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="by6-P9-Xb9" kind="relationship" relationship="rootViewController" id="2nE-gY-UJl"/>
+                        <segue destination="ELg-ZU-xLj" kind="relationship" relationship="rootViewController" id="1KR-ND-I5T"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wOA-bZ-Qou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1129" y="1128"/>
+            <point key="canvasLocation" x="-1410" y="1195"/>
         </scene>
     </scenes>
     <resources>

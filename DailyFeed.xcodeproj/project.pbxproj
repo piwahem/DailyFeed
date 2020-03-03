@@ -70,6 +70,8 @@
 		84586CA62404188700D1D12F /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 84586CA82404188700D1D12F /* Localizable.stringsdict */; };
 		845C4DE723AA8A3C00D52B96 /* ToTwelveMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */; };
 		845C4DE923ABD3B500D52B96 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4DE823ABD3B500D52B96 /* TestViewController.swift */; };
+		8467C75D240EA1C600E82994 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75C240EA1C600E82994 /* Setting.storyboard */; };
+		8467C75F240EA9D700E82994 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75E240EA9D700E82994 /* News.storyboard */; };
 		8471710C23901DDD0068BCFB /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710B23901DDD0068BCFB /* CacheClient.swift */; };
 		8471710E23955C200068BCFB /* ArticleRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710D23955C200068BCFB /* ArticleRealmModel.swift */; };
 		84717110239563A60068BCFB /* SourceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710F239563A60068BCFB /* SourceRealmModel.swift */; };
@@ -233,6 +235,8 @@
 		84586CA92404188D00D1D12F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTwelveMigration.swift; sourceTree = "<group>"; };
 		845C4DE823ABD3B500D52B96 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		8467C75C240EA1C600E82994 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		8467C75E240EA9D700E82994 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		8471710B23901DDD0068BCFB /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
 		8471710D23955C200068BCFB /* ArticleRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRealmModel.swift; sourceTree = "<group>"; };
 		8471710F239563A60068BCFB /* SourceRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRealmModel.swift; sourceTree = "<group>"; };
@@ -530,6 +534,8 @@
 				060D64871E31EB400053F2AB /* DailySourceItemLayout.swift */,
 				2038F9751F49AA3C0097503D /* NewsDetailPopAnimator.swift */,
 				208FBB5A1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift */,
+				8467C75C240EA1C600E82994 /* Setting.storyboard */,
+				8467C75E240EA9D700E82994 /* News.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -725,6 +731,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8467C75F240EA9D700E82994 /* News.storyboard in Resources */,
 				953C685821A071CC006750F8 /* IconTransitions.json in Resources */,
 				842AFEAC23C77D1900E1AA6A /* DailyFeedLoadingCell.xib in Resources */,
 				06D04C551E13945D0013B4AA /* DailyFeedItemCell.xib in Resources */,
@@ -734,6 +741,7 @@
 				06D04C291E1248DB0013B4AA /* LaunchScreen.storyboard in Resources */,
 				8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */,
 				208C18271EA3CD81007BC052 /* Settings.bundle in Resources */,
+				8467C75D240EA1C600E82994 /* Setting.storyboard in Resources */,
 				8432F6F123CF64CB00F54DF2 /* DailyFeedLoadingReusableView.xib in Resources */,
 				84B4ABA723F1A3FA00AD3F2B /* SettingTableViewCell.xib in Resources */,
 				8483134D23FC2F1700E3EF84 /* SettingContactInstructionTableViewCell.xib in Resources */,
