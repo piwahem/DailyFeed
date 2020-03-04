@@ -1,12 +1,12 @@
 
 /* Class = "UITabBarItem"; title = "Bookmarks"; ObjectID = "0Ct-8c-rLu"; */
-"0Ct-8c-rLu.title" = "Bookmarks";
+"0Ct-8c-rLu.title" = "Bookmarks cn";
 
 /* Class = "UINavigationItem"; title = "About"; ObjectID = "Bd4-ps-DHV"; */
-"Bd4-ps-DHV.title" = "About";
+"Bd4-ps-DHV.title" = "About cn";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "D38-vT-Y7B"; */
-"D38-vT-Y7B.title" = "Settings";
+"D38-vT-Y7B.title" = "Settings cn";
 
 /* Class = "UILabel"; text = "1"; ObjectID = "DwB-pn-gnh"; */
 "DwB-pn-gnh.text" = "1";
@@ -45,19 +45,19 @@
 "hbq-CR-c0C.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Bookmarks"; ObjectID = "m7o-Sj-Jyi"; */
-"m7o-Sj-Jyi.title" = "Bookmarks";
+"m7o-Sj-Jyi.title" = "Bookmarks cn";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "qaK-t0-JZk"; */
 "qaK-t0-JZk.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Sources"; ObjectID = "r66-GT-LNg"; */
-"r66-GT-LNg.title" = "Sources";
+"r66-GT-LNg.title" = "Sources cn";
 
 /* Class = "UITabBarItem"; title = "Search"; ObjectID = "rhJ-Xj-t8X"; */
-"rhJ-Xj-t8X.title" = "Search";
+"rhJ-Xj-t8X.title" = "Search cn";
 
 /* Class = "UITabBarItem"; title = "DailyFeed"; ObjectID = "xue-dU-KaD"; */
-"xue-dU-KaD.title" = "DailyFeed";
+"xue-dU-KaD.title" = "DailyFeed cn";
 
 /* Class = "UINavigationItem"; title = "Search News"; ObjectID = "zAY-r2-mtZ"; */
-"zAY-r2-mtZ.title" = "Search News";
+"zAY-r2-mtZ.title" = "Search News cn";
