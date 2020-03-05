@@ -16,7 +16,7 @@ class DailyFeedBottomCell: UICollectionViewCell {
     }
     
     func bind(){
-        label.text = "Powered by NewsAPI.org"
+        label.text = "Powered by NewsAPI.org".localized
     }
 
 }

@@ -1,0 +1,63 @@
+
+/* Class = "UITabBarItem"; title = "Bookmarks"; ObjectID = "0Ct-8c-rLu"; */
+"0Ct-8c-rLu.title" = "Bookmarks cn";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "Bd4-ps-DHV"; */
+"Bd4-ps-DHV.title" = "About cn";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "D38-vT-Y7B"; */
+"D38-vT-Y7B.title" = "Settings cn";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "DwB-pn-gnh"; */
+"DwB-pn-gnh.text" = "1";
+
+/* Class = "UILabel"; text = "All rights reserved"; ObjectID = "HIk-45-hGP"; */
+"HIk-45-hGP.text" = "All rights reserved";
+
+/* Class = "UILabel"; text = "lbAppVersion"; ObjectID = "MAz-j8-j2h"; */
+"MAz-j8-j2h.text" = "lbAppVersion";
+
+/* Class = "UITabBarItem"; title = "TEST"; ObjectID = "WLE-bn-IuC"; */
+"WLE-bn-IuC.title" = "TEST";
+
+/* Class = "UILabel"; text = "Newspaper Limited 2020"; ObjectID = "ZUi-VE-flq"; */
+"ZUi-VE-flq.text" = "Newspaper Limited 2020";
+
+/* Class = "UIButton"; normalTitle = "59 Minutes ago • Read More..."; ObjectID = "Zw2-wF-wcO"; */
+"Zw2-wF-wcO.normalTitle" = "59 Minutes ago • Read More...";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "aCH-mL-TaE"; */
+"aCH-mL-TaE.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UINavigationItem"; title = "TEST"; ObjectID = "aEz-6F-D2n"; */
+"aEz-6F-D2n.title" = "TEST";
+
+/* Class = "UINavigationItem"; title = "DailyFeed"; ObjectID = "eGL-z4-fgX"; */
+"eGL-z4-fgX.title" = "DailyFeed";
+
+/* Class = "UILabel"; text = "Copyright © The economist"; ObjectID = "eNP-rd-5sL"; */
+"eNP-rd-5sL.text" = "Copyright © The economist";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "f3O-jX-ykh"; */
+"f3O-jX-ykh.title" = "Settings cn";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hbq-CR-c0C"; */
+"hbq-CR-c0C.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Bookmarks"; ObjectID = "m7o-Sj-Jyi"; */
+"m7o-Sj-Jyi.title" = "Bookmarks cn";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qaK-t0-JZk"; */
+"qaK-t0-JZk.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Sources"; ObjectID = "r66-GT-LNg"; */
+"r66-GT-LNg.title" = "Sources cn";
+
+/* Class = "UITabBarItem"; title = "Search"; ObjectID = "rhJ-Xj-t8X"; */
+"rhJ-Xj-t8X.title" = "Search cn";
+
+/* Class = "UITabBarItem"; title = "DailyFeed"; ObjectID = "xue-dU-KaD"; */
+"xue-dU-KaD.title" = "DailyFeed cn";
+
+/* Class = "UINavigationItem"; title = "Search News"; ObjectID = "zAY-r2-mtZ"; */
+"zAY-r2-mtZ.title" = "Search News cn";

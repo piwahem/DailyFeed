@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>time_short_year</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_year@</string>
+		<key>count_time_short_year</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1y</string>
+			<key>other</key>
+			<string>%dys</string>
+		</dict>
+	</dict>
+	<key>time_short_month</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_month@</string>
+		<key>count_time_short_month</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1mo</string>
+			<key>other</key>
+			<string>%dmo</string>
+		</dict>
+	</dict>
+	<key>time_short_week</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_week@</string>
+		<key>count_time_short_week</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 week</string>
+			<key>other</key>
+			<string>%d weeks</string>
+		</dict>
+	</dict>
+	<key>time_short_day</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_day@</string>
+		<key>count_time_short_day</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>y&apos; day</string>
+			<key>other</key>
+			<string>%d d</string>
+		</dict>
+	</dict>
+	<key>time_short_hour</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_hour@</string>
+		<key>count_time_short_hour</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1h</string>
+			<key>other</key>
+			<string>%dh</string>
+		</dict>
+	</dict>
+	<key>time_short_minute</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_minute@</string>
+		<key>count_time_short_minute</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 min</string>
+			<key>other</key>
+			<string>%d min</string>
+		</dict>
+	</dict>
+	<key>time_short_second</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_short_second@</string>
+		<key>count_time_short_second</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1s</string>
+			<key>other</key>
+			<string>%ds</string>
+		</dict>
+	</dict>
+	<key>time_long_year</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_year@</string>
+		<key>count_time_long_year</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d year ago</string>
+			<key>other</key>
+			<string>%d yearsssssss ago</string>
+		</dict>
+	</dict>
+	<key>time_long_month</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_month@</string>
+		<key>count_time_long_month</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d month ago</string>
+			<key>other</key>
+			<string>%d months ago</string>
+		</dict>
+	</dict>
+	<key>time_long_week</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_week@</string>
+		<key>count_time_long_week</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d week ago</string>
+			<key>other</key>
+			<string>%d weeks ago</string>
+		</dict>
+	</dict>
+	<key>time_long_day</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_day@</string>
+		<key>count_time_long_day</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>yesteday</string>
+			<key>other</key>
+			<string>%d days ago</string>
+		</dict>
+	</dict>
+	<key>time_long_hour</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_hour@</string>
+		<key>count_time_long_hour</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 hour</string>
+			<key>other</key>
+			<string>%d hours ago</string>
+		</dict>
+	</dict>
+	<key>time_long_minute</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_minute@</string>
+		<key>count_time_long_minute</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 minute</string>
+			<key>other</key>
+			<string>%d minutes ago</string>
+		</dict>
+	</dict>
+	<key>time_long_second</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_time_long_second@</string>
+		<key>count_time_long_second</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 second</string>
+			<key>other</key>
+			<string>%d seconds ago</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

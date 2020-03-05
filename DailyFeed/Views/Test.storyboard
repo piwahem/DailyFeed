@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--NewsDetailViewController-->
+        <scene sceneID="odF-yr-9W4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="News" referencedIdentifier="NewsDetailViewController" id="mMf-wk-xpd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mMn-Tz-mW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409" y="-662"/>
+        </scene>
+        <!--TEST-->
+        <scene sceneID="8F5-ue-fYC">
+            <objects>
+                <viewController id="pOg-4c-awC" customClass="TestViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8GL-9S-CWq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Udl-Xz-L0a">
+                                <rect key="frame" x="8" y="64" width="359" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="toz-zI-JSX">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dlm-zZ-BpD" firstAttribute="trailing" secondItem="Udl-Xz-L0a" secondAttribute="trailing" constant="8" id="6fK-zU-VQy"/>
+                            <constraint firstItem="Udl-Xz-L0a" firstAttribute="top" secondItem="dlm-zZ-BpD" secondAttribute="top" id="8g7-TE-Wrr"/>
+                            <constraint firstItem="Udl-Xz-L0a" firstAttribute="leading" secondItem="dlm-zZ-BpD" secondAttribute="leading" constant="8" id="VN7-qT-FY7"/>
+                            <constraint firstItem="dlm-zZ-BpD" firstAttribute="bottom" secondItem="Udl-Xz-L0a" secondAttribute="bottom" id="faa-Eu-eia"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dlm-zZ-BpD"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="TEST" id="rkm-o6-MQw"/>
+                    <connections>
+                        <outlet property="bookmarkCollectionView" destination="Udl-Xz-L0a" id="tOE-rI-39Q"/>
+                        <segue destination="mMf-wk-xpd" kind="presentation" identifier="bookmarkTestSourceSegue" id="NRU-Xb-5sh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gkk-cP-O2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-375" y="-1216"/>
+        </scene>
+        <!--TEST-->
+        <scene sceneID="ggH-Q0-a70">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FQF-j0-Qeo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="TEST" image="country" id="UAC-V1-CiJ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KG0-SA-4Ej">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pOg-4c-awC" kind="relationship" relationship="rootViewController" id="Q8s-MS-TV0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZpQ-Ad-qab" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1322" y="-1215"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="country" width="48" height="48"/>
+    </resources>
+</document>
