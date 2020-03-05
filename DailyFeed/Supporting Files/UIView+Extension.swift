@@ -41,4 +41,16 @@ extension UIView {
         border.frame = CGRect(x: frame.size.width - borderWidth, y: 0, width: borderWidth, height: frame.size.height)
         addSubview(border)
     }
+    
+    func getLabelsInView() -> [UILabel] {
+        var results = [UILabel]()
+        for subview in subviews as [UIView] {
+            if let labelView = subview as? UILabel {
+                results += [labelView]
+            } else {
+                results += subview.getLabelsInView()
+            }
+        }
+        return results
+    }
 }
