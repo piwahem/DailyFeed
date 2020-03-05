@@ -82,6 +82,10 @@ class NewsSearchViewController: UIViewController, UICollectionViewDelegate, UICo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        (resultsSearchController.searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("Cancel".localized, for: .normal)
+        navigationItem.searchController?.searchBar.placeholder = "Search Anything...".localized;       searchCollectionView.reloadData()
+        
         guard !resultsSearchController.isActive else { return }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             self.resultsSearchController.searchBar.becomeFirstResponder()
@@ -223,7 +227,7 @@ extension NewsSearchViewController: UIViewControllerTransitioningDelegate {
 extension NewsSearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Search for Articles above"
+        let str = "Search for Articles above".localized
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)]
         return NSAttributedString(string: str, attributes: attrs)
     }
