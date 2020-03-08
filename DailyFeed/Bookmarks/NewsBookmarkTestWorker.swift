@@ -42,7 +42,7 @@ class NewsBookmarkTestWorker: INewsBookmarkTestWorker {
             let article = ArticleRealmModel.convertFrom(from: item)
             try! realm.write {
                 article.isBookmark = true
-                realm.add(article, update: true)
+                realm.add(article, update: .all)
             }
         }
     }

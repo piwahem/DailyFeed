@@ -34,7 +34,7 @@ class NewsBookmarkWorker: INewsBookmarkWorker {
         let dailyfeedRealmModel = ArticleRealmModel.convertFrom(from: item)
         try! realm.write {
             dailyfeedRealmModel.isBookmark = true
-            realm.add(dailyfeedRealmModel, update: true)
+            realm.add(dailyfeedRealmModel, update: .all)
         }
     }
 }
