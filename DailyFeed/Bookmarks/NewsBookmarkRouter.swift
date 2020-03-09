@@ -26,6 +26,9 @@ class NewsBookmarkRouter: INewsBookmarkRouter {
                 vc.receivedItemNumber = indexpath.row + 1
                 let item = viewController.newsItems[indexpath.row]
                 vc.receivedNewsItem = item
+                if #available(iOS 13, *) {
+                    vc.modalPresentationStyle = .fullScreen
+                }
             }
         }
     }

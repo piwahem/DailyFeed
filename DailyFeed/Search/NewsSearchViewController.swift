@@ -205,6 +205,20 @@ extension NewsSearchViewController {
             
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
+            
+        case (.regular, .regular), (.compact, .regular), (.compact, .compact):
+            searchCollectionView.collectionViewLayout = DailySourceItemiPadLayout()
+            
+        default:
+            searchCollectionView.collectionViewLayout = DailySourceItemLayout()
+            
+        }
+    }
+
 }
 
 extension NewsSearchViewController: UIViewControllerTransitioningDelegate {
