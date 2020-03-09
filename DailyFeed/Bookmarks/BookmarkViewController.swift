@@ -69,7 +69,7 @@ extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewData
         newsCell?.cellTapped = { cell in
             if let cellToDelete = self.bookmarkCollectionView.indexPath(for: cell)?.row {
                 let item = self.newsItems[cellToDelete]
-                self.interactor?.deleteData(item: item)
+                self.confirmToDelete(deletedItem: item)
             }
         }
         return newsCell!
@@ -165,6 +165,14 @@ extension BookmarkViewController{
             fatalError("\(error)")
             break
         }
+    }
+    
+    private func confirmToDelete(deletedItem: ArticleRealmModel){
+        self.showConfirmDialog(title: "", message: "Are you sure to delete this bookamrk ?", labelOk: "Ok", labelCancel: "Cancel", confirmAction: {
+            self.interactor?.deleteData(item: deletedItem)
+        }, cancelAction: {
+            print("cancel, not delete anymore")
+        })
     }
 }
 
