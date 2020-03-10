@@ -11,6 +11,10 @@ import CoreSpotlight
 import MobileCoreServices
 import DZNEmptyDataSet
 
+protocol IBookmarkViewController {
+    func showConfirmDeleteDialog(item: ArticleRealmModel)
+}
+
 class BookmarkViewController: UIViewController {
     
     @IBOutlet weak var bookmarkCollectionView: UICollectionView!
@@ -69,7 +73,7 @@ extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewData
         newsCell?.cellTapped = { cell in
             if let cellToDelete = self.bookmarkCollectionView.indexPath(for: cell)?.row {
                 let item = self.newsItems[cellToDelete]
-                self.confirmToDelete(deletedItem: item)
+                self.interactor?.handleDeleteData(item: item)
             }
         }
         return newsCell!
@@ -136,13 +140,20 @@ extension BookmarkViewController: UICollectionViewDropDelegate {
     }
 }
 
+extension BookmarkViewController: IBookmarkViewController{
+    
+    func showConfirmDeleteDialog(item: ArticleRealmModel) {
+        confirmToDelete(deletedItem: item)
+    }
+}
+
 extension BookmarkViewController{
     
     func config(){
         router = NewsBookmarkRouter()
         (router as! NewsBookmarkRouter).viewController = self
         
-        interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker())
+        interactor = NewsBookmarkInteractor(worker: NewsBookmarkWorker(), view: self)
     }
     
     private func handleChangesBookmark(changes: RealmCollectionChange<Results<ArticleRealmModel>>){
@@ -168,7 +179,7 @@ extension BookmarkViewController{
     }
     
     private func confirmToDelete(deletedItem: ArticleRealmModel){
-        self.showConfirmDialog(title: "", message: "Are you sure to delete this bookamrk ?", labelOk: "Ok", labelCancel: "Cancel", confirmAction: {
+        self.showConfirmDialog(title: "", message: "Are you sure to delete this bookmark ?".localized, labelOk: "Ok".localized, labelCancel: "Cancel".localized, confirmAction: {
             self.interactor?.deleteData(item: deletedItem)
         }, cancelAction: {
             print("cancel, not delete anymore")
