@@ -124,6 +124,7 @@
 		84E2D9B323A91E6100E90266 /* CacheMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2D9B223A91E6100E90266 /* CacheMigration.swift */; };
 		84E2D9B523A9221E00E90266 /* ToNineMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2D9B423A9221E00E90266 /* ToNineMigration.swift */; };
 		84E2D9B723A924BC00E90266 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2D9B623A924BC00E90266 /* MigrationManager.swift */; };
+		84F15D2D2417CC50006A5618 /* NewsDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F15D2C2417CC50006A5618 /* NewsDetailInteractor.swift */; };
 		953C685821A071CC006750F8 /* IconTransitions.json in Resources */ = {isa = PBXBuildFile; fileRef = 953C685721A071CC006750F8 /* IconTransitions.json */; };
 		A7E2B029C5BE985E55A4D6E4 /* Pods_DailyFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C9A7974C2F411B26EB10C6 /* Pods_DailyFeed.framework */; };
 /* End PBXBuildFile section */
@@ -290,6 +291,7 @@
 		84E2D9B223A91E6100E90266 /* CacheMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheMigration.swift; sourceTree = "<group>"; };
 		84E2D9B423A9221E00E90266 /* ToNineMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToNineMigration.swift; sourceTree = "<group>"; };
 		84E2D9B623A924BC00E90266 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
+		84F15D2C2417CC50006A5618 /* NewsDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailInteractor.swift; sourceTree = "<group>"; };
 		953C685721A071CC006750F8 /* IconTransitions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = IconTransitions.json; sourceTree = "<group>"; };
 		B930752BDDAA4E77765A4B5E /* Pods-DailyFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyFeed.release.xcconfig"; path = "Target Support Files/Pods-DailyFeed/Pods-DailyFeed.release.xcconfig"; sourceTree = "<group>"; };
 		C5A7FA412294DAA5808D7E9B /* Pods_DailyFeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DailyFeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -404,7 +406,6 @@
 				D8E109BE88C11E95AA21C24D /* Pods-DailyFeedTests.debug.xcconfig */,
 				785B1B9A61D011F769CC8B2A /* Pods-DailyFeedTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -486,6 +487,7 @@
 				06D04C4E1E1262460013B4AA /* NewsDetailViewController.swift */,
 				06529E7C1E408DC6003DA45B /* NewsDetailViewController+StateRestoration.swift */,
 				063504FB1E151C4A002510B0 /* DFSafariViewController.swift */,
+				84F15D2C2417CC50006A5618 /* NewsDetailInteractor.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -805,7 +807,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -968,6 +970,7 @@
 				84DC6FB32382E33300FF8B61 /* NewsBookmarkRouter.swift in Sources */,
 				84DC6FB52382E67D00FF8B61 /* NewsBookmarkWorker.swift in Sources */,
 				062169591E260AE800ECB0AB /* DailySourceItemCell.swift in Sources */,
+				84F15D2D2417CC50006A5618 /* NewsDetailInteractor.swift in Sources */,
 				849AB98523A1544100ACA0E9 /* CacheSourceClient.swift in Sources */,
 				849AB983239FF2E700ACA0E9 /* CacheNewsClient.swift in Sources */,
 				84C121D723F6F11C009E0171 /* UIView+Extension.swift in Sources */,

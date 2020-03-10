@@ -9,10 +9,15 @@ import UIKit
 import SafariServices
 import RealmSwift
 
+protocol INewsDetailViewController {
+    func onShowBookmarkButton(isShow: Bool)
+}
+
 class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate, UIViewControllerTransitioningDelegate {
     
     //MARK: - Config
     var router: INewsDetailRouter?
+    var interactor: INewsDetailInteractor?
     
     // MARK: - Variable declaration
     
@@ -148,6 +153,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             newsImageView.addInteraction(dragInteraction)
         }
         config()
+        interactor?.handleInit(detailItem: receivedNewsItem)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -282,5 +288,13 @@ extension NewsDetailViewController{
     private func config() {
         router = NewsDetailRouter()
         (router as! NewsDetailRouter).viewController = self
+        interactor = NewsDetailInteractor(view: self)
+    }
+}
+
+extension NewsDetailViewController: INewsDetailViewController{
+    
+    func onShowBookmarkButton(isShow: Bool) {
+        shareButton?.isHidden = !isShow
     }
 }
