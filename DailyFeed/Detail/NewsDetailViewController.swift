@@ -11,6 +11,9 @@ import RealmSwift
 
 protocol INewsDetailViewController {
     func onShowBookmarkButton(isShow: Bool)
+    func onBookmarkProcessing(isProcessing: Bool)
+    func onBookmarkResult(isSuccess: Bool)
+    func onBookmarkActivity()
 }
 
 class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate, UIViewControllerTransitioningDelegate {
@@ -197,46 +200,7 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
     
     // MARK: - share article
     @IBAction func shareArticle(_ sender: UIButton) {
-        
-        fadeUIElements(with: 0.0)
-        
-        let delay = DispatchTime.now() + 0.11
-        DispatchQueue.main.asyncAfter(deadline: delay) {
-            
-            guard let shareURL = self.articleStringURL,
-                let articleImage = self.captureScreenShot(),
-                let articleToBookmarkData = self.receivedNewsItem else {return}
-            
-            let bookmarkactivity = BookmarkActivity()
-            
-            bookmarkactivity.bookMarkSuccessful = {
-                self.showErrorWithDelay("Bookmarked Successfully!")
-            }
-            
-            let activityVC = UIActivityViewController(activityItems: [shareURL, articleImage, articleToBookmarkData],
-                                                      applicationActivities: [bookmarkactivity])
-            
-            activityVC.excludedActivityTypes = [.saveToCameraRoll,
-                                                .copyToPasteboard,
-                                                .airDrop,
-                                                .addToReadingList,
-                                                .assignToContact,
-                                                .postToTencentWeibo,
-                                                .postToVimeo,
-                                                .print,
-                                                .postToWeibo]
-            
-            activityVC.completionWithItemsHandler = {(activityType, completed: Bool, _, _) in
-                self.fadeUIElements(with: 1.0)
-            }
-            
-            // Popover for iPad only
-            
-            let popOver = activityVC.popoverPresentationController
-            popOver?.sourceView = self.shareButton
-            popOver?.sourceRect = self.shareButton.bounds
-            self.present(activityVC, animated: true, completion: nil)
-        }
+        interactor?.bookmarkDetail()
     }
     
     // Helper to toggle UI elements before and after screenshot capture
@@ -246,19 +210,6 @@ class NewsDetailViewController: UIViewController, SFSafariViewControllerDelegate
             self.shareButton.alpha = alpha
             self.swipeLeftButton.alpha = alpha
         }
-    }
-    
-    // Helper method to generate article screenshots
-    func captureScreenShot() -> UIImage? {
-        //Create the UIImage
-        let bounds = UIScreen.main.bounds
-        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
-        self.view.drawHierarchy(in: bounds, afterScreenUpdates: false)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-        
     }
     
     @IBAction func openArticleInSafari(_ sender: UIButton) {
@@ -297,4 +248,21 @@ extension NewsDetailViewController: INewsDetailViewController{
     func onShowBookmarkButton(isShow: Bool) {
         shareButton?.isHidden = !isShow
     }
+    
+    func onBookmarkProcessing(isProcessing: Bool) {
+        let value: CGFloat = isProcessing ? 0.0 : 1.0
+        fadeUIElements(with: value)
+    }
+    
+    func onBookmarkResult(isSuccess: Bool) {
+        if (isSuccess){
+            interactor?.handleInit(detailItem: receivedNewsItem)
+            self.showErrorWithDelay("Bookmarked Successfully!")
+        }
+    }
+    
+    func onBookmarkActivity() {
+        router?.openBookmarkActivity(item: receivedNewsItem)
+    }
+    
 }

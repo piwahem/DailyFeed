@@ -131,5 +131,16 @@ public extension UIViewController {
 
         present(confirmAlert, animated: true, completion: nil)
     }
+    
+    func captureScreenShot() -> UIImage? {
+        //Create the UIImage
+        let bounds = UIScreen.main.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        view.drawHierarchy(in: bounds, afterScreenUpdates: false)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+        
+    }
 }
 
