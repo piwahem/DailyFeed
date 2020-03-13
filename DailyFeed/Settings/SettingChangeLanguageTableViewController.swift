@@ -58,9 +58,9 @@ class SettingChangeLanguageTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let position = indexPath.row
         if (position == 0){
-            AMPLocalizeUtils.defaultLocalizer.setSelectedLanguage(lang: LanguageLang.English)
+            AMPLocalizeUtils.defaultLocalizer.currentLanguage = LanguageLang.English
         } else if (position == 1){
-            AMPLocalizeUtils.defaultLocalizer.setSelectedLanguage(lang: LanguageLang.Chinese)
+            AMPLocalizeUtils.defaultLocalizer.currentLanguage = LanguageLang.Chinese
         }
         updateCellState(indexPath: indexPath)
     }

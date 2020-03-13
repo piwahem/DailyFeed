@@ -74,6 +74,8 @@
 		84586CA62404188700D1D12F /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 84586CA82404188700D1D12F /* Localizable.stringsdict */; };
 		845C4DE723AA8A3C00D52B96 /* ToTwelveMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */; };
 		845C4DE923ABD3B500D52B96 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4DE823ABD3B500D52B96 /* TestViewController.swift */; };
+		846497AC241BD9DB00CFCA15 /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846497AB241BD9DB00CFCA15 /* CacheKey.swift */; };
+		846497AE241BE23D00CFCA15 /* TabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846497AD241BE23D00CFCA15 /* TabBarController+Extension.swift */; };
 		8467C75D240EA1C600E82994 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75C240EA1C600E82994 /* Setting.storyboard */; };
 		8467C75F240EA9D700E82994 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75E240EA9D700E82994 /* News.storyboard */; };
 		8471710C23901DDD0068BCFB /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710B23901DDD0068BCFB /* CacheClient.swift */; };
@@ -238,6 +240,8 @@
 		84586CA92404188D00D1D12F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTwelveMigration.swift; sourceTree = "<group>"; };
 		845C4DE823ABD3B500D52B96 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		846497AB241BD9DB00CFCA15 /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
+		846497AD241BE23D00CFCA15 /* TabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarController+Extension.swift"; sourceTree = "<group>"; };
 		8467C75C240EA1C600E82994 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		8467C75E240EA9D700E82994 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		8471710B23901DDD0068BCFB /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 				84E2D9B423A9221E00E90266 /* ToNineMigration.swift */,
 				845C4DE623AA8A3C00D52B96 /* ToTwelveMigration.swift */,
 				84E0C05923B109E00065B8D9 /* ToThirteenMigration.swift */,
+				846497AB241BD9DB00CFCA15 /* CacheKey.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */,
 				8418CC79240147B300ADC6EA /* String+Extension.swift */,
 				844A26B524057F3E008BCC74 /* AMPLocalizeUtils.swift */,
+				846497AD241BE23D00CFCA15 /* TabBarController+Extension.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -957,6 +963,7 @@
 				847EB2E02369D7B90077BF25 /* NewsInteractor.swift in Sources */,
 				20EA15751EA28C6700047523 /* Reach.swift in Sources */,
 				84DC6FA423731C5300FF8B61 /* SourcePresenter.swift in Sources */,
+				846497AC241BD9DB00CFCA15 /* CacheKey.swift in Sources */,
 				06C38FD01E35E43C004429DD /* Date+Relative.swift in Sources */,
 				2038F9761F49AA3C0097503D /* NewsDetailPopAnimator.swift in Sources */,
 				064FA8F31E52D48900693D12 /* BookmarkItemsCell.swift in Sources */,
@@ -987,6 +994,7 @@
 				06D04C1F1E1248DB0013B4AA /* AppDelegate.swift in Sources */,
 				845C4DE723AA8A3C00D52B96 /* ToTwelveMigration.swift in Sources */,
 				84B4ABA623F1A3FA00AD3F2B /* SettingTableViewCell.swift in Sources */,
+				846497AE241BE23D00CFCA15 /* TabBarController+Extension.swift in Sources */,
 				848073722360A3E600A6EDB2 /* BaseURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

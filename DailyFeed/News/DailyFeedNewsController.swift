@@ -100,6 +100,7 @@ class DailyFeedNewsController: UIViewController {
         //Populate CollectionView Data
         loadNewsData()
         Reach().monitorReachabilityChanges()
+        self.tabBarController?.resetTabTitle()
     }
     
     override func viewWillLayoutSubviews() {
