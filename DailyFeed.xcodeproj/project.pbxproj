@@ -68,6 +68,8 @@
 		844A26B82406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A26B72406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift */; };
 		844A26BB2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A26B92406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift */; };
 		844A26BC2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844A26BA2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib */; };
+		844A68FD242BA4D300B1C4F6 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844A68FB242BA4D300B1C4F6 /* BottomSheetViewController.swift */; };
+		844A68FE242BA4D300B1C4F6 /* BottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844A68FC242BA4D300B1C4F6 /* BottomSheetViewController.xib */; };
 		8452B3F523F9707E00CEA1BF /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */; };
 		8455AAF923CCC507009A7913 /* DailyFeedBottomReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */; };
 		8455AAFA23CCC507009A7913 /* DailyFeedBottomReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */; };
@@ -78,6 +80,12 @@
 		846497AE241BE23D00CFCA15 /* TabBarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846497AD241BE23D00CFCA15 /* TabBarController+Extension.swift */; };
 		8467C75D240EA1C600E82994 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75C240EA1C600E82994 /* Setting.storyboard */; };
 		8467C75F240EA9D700E82994 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8467C75E240EA9D700E82994 /* News.storyboard */; };
+		846C2070242A515700936E28 /* BottomSheetPanDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C206F242A515700936E28 /* BottomSheetPanDirection.swift */; };
+		846C2072242A519D00936E28 /* BottomSheetBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C2071242A519D00936E28 /* BottomSheetBehavior.swift */; };
+		846C2074242A522000936E28 /* BottomSheetConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C2073242A522000936E28 /* BottomSheetConfiguration.swift */; };
+		846C2076242A52A000936E28 /* BottomSheetControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C2075242A52A000936E28 /* BottomSheetControllerDelegate.swift */; };
+		846C2078242A52CE00936E28 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C2077242A52CE00936E28 /* BottomSheetController.swift */; };
+		846C207A242A535A00936E28 /* BottomSheetController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C2079242A535A00936E28 /* BottomSheetController+Utils.swift */; };
 		8471710C23901DDD0068BCFB /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710B23901DDD0068BCFB /* CacheClient.swift */; };
 		8471710E23955C200068BCFB /* ArticleRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710D23955C200068BCFB /* ArticleRealmModel.swift */; };
 		84717110239563A60068BCFB /* SourceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471710F239563A60068BCFB /* SourceRealmModel.swift */; };
@@ -233,6 +241,8 @@
 		844A26B72406C5CF008BCC74 /* SettingChangeLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingChangeLanguageTableViewController.swift; sourceTree = "<group>"; };
 		844A26B92406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingChangeLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		844A26BA2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingChangeLanguageTableViewCell.xib; sourceTree = "<group>"; };
+		844A68FB242BA4D300B1C4F6 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		844A68FC242BA4D300B1C4F6 /* BottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomSheetViewController.xib; sourceTree = "<group>"; };
 		8452B3F423F9707E00CEA1BF /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		8455AAF723CCC507009A7913 /* DailyFeedBottomReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeedBottomReusableView.swift; sourceTree = "<group>"; };
 		8455AAF823CCC507009A7913 /* DailyFeedBottomReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyFeedBottomReusableView.xib; sourceTree = "<group>"; };
@@ -244,6 +254,12 @@
 		846497AD241BE23D00CFCA15 /* TabBarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarController+Extension.swift"; sourceTree = "<group>"; };
 		8467C75C240EA1C600E82994 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		8467C75E240EA9D700E82994 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		846C206F242A515700936E28 /* BottomSheetPanDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPanDirection.swift; sourceTree = "<group>"; };
+		846C2071242A519D00936E28 /* BottomSheetBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetBehavior.swift; sourceTree = "<group>"; };
+		846C2073242A522000936E28 /* BottomSheetConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetConfiguration.swift; sourceTree = "<group>"; };
+		846C2075242A52A000936E28 /* BottomSheetControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetControllerDelegate.swift; sourceTree = "<group>"; };
+		846C2077242A52CE00936E28 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
+		846C2079242A535A00936E28 /* BottomSheetController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomSheetController+Utils.swift"; sourceTree = "<group>"; };
 		8471710B23901DDD0068BCFB /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
 		8471710D23955C200068BCFB /* ArticleRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRealmModel.swift; sourceTree = "<group>"; };
 		8471710F239563A60068BCFB /* SourceRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRealmModel.swift; sourceTree = "<group>"; };
@@ -413,6 +429,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		846C206E242A4FC300936E28 /* bottomsheet */ = {
+			isa = PBXGroup;
+			children = (
+				846C206F242A515700936E28 /* BottomSheetPanDirection.swift */,
+				846C2071242A519D00936E28 /* BottomSheetBehavior.swift */,
+				846C2073242A522000936E28 /* BottomSheetConfiguration.swift */,
+				846C2075242A52A000936E28 /* BottomSheetControllerDelegate.swift */,
+				846C2077242A52CE00936E28 /* BottomSheetController.swift */,
+				846C2079242A535A00936E28 /* BottomSheetController+Utils.swift */,
+				844A68FB242BA4D300B1C4F6 /* BottomSheetViewController.swift */,
+				844A68FC242BA4D300B1C4F6 /* BottomSheetViewController.xib */,
+			);
+			name = bottomsheet;
+			sourceTree = "<group>";
+		};
 		8471710823901CFF0068BCFB /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +583,7 @@
 		953C685421A0713C006750F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				846C206E242A4FC300936E28 /* bottomsheet */,
 				06D04C1E1E1248DB0013B4AA /* AppDelegate.swift */,
 				208C18261EA3CD81007BC052 /* Settings.bundle */,
 				06D04C251E1248DB0013B4AA /* Assets.xcassets */,
@@ -743,6 +775,7 @@
 			files = (
 				8467C75F240EA9D700E82994 /* News.storyboard in Resources */,
 				953C685821A071CC006750F8 /* IconTransitions.json in Resources */,
+				844A68FE242BA4D300B1C4F6 /* BottomSheetViewController.xib in Resources */,
 				842AFEAC23C77D1900E1AA6A /* DailyFeedLoadingCell.xib in Resources */,
 				06D04C551E13945D0013B4AA /* DailyFeedItemCell.xib in Resources */,
 				842D9493240FE22B002AADFA /* Bookmarks.storyboard in Resources */,
@@ -905,9 +938,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				845C4DE923ABD3B500D52B96 /* TestViewController.swift in Sources */,
+				844A68FD242BA4D300B1C4F6 /* BottomSheetViewController.swift in Sources */,
 				064FA8EE1E4C95B200693D12 /* BookmarkViewController.swift in Sources */,
 				064FA8F01E4DB76100693D12 /* BookmarkActivity.swift in Sources */,
 				1DD3CDD0227F295900C374BC /* R.generated.swift in Sources */,
+				846C207A242A535A00936E28 /* BottomSheetController+Utils.swift in Sources */,
 				06D04C4F1E1262460013B4AA /* NewsDetailViewController.swift in Sources */,
 				84CFB2DC23F90E590044A484 /* SettingContactTableViewController.swift in Sources */,
 				84E2D9B323A91E6100E90266 /* CacheMigration.swift in Sources */,
@@ -944,7 +979,9 @@
 				06D04C4D1E1249430013B4AA /* DailyFeedModel.swift in Sources */,
 				84DC6FA02371C7A900FF8B61 /* SourceWorker.swift in Sources */,
 				063505101E1BAF13002510B0 /* DailyFeedNewsController+UICollectionView.swift in Sources */,
+				846C2078242A52CE00936E28 /* BottomSheetController.swift in Sources */,
 				1DD3CDCD227F14AF00C374BC /* NewsSourceParameters.swift in Sources */,
+				846C2070242A515700936E28 /* BottomSheetPanDirection.swift in Sources */,
 				84E0C05E23B502B40065B8D9 /* NewsSearchExecutor.swift in Sources */,
 				8418CC7A240147B300ADC6EA /* String+Extension.swift in Sources */,
 				06CAC5981E28A3D600EF72BB /* NewsSource.swift in Sources */,
@@ -958,6 +995,7 @@
 				208FBB5B1EDB1C36009C2539 /* DailySourceItemiPadLayout.swift in Sources */,
 				84E0C06023B509450065B8D9 /* SourceSearchExecutor.swift in Sources */,
 				207A5C251E9C1C6E00E4FC45 /* DailyFeedDetailItemCell.swift in Sources */,
+				846C2074242A522000936E28 /* BottomSheetConfiguration.swift in Sources */,
 				8483135023FC39DD00E3EF84 /* SettingContactLabelTableViewCell.swift in Sources */,
 				8471710E23955C200068BCFB /* ArticleRealmModel.swift in Sources */,
 				847EB2E02369D7B90077BF25 /* NewsInteractor.swift in Sources */,
@@ -969,6 +1007,7 @@
 				064FA8F31E52D48900693D12 /* BookmarkItemsCell.swift in Sources */,
 				84E0C05823AE6CF20065B8D9 /* NewsBookmarkTestRouter.swift in Sources */,
 				849408E1236894A40019025D /* NewsWorker.swift in Sources */,
+				846C2076242A52A000936E28 /* BottomSheetControllerDelegate.swift in Sources */,
 				84E0C05623AE6C670065B8D9 /* NewsBookmarkTestInteractor.swift in Sources */,
 				2085CBC41EF9216900D26594 /* JSONDecodingError.swift in Sources */,
 				844A26BB2406C67A008BCC74 /* SettingChangeLanguageTableViewCell.swift in Sources */,
@@ -983,6 +1022,7 @@
 				84C121D723F6F11C009E0171 /* UIView+Extension.swift in Sources */,
 				844A26B624057F3E008BCC74 /* AMPLocalizeUtils.swift in Sources */,
 				848073742360A46500A6EDB2 /* NewsClient.swift in Sources */,
+				846C2072242A519D00936E28 /* BottomSheetBehavior.swift in Sources */,
 				84DC6FB0237C47C300FF8B61 /* NewsSearchPresenter.swift in Sources */,
 				841FBB8F23F453C300DF8029 /* AppUrl.swift in Sources */,
 				06529E7D1E408DC6003DA45B /* NewsDetailViewController+StateRestoration.swift in Sources */,
