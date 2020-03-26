@@ -11,16 +11,27 @@ import Foundation
 class AMPLocalizeUtils: NSObject {
     
     static let defaultLocalizer = AMPLocalizeUtils()
-    var currentLanguage = LanguageLang.English
-
-    func setSelectedLanguage(lang: LanguageLang) {
-        currentLanguage = lang
-        UserDefaults.standard.set(currentLanguage.rawValue, forKey: "AppleLanguage")
+    let languageKey = "languageKey"
+    
+    var currentLanguage: LanguageLang {
+        get {
+            let language = CacheKey.value(forKey: languageKey, defaultValue: LanguageLang.English.rawValue) as! String
+            return LanguageLang.init(rawValue: language)!
+        }
+        
+        set {
+            setSelectedLanguage(lang: newValue)
+        }
+    }
+    
+    private func setSelectedLanguage(lang: LanguageLang) {
+        UserDefaults.standard.set(lang.rawValue, forKey: "AppleLanguage")
         Bundle.swizzleLocalization()
+        CacheKey.setValue(forKey: languageKey, value: lang.rawValue)
     }
 }
 
-enum LanguageLang: String{
+enum LanguageLang: String, Codable{
     case Chinese = "zh-Hans"
     case English = "en"
 }

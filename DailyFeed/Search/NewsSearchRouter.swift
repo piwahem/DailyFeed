@@ -24,8 +24,13 @@ class NewsSearchRouter: INewsSearchRouter {
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexpath = viewController.searchCollectionView?.indexPath(for: cell) else { return }
                 viewController.selectedCell = cell
-                vc.transitioningDelegate = viewController
-                vc.modalPresentationStyle = .formSheet
+                if #available(iOS 13, *) {
+                    vc.modalPresentationStyle = .fullScreen
+                } else{
+                    vc.transitioningDelegate = viewController
+                    vc.modalPresentationStyle = .formSheet
+                }
+
                 let article = ArticleRealmModel.convertFrom(from:viewController.searchItems[indexpath.row])
                 vc.receivedNewsItem = article
                 vc.receivedItemNumber = indexpath.row + 1

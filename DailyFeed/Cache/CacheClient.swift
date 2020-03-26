@@ -17,7 +17,7 @@ class CacheClient<T: Object> {
     func addData(addList: [T]) {
         let realm = try! Realm()
         try! realm.write {
-            realm.add(addList, update: true)
+            realm.add(addList, update: .all)
         }
     }
     

@@ -35,7 +35,7 @@ class BookmarkActivity: UIActivity {
                 let realm = try! Realm()
                 try! realm.write {
                     activity.isBookmark = true
-                    realm.add(activity, update: true)
+                    realm.add(activity, update: .all)
                     bookMarkSuccessful?()
                 }
                 break
