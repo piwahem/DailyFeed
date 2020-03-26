@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  DailyFeed
+
+  Created by Admin on 2/22/20.
+  Copyright © 2020 trianz. All rights reserved.
+*/
+
+"DailyFeed" = "DailyFeed";
+"No Content 😥" = "No Content 😥";
+"Connect to Internet or try another source." = "Connect to Internet or try another source.";
+"Your Internet Connection appears to be offline." = "Your Internet Connection appears to be offline.";
+"Powered by NewsAPI.org" = "Powered by NewsAPI.org";
+"%dy"="%dy";
+"%dy" = "%dy";
+"%dmo" = "%dmo";
+"%dweeks" = "%dweeks";
+"Just now" = "Just now";
+"  y'day" = "  y'day";
+"yesterday" = "yesterday";
+"%dd"= "%dd";
+"%dh"= "%dh";
+"%d min"= "%d min";
+"%ds" = "%ds";
+"Notifications" = "Notifications";
+"Contact us" = "Contact us";
+"About" = "About";
+"Term of use" = "Term of use";
+"Privacy policy" = "Privacy policy";
+"Digital subscriber service centres" = "Digital subscriber service centres";
+"When contacting us, to help us serve you better, please include:" = "When contacting us, to help us serve you better, please include:";
+"  • Specific problem you are experiencing" = "  • Specific problem you are experiencing";
+"  • Your supcription status" = "  • Your supcription status";
+"  • Your device type" = "  • Your device type";
+"Version %@ (%@)" = "Version %@ (%@)";
+"North America" = "North America";
+"United Kingdom" = "United Kingdom";
+"Europe, Africa & Middle East" = "Europe, Africa & Middle East";
+"Latin American & Mexico" = "Latin American & Mexico";
+"Asia Pacifix" = "Asia Pacifix";
+"Change language" = "Change language";
+"English" = "English";
+"Chinese" = "Chinese";
+"Internet connection appears to be offline" = "Internet connection appears to be offline";
+"Search Anything..." = "Search Anything...";
+"Search for Articles above" = "Search for Articles above";
+"Cancel" = "Cancel";
+"About" = "About";
+"DailyFeed" = "DailyFeed";
+"Bookmarks" = "Bookmarks";
+"Search" = "Search";
+"Settings" = "Settings";
+"Are you sure to delete this bookmark ?" = "Are you sure to delete this bookmark ?";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
+

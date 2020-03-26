@@ -40,7 +40,7 @@ class RestClient {
                 return
             }
             
-            Alamofire.request(url).responseJSON(completionHandler: { (data) in
+            AF.request(url).responseJSON(completionHandler: { (data) in
                 switch data.result {
                 case .success(let json):
                     guard data.error == nil else{

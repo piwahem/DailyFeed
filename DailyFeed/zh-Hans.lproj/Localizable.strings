@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  DailyFeed
+
+  Created by Admin on 2/22/20.
+  Copyright © 2020 trianz. All rights reserved.
+*/
+
+"DailyFeed" = "Chinese DailyFeed";
+"No Content 😥" = "Chinese No Content 😥";
+"Connect to Internet or try another source." = "Chinese Connect to Internet or try another source.";
+"Your Internet Connection appears to be offline." = "Chinese Your Internet Connection appears to be offline.";
+"Powered by NewsAPI.org" = "Chinese Powered by NewsAPI.org";
+"%dy"="%dy chinese";
+"%dy" = "%dy chinese";
+"%dmo" = "%dmo chinese";
+"%dweeks" = "%dweeks chinese";
+"Just now" = "Just now chinese";
+"  y'day" = "  y'day chinese";
+"yesterday" = "yesterday chinese";
+"%dd"= "%dd chinese";
+"%dh"= "%dh chinese";
+"%d min"= "%d min chinese";
+"%ds" = "%ds chinese";
+"Notifications" = "Notifications cn";
+"Contact us" = "Contact us cn";
+"About" = "About";
+"Term of use" = "Term of use cn";
+"Privacy policy" = "Privacy policy cn";
+"Digital subscriber service centres" = "Digital subscriber service centres cn";
+"When contacting us, to help us serve you better, please include:" = "When contacting us, to help us serve you better, please include cn:";
+"  • Specific problem you are experiencing" = "  • Specific problem you are experiencing cn";
+"  • Your supcription status" = "  • Your supcription status cn";
+"  • Your device type" = "  • Your device type cn";
+"Version %@ (%@)" = "Version %@ (%@) cn";
+"North America" = "North America cn";
+"United Kingdom" = "United Kingdom cn";
+"Europe, Africa & Middle East" = "Europe, Africa & Middle East cn";
+"Latin American & Mexico" = "Latin American & Mexico cn";
+"Asia Pacifix" = "Asia Pacifix cn";
+"Change language" = "Change language cn";
+"English" = "English cn";
+"Chinese" = "Chinese cn";
+"Internet connection appears to be offline" = "Internet connection appears to be offline cn";
+"Search Anything..." = "Search Anything cn...";
+"Search for Articles above" = "Search for Articles above cn";
+"Cancel" = "Cancel cn";
+"About" = "About cn";
+"DailyFeed" = "DailyFeed cn";
+"Bookmarks" = "Bookmarks cn";
+"Search" = "Search cn";
+"Settings" = "Settings cn";
+"Are you sure to delete this bookmark ?" = "Are you sure to delete this bookmark cn ?";
+"Ok" = "Ok cn";
+"Cancel" = "Cancel cn";

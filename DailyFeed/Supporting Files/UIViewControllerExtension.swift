@@ -114,5 +114,33 @@ public extension UIViewController {
         }
         return newsSourceParams
     }
+    
+    func showConfirmDialog(title: String, message: String, labelOk: String, labelCancel: String, confirmAction: @escaping (() -> Void),
+                           cancelAction: @escaping () -> Void) {
+        let confirmAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+
+        confirmAlert.addAction(UIAlertAction(title: labelOk, style: .default, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            confirmAction()
+        }))
+
+        confirmAlert.addAction(UIAlertAction(title: labelCancel, style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+            cancelAction()
+        }))
+
+        present(confirmAlert, animated: true, completion: nil)
+    }
+    
+    func captureScreenShot() -> UIImage? {
+        //Create the UIImage
+        let bounds = UIScreen.main.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        view.drawHierarchy(in: bounds, afterScreenUpdates: false)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+        
+    }
 }
 

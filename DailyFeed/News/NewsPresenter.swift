@@ -10,7 +10,7 @@ import Foundation
 
 protocol INewsPresenter {
     func onLoading()
-    func onList(_ list: [DailyFeedModel])
+    func onList(_ list: [DailyFeedModel],_ isLastPage: Bool)
     func onError(_ message: String)
 }
 
@@ -22,8 +22,8 @@ class NewsPresenter: INewsPresenter {
         view?.onLoading()
     }
     
-    func onList(_ list: [DailyFeedModel]) {
-        view?.onList(list)
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
+        view?.onList(list, isLastPage)
     }
     
     func onError(_ message: String) {

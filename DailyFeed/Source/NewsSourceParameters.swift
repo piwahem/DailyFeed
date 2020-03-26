@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NewsSourceParameters {
+public struct NewsSourceParameters: Equatable {
     let category: String?
     let language: String?
     let country: String?
@@ -16,5 +16,12 @@ public struct NewsSourceParameters {
         self.category = category
         self.language = language
         self.country = country
+    }
+    
+    public static func == (lhs: NewsSourceParameters, rhs: NewsSourceParameters) -> Bool {
+        let isEqual = lhs.category == rhs.category
+            && lhs.language == rhs.language
+            && lhs.country == rhs.country
+        return isEqual
     }
 }

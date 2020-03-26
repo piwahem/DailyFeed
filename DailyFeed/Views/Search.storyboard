@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16095" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16084.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search News-->
+        <scene sceneID="eQV-Wn-egl">
+            <objects>
+                <viewController storyboardIdentifier="NewsSearchViewController" id="SSl-ka-ELD" customClass="NewsSearchViewController" customModule="DailyFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JEm-Gi-orB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BSD-7y-dnd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eA4-kq-hGu">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UCa-us-XZc">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="SSl-ka-ELD" id="URE-sA-NA7"/>
+                                    <outlet property="delegate" destination="SSl-ka-ELD" id="mh3-wX-Y2T"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0RD-06-51l" firstAttribute="trailing" secondItem="BSD-7y-dnd" secondAttribute="trailing" id="2Ra-sP-TGU"/>
+                            <constraint firstItem="BSD-7y-dnd" firstAttribute="top" secondItem="0RD-06-51l" secondAttribute="top" id="RFm-Rg-FVL"/>
+                            <constraint firstItem="0RD-06-51l" firstAttribute="bottom" secondItem="BSD-7y-dnd" secondAttribute="bottom" id="fc8-zi-fVc"/>
+                            <constraint firstItem="BSD-7y-dnd" firstAttribute="leading" secondItem="0RD-06-51l" secondAttribute="leading" id="q9q-I9-tZT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0RD-06-51l"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Search News" id="fpU-R5-FBU"/>
+                    <connections>
+                        <outlet property="searchCollectionView" destination="BSD-7y-dnd" id="kWT-tE-3f0"/>
+                        <segue destination="ewg-9D-PCx" kind="presentation" identifier="newsSearchSegue" modalPresentationStyle="fullScreen" id="fy1-jV-1Fz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n3Z-7s-hDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2390" y="-1121"/>
+        </scene>
+        <!--NewsDetailViewController-->
+        <scene sceneID="EEN-1c-tZm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="News" referencedIdentifier="NewsDetailViewController" id="ewg-9D-PCx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oi9-cH-v40" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2390" y="-512"/>
+        </scene>
+    </scenes>
+</document>

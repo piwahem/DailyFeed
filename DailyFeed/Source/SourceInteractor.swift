@@ -34,7 +34,7 @@ class SourceInteractor: ISourceInteractor {
             
             if let sources = data {
                 print("onNext = \(sources)")
-                self.presenter?.onList(sources.sources)
+                self.presenter?.onList(sources.sources, sources.isLastPage)
             }
             
         }) {

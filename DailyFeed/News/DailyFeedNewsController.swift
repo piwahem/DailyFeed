@@ -12,7 +12,7 @@ import PromiseKit
 
 protocol INewsView: class {
     func onLoading()
-    func onList(_ list: [DailyFeedModel])
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool)
     func onError(_ message: String)
 }
 
@@ -22,16 +22,19 @@ extension DailyFeedNewsController: INewsView{
         if !self.refreshControl.isRefreshing {
             setupSpinner()
         }
-        
         spinningActivityIndicator.start()
+//        isLoadingMore = true
     }
     
-    func onList(_ list: [DailyFeedModel]) {
+    func onList(_ list: [DailyFeedModel], _ isLastPage: Bool) {
+//        self.isLastPage = isLastPage
+        
         self.newsItems = list
         self.navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+//        isLoadingMore = false
     }
     
     func onError(_ message: String) {
@@ -39,6 +42,7 @@ extension DailyFeedNewsController: INewsView{
         
         self.spinningActivityIndicator.stop()
         self.refreshControl.endRefreshing()
+//        isLoadingMore = false
     }
 }
 
@@ -71,6 +75,11 @@ class DailyFeedNewsController: UIViewController {
     
     var isLanguageRightToLeft = Bool()
     
+//    var isLoadingMore = false
+//    var isLastPage = false
+//    var paginationWorkItem: DispatchWorkItem?
+    
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var newsCollectionView: UICollectionView! {
@@ -91,6 +100,7 @@ class DailyFeedNewsController: UIViewController {
         //Populate CollectionView Data
         loadNewsData()
         Reach().monitorReachabilityChanges()
+        self.tabBarController?.resetTabTitle()
     }
     
     override func viewWillLayoutSubviews() {
@@ -131,12 +141,26 @@ class DailyFeedNewsController: UIViewController {
         navigationItem.rightBarButtonItem = sourceMenuButton
         navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         navigationItem.titleView = navBarSourceImage
+        
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.backgroundColor = .white
+            navigationItem.standardAppearance = navBarAppearance
+            navigationItem.scrollEdgeAppearance = navBarAppearance
+        }
     }
     
     // MARK: - Setup CollectionView
     func setupCollectionView() {
         newsCollectionView?.register(R.nib.dailyFeedItemCell)
         newsCollectionView?.refreshControl = refreshControl
+        newsCollectionView?.register(R.nib.dailyFeedBottomCell)
+        newsCollectionView?.register(R.nib.dailyFeedLoadingCell)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedBottomReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedBottomReusableView.identifier)
+        newsCollectionView?.register(UINib(nibName: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: R.reuseIdentifier.dailyFeedLoadingReusableView.identifier)
         refreshControl.addTarget(self,
                                  action: #selector(DailyFeedNewsController.refreshData(_:)),
                                  for: UIControl.Event.valueChanged)
@@ -147,6 +171,7 @@ class DailyFeedNewsController: UIViewController {
             newsCollectionView?.dragDelegate = self
             newsCollectionView?.dragInteractionEnabled = true
         }
+//        newsCollectionView?.prefetchDataSource = self
     }
     
     // MARK: - Setup Spinner
@@ -202,6 +227,19 @@ extension DailyFeedNewsController {
             
         }
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
+            
+        case (.regular, .regular), (.compact, .regular), (.compact, .compact):
+            newsCollectionView.collectionViewLayout = DailySourceItemiPadLayout()
+            
+        default:
+            newsCollectionView.collectionViewLayout = DailySourceItemLayout()
+            
+        }
+    }
 }
 
 extension DailyFeedNewsController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
@@ -210,13 +248,13 @@ extension DailyFeedNewsController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegat
     // MARK: - DZNEmptyDataSet Delegate Methods
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "No Content 😥"
+        let str = "No Content 😥".localized
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)]
         return NSAttributedString(string: str, attributes: attrs)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Connect to Internet or try another source."
+        let str = "Connect to Internet or try another source.".localized
         let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }

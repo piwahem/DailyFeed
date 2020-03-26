@@ -60,8 +60,12 @@ class NewsRouter: INewsRouter {
         if let vc = segue.destination as? NewsDetailViewController {
             guard let cell = sender as? UICollectionViewCell else { return }
             guard let indexpath = viewController.newsCollectionView?.indexPath(for: cell) else { return }
-            vc.transitioningDelegate = viewController
-            vc.modalPresentationStyle = .formSheet
+            if #available(iOS 13, *) {
+                vc.modalPresentationStyle = .fullScreen
+            } else{
+                vc.transitioningDelegate = viewController
+                vc.modalPresentationStyle = .formSheet
+            }
             let article = ArticleRealmModel.convertFrom(from: viewController.newsItems[indexpath.row])
             vc.receivedNewsItem = article
             vc.receivedItemNumber = indexpath.row + 1
@@ -80,7 +84,7 @@ class NewsRouter: INewsRouter {
             viewController.interactor?.source = sourceId
             viewController.loadNewsData(){ success in
                 if (!success){
-                    self.viewController.showErrorWithDelay("Your Internet Connection appears to be offline.")
+                    self.viewController.showErrorWithDelay("Your Internet Connection appears to be offline.".localized)
                     self.viewController.interactor?.source = oldSource
                     self.viewController.isLanguageRightToLeft = oldIsLanguageRightToLeft
                 }
