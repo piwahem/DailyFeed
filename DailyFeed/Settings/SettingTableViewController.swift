@@ -175,25 +175,6 @@ extension SettingTableViewController: SFSafariViewControllerDelegate{
 extension SettingTableViewController: OnShowHideTabbarListener{
     func onShow(isShow: Bool) {
         self.tabBarController?.tabBar.isHidden = !isShow
-        
-        let items = self.tabBarController?.tabBar.items
-        for (offset, element) in (items?.enumerated())! {
-            self.tabBarController?.tabBar.items![offset].title = getTabTitleByPosition(position: offset)
-        }
-    }
-    
-    private func getTabTitleByPosition(position: Int) -> String{
-        switch position {
-        case 0:
-            return "DailyFeed".localized
-        case 1:
-            return "Bookmarks".localized
-        case 2:
-            return "Search".localized
-        case 3:
-            return "Settings".localized
-        default:
-            return "DailyFeed".localized
-        }
+        self.tabBarController?.resetTabTitle()
     }
 }

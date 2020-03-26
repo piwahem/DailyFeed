@@ -50,6 +50,7 @@
 "Bookmarks" = "Bookmarks";
 "Search" = "Search";
 "Settings" = "Settings";
-
-
+"Are you sure to delete this bookmark ?" = "Are you sure to delete this bookmark ?";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
 

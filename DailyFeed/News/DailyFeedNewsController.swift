@@ -100,6 +100,7 @@ class DailyFeedNewsController: UIViewController {
         //Populate CollectionView Data
         loadNewsData()
         Reach().monitorReachabilityChanges()
+        self.tabBarController?.resetTabTitle()
     }
     
     override func viewWillLayoutSubviews() {
@@ -140,6 +141,16 @@ class DailyFeedNewsController: UIViewController {
         navigationItem.rightBarButtonItem = sourceMenuButton
         navBarSourceImage.downloadedFromLink(NewsSource.logo(source: (self.interactor?.source)!).url, contentMode: .scaleAspectFit)
         navigationItem.titleView = navBarSourceImage
+        
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.backgroundColor = .white
+            navigationItem.standardAppearance = navBarAppearance
+            navigationItem.scrollEdgeAppearance = navBarAppearance
+        }
     }
     
     // MARK: - Setup CollectionView
@@ -213,6 +224,19 @@ extension DailyFeedNewsController {
         default:
             newsCollectionView?.collectionViewLayout.invalidateLayout()
             newsCollectionView?.collectionViewLayout = DailySourceItemLayout()
+            
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
+            
+        case (.regular, .regular), (.compact, .regular), (.compact, .compact):
+            newsCollectionView.collectionViewLayout = DailySourceItemiPadLayout()
+            
+        default:
+            newsCollectionView.collectionViewLayout = DailySourceItemLayout()
             
         }
     }
