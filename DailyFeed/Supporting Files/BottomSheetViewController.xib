@@ -8,7 +8,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomSheetViewController" customModule="DailyFeed" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomSheetViewController" customModule="DailyFeed" customModuleProvider="target">
+            <connections>
+                <outlet property="holdView" destination="xys-Fm-12D" id="LKa-S2-fSL"/>
+                <outlet property="left" destination="q5b-mO-jYb" id="aMC-Dy-jlh"/>
+                <outlet property="right" destination="zdN-pa-bIO" id="xIw-Pb-cQl"/>
+                <outlet property="view" destination="90o-RI-AgT" id="w7b-1D-ept"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7gz-Y8-kkH">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -45,6 +52,9 @@
                             <state key="normal" title="Right">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="rightButton:" destination="-1" eventType="touchUpInside" id="Hkj-5d-5JI"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5b-mO-jYb">
                             <rect key="frame" x="8" y="61.5" width="196.5" height="40"/>
@@ -68,6 +78,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48Q-lK-yAJ">
                             <rect key="frame" x="266" y="12.5" width="128" height="128"/>
                             <state key="normal" image="cancel"/>
+                            <connections>
+                                <action selector="close:" destination="-1" eventType="touchUpInside" id="Pd2-wm-ghM"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
